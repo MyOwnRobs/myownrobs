@@ -6,7 +6,7 @@
 #'
 #' @importFrom shiny runGadget
 #' @export
-myownhadley <- function(api_url = "https://api.myownhadley.com/v1/") {
+myownhadley <- function(api_url = "https://myownhadley.com/api/v1/") {
   runGadget(myownhadley_ui(), myownhadley_server(api_url))
 }
 

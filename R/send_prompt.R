@@ -20,6 +20,6 @@ send_prompt <- function(chat_id, prompt, role, mode, model, api_url) {
     ),
     encode = "json"
   )
-  reply <- content(post_res, as = "parsed")
+  reply <- content(post_res, as = "text", encoding = "UTF-8")
   return(reply)
 }
