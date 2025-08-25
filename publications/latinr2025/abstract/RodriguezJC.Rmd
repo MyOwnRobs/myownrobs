@@ -1,0 +1,50 @@
+---
+title: "MyOwnHadley: A Cursor-style AI Coding Agent for RStudio"
+journal: "Latinamerican Conference About the Use of R in R&D"
+keywords: 
+  - "AI assistant"
+  - "code generation"
+  - "conversational coding"
+  - "developer tools"
+  - "R programming"
+bibliography: mybibfile.bib
+output: rticles::elsevier_article
+---
+
+The rapid advancement of large language models (LLMs) has revolutionized software development, with AI-powered coding assistants becoming essential tools for modern programmers. While tools like Cursor [@cursor] and GitHub Copilot [@github_copilot] have gained widespread adoption in general programming environments, the R community has lacked a dedicated, integrated AI assistant specifically designed for the RStudio integrated development environment (IDE).
+
+Notable efforts have been made to bring AI assistance to R developers through packages like {chattr} [@chattr] and {gptstudio} [@gptstudio], which provide valuable interfaces for interacting with language models within R. However, these tools primarily function as ask-and-edit interfaces rather than autonomous coding agents capable of executing complex multi-step workflows.
+
+**MyOwnHadley** addresses this gap by providing a comprehensive AI-powered coding agent that seamlessly integrates as an RStudio extension. This tool brings state-of-the-art AI capabilities directly to R developers' fingertips through an autonomous agent-based approach.
+
+## Key Features
+
+The system implements an agent-based architecture that combines conversational AI with a comprehensive toolkit for R development. MyOwnHadley operates as a true coding agent with the following core functionality:
+
+1. **Integrated Chat Interface**: A Shiny-based UI that provides a familiar chat experience integrated directly into the IDE.
+
+2. **Intelligent Tool Selection**: The AI agent automatically determines which tools to use based on user requests, executing complex multi-step operations through natural language commands. This reasoning process is performed by MyOwnHadley's code-reasoning-model that analyzes user tasks and selects the optimal sequence of actions to accomplish them.
+
+3. **Code Execution Capabilities**: Direct R command execution in the current workspace, maintaining state and context.
+
+4. **Code Editing**: Intelligent editing of existing R code, including refactoring, optimization, and feature additions based on natural language instructions.
+
+5. **Project Context Awareness**: Automatic detection of project structure, active files, and working directory for contextually relevant assistance.
+
+The agent operates in autonomous mode where it analyzes user requests, selects appropriate tools, and executes actions independently. This approach allows complex workflows like "Build a Shiny app that visualizes my dataset" to be decomposed into multiple tool calls for reading data, analyzing structure, generating code, and creating files. The system currently employs Google Gemini 2.5 Flash [@gemini] as the main language model, with plans to extend support to other AI providers.
+
+## Impact and Applications
+
+MyOwnHadley transforms the R development experience by providing:
+
+- **Rapid Prototyping**: Natural language descriptions of desired functionality are automatically converted into working R code.
+- **Code Explanation and Documentation**: Existing code can be analyzed and documented through conversational queries.
+- **Learning and Exploration**: New R users can learn by asking questions and seeing complete working examples generated in real-time.
+- **Debugging Assistance**: The AI can analyze error messages and suggest corrections directly in the development environment.
+
+## Conclusion
+
+MyOwnHadley represents a significant step forward in making AI-assisted development accessible to the R community, democratizing advanced coding capabilities through autonomous agent technology and accelerating the development of data science and statistical applications. The tool is available as an open-source RStudio extension at [https://github.com/jcrodriguez1989/myownhadley](https://github.com/jcrodriguez1989/myownhadley).
+
+References {#references .unnumbered}
+==========
