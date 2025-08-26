@@ -17,7 +17,7 @@ grep_search <- function(args) {
 }
 
 ai_tool_grep_search <- list(
-  name = "GrepSearch,",
+  name = "GrepSearch",
   parameters = list(
     list(name = "query")
   ),

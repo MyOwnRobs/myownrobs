@@ -4,7 +4,9 @@
 \alias{myownhadley}
 \title{Launch MyOwnHadley}
 \usage{
-myownhadley(api_url = "https://api.myownhadley.com/v1/")
+myownhadley(
+  api_url = paste0("https://myownhadley.com/api/v", packageVersion("myownhadley")$major)
+)
 }
 \arguments{
 \item{api_url}{The API URL to use for requests.}

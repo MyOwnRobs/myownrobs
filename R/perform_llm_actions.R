@@ -5,18 +5,20 @@
 #' @param mode The mode of operation, one of "agent" or "ask".
 #' @param model The ID of the model to use.
 #' @param api_url The API URL to use for requests.
-perform_llm_actions <- function(chat_id, user_prompt, mode, model, api_url) {
+#' @param max_iterations The maximum number of iterations the model can execute.
+perform_llm_actions <- function(chat_id, user_prompt, mode, model, api_url, max_iterations = 7) {
   role <- "user"
   prompt <- user_prompt
-  # TODO: Replace by "X iterations reached, continue?".
-  while (TRUE) {
+  iteration_count <- 0
+  while (iteration_count < max_iterations) {
+    iteration_count <- iteration_count + 1
     # Ask the model and parse its (agent-mode) reply which should be a JSON object.
     response_text <- send_prompt(chat_id, prompt, role, mode, model, api_url)
     parsed <- parse_agent_response(response_text)
     if (!is.null(parsed$error)) {
       warning(parsed$error, call. = FALSE)
       return(list(
-        status = "error", reply = "An error occurred, please try again later.", error = parsed$error
+        status = "error", reply = paste("An error occurred, please try again later.", parsed$error)
       ))
     }
     if (isTRUE(nchar(parsed$response$user_message) > 0)) {
@@ -27,10 +29,15 @@ perform_llm_actions <- function(chat_id, user_prompt, mode, model, api_url) {
       prompt <- execute_llm_tools(parsed$response$tools)
     } else {
       warning("UNKNOWN STATUS", call. = FALSE)
+      return(list(
+        status = "error", reply = "An unknown status was encountered during agent execution."
+      ))
     }
   }
-  # No action requested by the agent. Shouldn't ever happen.
-  return(list(status = "UNKNOWN"))
+  return(list(
+    status = "limit_reached",
+    reply = "The model has been iterating for too long, do you want to continue?"
+  ))
 }
 
 #' @importFrom jsonlite fromJSON
@@ -45,6 +52,9 @@ parse_agent_response <- function(response_text) {
   # Expect parsed to be a list with keys: tools (array) and user_message (string).
   if (!is.list(parsed)) {
     return(list(error = "Parsed JSON is not an object"))
+  }
+  if (!is.null(parsed$error)) {
+    return(list(error = parsed$error))
   }
   if (is.null(parsed$user_message) && length(parsed$tools) == 0) {
     return(list(error = "Erroneous AI reply"))

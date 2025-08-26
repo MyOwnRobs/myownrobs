@@ -4,7 +4,14 @@
 \alias{perform_llm_actions}
 \title{Perform LLM actions given one user prompt}
 \usage{
-perform_llm_actions(chat_id, user_prompt, mode, model, api_url)
+perform_llm_actions(
+  chat_id,
+  user_prompt,
+  mode,
+  model,
+  api_url,
+  max_iterations = 7
+)
 }
 \arguments{
 \item{chat_id}{The ID of the chat session.}
@@ -16,6 +23,8 @@ perform_llm_actions(chat_id, user_prompt, mode, model, api_url)
 \item{model}{The ID of the model to use.}
 
 \item{api_url}{The API URL to use for requests.}
+
+\item{max_iterations}{The maximum number of iterations the model can execute.}
 }
 \description{
 Perform LLM actions given one user prompt

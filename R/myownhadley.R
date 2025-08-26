@@ -5,8 +5,11 @@
 #' @param api_url The API URL to use for requests.
 #'
 #' @importFrom shiny runGadget
+#' @importFrom utils packageVersion
 #' @export
-myownhadley <- function(api_url = "https://myownhadley.com/api/v1/") {
+myownhadley <- function(api_url = paste0(
+                          "https://myownhadley.com/api/v", packageVersion("myownhadley")$major
+                        )) {
   runGadget(myownhadley_ui(), myownhadley_server(api_url))
 }
 
