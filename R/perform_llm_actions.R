@@ -28,10 +28,7 @@ perform_llm_actions <- function(chat_id, user_prompt, mode, model, api_url, max_
       role <- "tool_runner"
       prompt <- execute_llm_tools(parsed$response$tools)
     } else {
-      warning("UNKNOWN STATUS", call. = FALSE)
-      return(list(
-        status = "error", reply = "An unknown status was encountered during agent execution."
-      ))
+      return(list(status = "finished", reply = "👋"))
     }
   }
   return(list(
