@@ -4,7 +4,7 @@
 \alias{send_prompt}
 \title{Send Prompt to the LLM}
 \usage{
-send_prompt(chat_id, prompt, role, mode, model, api_url)
+send_prompt(chat_id, prompt, role, mode, model, project_context, api_url)
 }
 \arguments{
 \item{chat_id}{The ID of the chat session.}
@@ -16,6 +16,9 @@ send_prompt(chat_id, prompt, role, mode, model, api_url)
 \item{mode}{The mode of operation, one of "agent" or "ask".}
 
 \item{model}{The ID of the model to use.}
+
+\item{project_context}{The context of the session executing the addin, obtained with
+`get_project_context()`.}
 
 \item{api_url}{The API URL to use for requests.}
 }

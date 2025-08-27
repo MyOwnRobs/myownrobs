@@ -20,6 +20,7 @@ Imports:
   fs,
   httr,
   jsonlite,
+  mirai,
   rstudioapi,
   shiny,
   uuid

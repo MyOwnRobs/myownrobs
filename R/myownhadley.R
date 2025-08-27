@@ -70,7 +70,10 @@ myownhadley_ui <- function() {
           class = "footer-controls",
           div(
             class = "input-selector",
-            selectInput("ai_mode", NULL, c("Agent", "Ask"), selectize = FALSE, width = "auto")
+            selectInput(
+              "ai_mode", NULL, list("Agent" = "agent", "Ask" = "ask"),
+              selectize = FALSE, width = "auto"
+            )
           ),
           div(
             class = "input-selector",
@@ -89,15 +92,22 @@ myownhadley_ui <- function() {
   )
 }
 
-#' @importFrom shiny div h3 markdown observeEvent p reactiveVal renderUI stopApp tags
+#' @importFrom mirai mirai unresolved
+#' @importFrom shiny div h3 markdown observeEvent p reactiveTimer reactiveVal renderUI stopApp tags
 #' @importFrom shiny updateTextAreaInput
 #' @importFrom uuid UUIDgenerate
 myownhadley_server <- function(api_url) {
   function(input, output, session) {
     # App reactive values.
     r_chat_id <- reactiveVal(UUIDgenerate())
-    r_is_working <- reactiveVal(FALSE)
     r_messages <- reactiveVal(list())
+    r_running_prompt <- reactiveVal(NULL)
+    # TODO: Replace it with a better alternative instead of polling every second.
+    r_check_prompt_execution <- reactiveTimer()
+    project_context <- get_project_context()
+
+    # Just to pass CMD check.
+    chat_id <- role <- model <- NULL
 
     observeEvent(input$close_addin, stopApp())
     observeEvent(input$reset_session, {
@@ -105,37 +115,83 @@ myownhadley_server <- function(api_url) {
         return()
       }
       r_chat_id(UUIDgenerate())
-      r_is_working(FALSE)
+      r_running_prompt(NULL)
       r_messages(list())
     })
 
     # Handle send message.
     send_message <- function(prompt) {
       prompt_text <- trimws(prompt)
-      if (prompt_text == "" || r_is_working()) {
+      if (prompt_text == "" || !is.null(r_running_prompt())) {
         return()
       }
       # Clear the input and set working state
       updateTextAreaInput(session, "prompt", value = "")
       # Immediately show user message and working state
-      msgs <- r_messages()
-      msgs <- c(list(list(role = "user", text = prompt_text)), msgs)
-      r_is_working(TRUE)
-      llm_reply <- perform_llm_actions(
-        r_chat_id(), prompt_text, tolower(input$ai_mode), input$ai_model, api_url
-      )$reply
-      msgs <- c(list(list(role = "assistant", text = llm_reply)), msgs)
-      r_is_working(FALSE)
-      r_messages(msgs)
+      r_messages(c(list(list(role = "user", text = prompt_text)), r_messages()))
+      r_running_prompt(mirai(
+        send_prompt(chat_id, prompt, role, mode, model, project_context, api_url),
+        send_prompt = send_prompt,
+        chat_id = r_chat_id(),
+        prompt = prompt_text,
+        role = "user",
+        mode = input$ai_mode,
+        model = input$ai_model,
+        project_context = project_context,
+        api_url = api_url
+      ))
     }
     observeEvent(input$inputPrompt, send_message(input$inputPrompt))
     observeEvent(input$send_message, send_message(input$prompt))
 
-    working_bubble <- div(class = "message assistant", div(class = "message-content", div(
+    observeEvent(r_check_prompt_execution(), {
+      if (is.null(r_running_prompt()) || unresolved(r_running_prompt())) {
+        return()
+      }
+      response_text <- r_running_prompt()$data
+      r_running_prompt(NULL)
+      debug_print(list(running_prompt = list(
+        mode = input$ai_mode, model = input$ai_model, reply = response_text
+      )))
+      parsed <- parse_agent_response(response_text)
+      if (!is.null(parsed$error)) {
+        warning(parsed$error, call. = FALSE)
+        r_messages(c(list(list(role = "assistant", text = parsed$error)), r_messages()))
+        return()
+      }
+      if (isTRUE(nchar(parsed$response$user_message) == 0 && length(parsed$response$tools) == 0)) {
+        r_messages(c(list(list(role = "assistant", text = "\U0001f44b")), r_messages()))
+        return()
+      }
+      if (isTRUE(nchar(parsed$response$user_message) > 0)) {
+        r_messages(
+          c(list(list(role = "assistant", text = parsed$response$user_message)), r_messages())
+        )
+      }
+      if (isTRUE(length(parsed$response$tools) > 0)) {
+        prompt <- execute_llm_tools(parsed$response$tools, input$ai_mode)
+        debug_print(list(running_prompt = list(
+          mode = input$ai_mode, model = input$ai_model, sent_prompt = prompt
+        )))
+        r_running_prompt(mirai(
+          send_prompt(chat_id, prompt, role, mode, model, project_context, api_url),
+          send_prompt = send_prompt,
+          chat_id = r_chat_id(),
+          prompt = prompt,
+          role = "tool_runner",
+          mode = input$ai_mode,
+          model = input$ai_model,
+          project_context = project_context,
+          api_url = api_url
+        ))
+      }
+    })
+
+    working_bubble <- div(class = "message assistant", div(
       class = "working-indicator",
       tags$i(class = "fas fa-spinner fa-spin"),
       " Working..."
-    )))
+    ))
 
     output$messages_container <- renderUI({
       msgs <- r_messages()
@@ -152,8 +208,8 @@ myownhadley_server <- function(api_url) {
         div(class = role_class, div(class = "message-content", markdown(m$text)))
       })
       # Add working indicator if needed
-      if (isTRUE(r_is_working())) {
-        bubbles <- c(bubbles, list(working_bubble))
+      if (!is.null(r_running_prompt())) {
+        bubbles <- c(list(working_bubble), bubbles)
       }
       div(id = "chat_messages", bubbles)
     })
