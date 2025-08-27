@@ -14,11 +14,5 @@ parse_agent_response <- function(response_text) {
   if (!is.null(parsed$error)) {
     return(list(error = parsed$error))
   }
-  # Enforce mutual exclusivity: agent must choose either tools (and empty user_message)
-  # OR a non-empty user_message (and empty tools). Return error when violated.
-  if (isTRUE(nchar(parsed$user_message) > 0) && length(parsed$tools) > 0) {
-    debug_print(parsed)
-    return(list(error = "Agent returned both 'tools' and a non-empty 'user_message'."))
-  }
   return(list(response = parsed))
 }

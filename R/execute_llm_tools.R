@@ -2,7 +2,6 @@
 #' @param tools A list of tools to execute
 #' @param mode The mode of operation, one of "agent" or "ask".
 execute_llm_tools <- function(tools, mode) {
-  debug_print(tools)
   return(list(tools = execute_llm_tools_iteration(tools, mode)))
 }
 
