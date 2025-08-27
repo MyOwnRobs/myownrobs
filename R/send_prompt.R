@@ -9,7 +9,7 @@
 #' @importFrom httr add_headers content POST
 #' @importFrom jsonlite toJSON
 send_prompt <- function(chat_id, prompt, role, mode, model, api_url) {
-  debug_print(list(send_prompt_fun = list(sent_prompt = prompt)))
+  debug_print(list(send_prompt_fun = list(mode = mode, model = model, sent_prompt = prompt)))
   post_res <- POST(
     paste0(api_url, "/send_prompt"),
     body = list(
@@ -24,6 +24,6 @@ send_prompt <- function(chat_id, prompt, role, mode, model, api_url) {
     add_headers(Authorization = paste("Bearer", get_api_key()))
   )
   reply <- content(post_res, as = "text", encoding = "UTF-8")
-  debug_print(list(send_prompt_fun = list(reply = reply)))
+  debug_print(list(send_prompt_fun = list(mode = mode, model = model, reply = reply)))
   return(reply)
 }
