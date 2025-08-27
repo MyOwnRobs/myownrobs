@@ -4,10 +4,12 @@
 \alias{execute_llm_tools}
 \title{Execute LLM tools}
 \usage{
-execute_llm_tools(tools)
+execute_llm_tools(tools, mode)
 }
 \arguments{
 \item{tools}{A list of tools to execute}
+
+\item{mode}{The mode of operation, one of "agent" or "ask".}
 }
 \description{
 Execute LLM tools

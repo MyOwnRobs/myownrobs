@@ -14,7 +14,8 @@ myownhadley <- function(api_url = paste0(
 }
 
 #' @importFrom rstudioapi getThemeInfo
-#' @importFrom shiny actionButton div icon includeCSS span tagList tags textAreaInput uiOutput
+#' @importFrom shiny actionButton div icon includeCSS selectInput span tagList tags textAreaInput
+#' @importFrom shiny uiOutput
 myownhadley_ui <- function() {
   tagList(
     tags$link(
@@ -67,11 +68,16 @@ myownhadley_ui <- function() {
         ),
         div(
           class = "footer-controls",
-          div(class = "agent-selector", "Agent"),
           div(
-            class = "model-selector",
-            "Gemini 2.5 Flash",
-            tags$i(class = "fas fa-chevron-down")
+            class = "input-selector",
+            selectInput("ai_mode", NULL, c("Agent", "Ask"), selectize = FALSE, width = "auto")
+          ),
+          div(
+            class = "input-selector",
+            selectInput(
+              "ai_model", NULL, list("Gemini 2.5 Flash" = "gemini-2.5-flash"),
+              selectize = FALSE, width = "auto"
+            )
           ),
           actionButton(
             "send_message", NULL,
@@ -88,9 +94,6 @@ myownhadley_ui <- function() {
 #' @importFrom uuid UUIDgenerate
 myownhadley_server <- function(api_url) {
   function(input, output, session) {
-    # TODO: Make them editable.
-    mode <- "agent"
-    model <- "gemini-2.5-flash"
     # App reactive values.
     r_chat_id <- reactiveVal(UUIDgenerate())
     r_is_working <- reactiveVal(FALSE)
@@ -118,7 +121,9 @@ myownhadley_server <- function(api_url) {
       msgs <- r_messages()
       msgs <- c(list(list(role = "user", text = prompt_text)), msgs)
       r_is_working(TRUE)
-      llm_reply <- perform_llm_actions(r_chat_id(), prompt_text, mode, model, api_url)$reply
+      llm_reply <- perform_llm_actions(
+        r_chat_id(), prompt_text, tolower(input$ai_mode), input$ai_model, api_url
+      )$reply
       msgs <- c(list(list(role = "assistant", text = llm_reply)), msgs)
       r_is_working(FALSE)
       r_messages(msgs)

@@ -61,6 +61,7 @@ body {
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  max-width: 100%;
   margin: 0;
   background: transparent;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
@@ -143,7 +144,7 @@ body {
 .agent-mode h3 {
   margin: 0;
   color: var(--text);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 }
 
@@ -168,7 +169,7 @@ body {
   display: flex;
   align-items: flex-end;
   gap: 10px;
-  max-width: 70%;
+  max-width: 85%;
   transition: transform 0.12s ease, opacity 0.12s ease;
 }
 
@@ -185,10 +186,9 @@ body {
 .message .message-content {
   background: var(--bubble-bg);
   color: var(--text);
-  padding: 10px 14px;
+  padding: 0px 8px;
   border-radius: 12px;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 14px;
   box-shadow: var(--bubble-shadow);
   word-break: break-word;
 }
@@ -224,15 +224,6 @@ body {
 #chat_messages::-webkit-scrollbar-thumb {
   background: var(--scroll-thumb);
   border-radius: 999px;
-}
-
-@media (max-width: 640px) {
-  .message {
-    max-width: 85%;
-  }
-  .message .message-content {
-    font-size: 14px;
-  }
 }
 
 .footer {
@@ -302,8 +293,7 @@ body {
   gap: 10px;
 }
 
-.agent-selector,
-.model-selector {
+.input-selector {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -315,9 +305,16 @@ body {
   font-size: 13px;
 }
 
-.model-selector {
-  justify-content: space-between;
-  padding-right: 12px;
+/* Make a plain HTML select inside .input-selector look like the pill */
+.input-selector select {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  padding: 0;
+  margin: 0;
+  padding-right: 18px;
+  outline: none;
 }
 
 .send-message-button {
@@ -340,18 +337,6 @@ body {
 .send-message-button:hover {
   transform: translateY(-1px);
   background: rgba(var(--accent-rgb), 0.08);
-}
-
-@media (max-width: 640px) {
-  .chat-container {
-    max-width: 100%;
-  }
-  .agent-mode h3 {
-    font-size: 18px;
-  }
-  .model-selector {
-    min-width: 120px;
-  }
 }
 
 .prompt-input-container:focus-within {

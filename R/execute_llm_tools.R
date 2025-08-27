@@ -1,13 +1,18 @@
 #' Execute LLM tools
 #' @param tools A list of tools to execute
-execute_llm_tools <- function(tools) {
+#' @param mode The mode of operation, one of "agent" or "ask".
+execute_llm_tools <- function(tools, mode) {
   debug_print(tools)
-  return(list(tools = execute_llm_tools_iteration(tools)))
+  return(list(tools = execute_llm_tools_iteration(tools, mode)))
 }
 
-execute_llm_tools_iteration <- function(tools) {
+execute_llm_tools_iteration <- function(tools, mode) {
   lapply(tools, function(tool) {
-    tool$output <- try(llm_commands[[tool$name]]$execute(tool$args), silent = TRUE)
+    command <- llm_commands[[tool$name]]
+    if (mode == "ask" && !command$readonly) {
+      stop("AI trying to perform edits on Ask mode.")
+    }
+    tool$output <- try(command$execute(tool$args), silent = TRUE)
     return(tool)
   })
 }

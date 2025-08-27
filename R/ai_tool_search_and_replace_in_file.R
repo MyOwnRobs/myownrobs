@@ -22,6 +22,6 @@ ai_tool_search_and_replace_in_file <- list(
   would_like_to = "edit {filepath}",
   is_currently = "editing {filepath}",
   has_already = "edited {filepath}",
-  readonly = TRUE,
+  readonly = FALSE,
   execute = search_and_replace_in_file
 )
