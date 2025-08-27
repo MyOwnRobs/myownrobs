@@ -156,7 +156,7 @@ body {
 /* Chat messages / bubbles */
 #chat_messages {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 10px;
   padding: 8px 6px;
   overflow-y: auto;

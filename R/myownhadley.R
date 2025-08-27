@@ -31,14 +31,14 @@ myownhadley_ui <- function() {
     # On focus in prompt input and Enter hit, send the message.
     tags$script(
       '
-      $(document).on("keydown", ".input-container, .prompt-input-container, #prompt", function(e) {
-        // Check if the key pressed is "Enter" (keyCode 13 or which 13)
+      $(document).on("keydown", "#prompt", function(e) {
+        // Check if the key pressed is "Enter".
         if (e.shiftKey) return;
         if (e.key === "Enter") {
-          // Prevent the default action (like a new line in the text area)
+          // Prevent the default action (like a new line in the text area).
           e.preventDefault();
-          // Send a message to Shiny to trigger the event
-          Shiny.onInputChange("send_message", new Date().getTime());
+          // Send a message to Shiny to trigger the event.
+          Shiny.setInputValue("inputPrompt", $("#prompt").val());
         }
       });
     '
@@ -105,22 +105,25 @@ myownhadley_server <- function(api_url) {
       r_messages(list())
     })
 
-    observeEvent(input$send_message, {
-      prompt_text <- trimws(input$prompt)
+    # Handle send message.
+    send_message <- function(prompt) {
+      prompt_text <- trimws(prompt)
       if (prompt_text == "" || r_is_working()) {
         return()
       }
-      # Immediately show user message and working state
-      msgs <- r_messages()
-      msgs <- c(msgs, list(list(role = "user", text = prompt_text)))
-      r_is_working(TRUE)
-      llm_reply <- perform_llm_actions(r_chat_id(), prompt_text, mode, model, api_url)$reply
-      msgs <- c(msgs, list(list(role = "assistant", text = llm_reply)))
-      r_is_working(FALSE)
-      r_messages(msgs)
       # Clear the input and set working state
       updateTextAreaInput(session, "prompt", value = "")
-    })
+      # Immediately show user message and working state
+      msgs <- r_messages()
+      msgs <- c(list(list(role = "user", text = prompt_text)), msgs)
+      r_is_working(TRUE)
+      llm_reply <- perform_llm_actions(r_chat_id(), prompt_text, mode, model, api_url)$reply
+      msgs <- c(list(list(role = "assistant", text = llm_reply)), msgs)
+      r_is_working(FALSE)
+      r_messages(msgs)
+    }
+    observeEvent(input$inputPrompt, send_message(input$inputPrompt))
+    observeEvent(input$send_message, send_message(input$prompt))
 
     working_bubble <- div(class = "message assistant", div(class = "message-content", div(
       class = "working-indicator",
