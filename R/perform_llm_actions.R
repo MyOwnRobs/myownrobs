@@ -28,7 +28,7 @@ perform_llm_actions <- function(chat_id, user_prompt, mode, model, api_url, max_
       role <- "tool_runner"
       prompt <- execute_llm_tools(parsed$response$tools)
     } else {
-      return(list(status = "finished", reply = "👋"))
+      return(list(status = "finished", reply = "\U0001f44b"))
     }
   }
   return(list(
