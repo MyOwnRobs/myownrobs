@@ -83,7 +83,8 @@ myownhadley_ui <- function() {
   )
 }
 
-#' @importFrom shiny div h3 observeEvent p reactiveVal renderUI stopApp tags updateTextAreaInput
+#' @importFrom shiny div h3 markdown observeEvent p reactiveVal renderUI stopApp tags
+#' @importFrom shiny updateTextAreaInput
 #' @importFrom uuid UUIDgenerate
 myownhadley_server <- function(api_url) {
   function(input, output, session) {
@@ -143,7 +144,7 @@ myownhadley_server <- function(api_url) {
       }
       bubbles <- lapply(msgs, function(m) {
         role_class <- if (identical(m$role, "user")) "message user" else "message assistant"
-        div(class = role_class, div(class = "message-content", m$text))
+        div(class = role_class, div(class = "message-content", markdown(m$text)))
       })
       # Add working indicator if needed
       if (isTRUE(r_is_working())) {
