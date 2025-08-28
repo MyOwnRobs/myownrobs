@@ -1,6 +1,6 @@
 Package: myownhadley
 Type: Package
-Title: What the Package Does (Title Case)
+Title: AI Coding Agent for RStudio
 Version: 0.1.0
 Authors@R: c(
     person(
@@ -10,8 +10,8 @@ Authors@R: c(
     )
   )
 Maintainer: Juan Cruz Rodriguez <jcrodriguez@unc.edu.ar>
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: Provides an RStudio extension with a chat interface for an AI coding agent to help
+    users with R programming tasks.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
