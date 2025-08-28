@@ -4,7 +4,16 @@
 \alias{send_prompt}
 \title{Send Prompt to the LLM}
 \usage{
-send_prompt(chat_id, prompt, role, mode, model, project_context, api_url)
+send_prompt(
+  chat_id,
+  prompt,
+  role,
+  mode,
+  model,
+  project_context,
+  api_url,
+  api_key
+)
 }
 \arguments{
 \item{chat_id}{The ID of the chat session.}
@@ -21,6 +30,8 @@ send_prompt(chat_id, prompt, role, mode, model, project_context, api_url)
 `get_project_context()`.}
 
 \item{api_url}{The API URL to use for requests.}
+
+\item{api_key}{The API key for MyOwnHadley, obtained with `get_api_key()`.}
 }
 \description{
 Send Prompt to the LLM

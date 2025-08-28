@@ -128,7 +128,8 @@ myownhadley_server <- function(api_url) {
       # Immediately show user message and working state
       r_messages(c(list(list(role = "user", text = prompt_text)), r_messages()))
       r_running_prompt(send_prompt_async(
-        r_chat_id(), prompt_text, "user", input$ai_mode, input$ai_model, project_context, api_url
+        r_chat_id(), prompt_text, "user", input$ai_mode, input$ai_model, project_context, api_url,
+        get_api_key()
       ))
     }
     observeEvent(input$inputPrompt, send_message(input$inputPrompt))
@@ -168,7 +169,7 @@ myownhadley_server <- function(api_url) {
         )))
         r_running_prompt(send_prompt_async(
           r_chat_id(), prompt, "tool_runner", input$ai_mode, input$ai_model, project_context,
-          api_url
+          api_url, get_api_key()
         ))
       }
     })

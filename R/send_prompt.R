@@ -7,14 +7,15 @@
 #' @param project_context The context of the session executing the addin, obtained with
 #'   `get_project_context()`.
 #' @param api_url The API URL to use for requests.
+#' @param api_key The API key for MyOwnHadley, obtained with `get_api_key()`.
 #'
 #' @importFrom httr2 req_body_json req_headers req_perform req_url_path_append request
 #' @importFrom httr2 resp_body_string
 #' @importFrom jsonlite toJSON
-send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api_url) {
+send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api_url, api_key) {
   req <- request(api_url)
   req <- req_url_path_append(req, "send_prompt")
-  req <- req_headers(req, Authorization = paste("Bearer", get_api_key()))
+  req <- req_headers(req, Authorization = paste("Bearer", api_key))
   req <- req_body_json(req, list(
     chat_id = chat_id,
     prompt = prompt,
@@ -28,9 +29,10 @@ send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api
 }
 
 #' @importFrom mirai mirai
-send_prompt_async <- function(chat_id, prompt, role, mode, model, project_context, api_url) {
+send_prompt_async <- function(chat_id, prompt, role, mode, model, project_context, api_url,
+                              api_key) {
   mirai(
-    send_prompt(chat_id, prompt, role, mode, model, project_context, api_url),
+    send_prompt(chat_id, prompt, role, mode, model, project_context, api_url, api_key),
     send_prompt = send_prompt,
     chat_id = chat_id,
     prompt = prompt,
@@ -38,6 +40,7 @@ send_prompt_async <- function(chat_id, prompt, role, mode, model, project_contex
     mode = mode,
     model = model,
     project_context = project_context,
-    api_url = api_url
+    api_url = api_url,
+    api_key = api_key
   )
 }
