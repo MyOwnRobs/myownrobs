@@ -10,6 +10,7 @@
 myownhadley <- function(api_url = paste0(
                           "https://myownhadley.com/api/v", packageVersion("myownhadley")$major
                         )) {
+  validate_credentials(api_url)
   runGadget(myownhadley_ui(), myownhadley_server(api_url))
 }
 
@@ -105,9 +106,6 @@ myownhadley_server <- function(api_url) {
     # TODO: Replace it with a better alternative instead of polling every second.
     r_check_prompt_execution <- reactiveTimer()
     project_context <- get_project_context()
-
-    # Just to pass CMD check.
-    chat_id <- role <- model <- NULL
 
     observeEvent(input$close_addin, stopApp())
     observeEvent(input$reset_session, {
