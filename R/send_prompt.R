@@ -18,8 +18,8 @@ send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api
   req <- req_headers(req, Authorization = paste("Bearer", api_key))
   req <- req_body_json(req, list(
     chat_id = chat_id,
-    prompt = prompt,
-    project_context = project_context,
+    prompt = toJSON(prompt, auto_unbox = TRUE),
+    project_context = toJSON(project_context, auto_unbox = TRUE),
     role = role,
     mode = mode,
     model = model
