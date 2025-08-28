@@ -138,7 +138,10 @@ myownhadley_server <- function(api_url) {
       if (is.null(r_running_prompt()) || unresolved(r_running_prompt())) {
         return()
       }
-      response_text <- r_running_prompt()$data
+      response_text <- r_running_prompt()
+      if ("data" %in% names(response_text)) {
+        response_text <- response_text$data
+      }
       r_running_prompt(NULL)
       debug_print(list(running_prompt = list(
         mode = input$ai_mode, model = input$ai_model, reply = response_text
