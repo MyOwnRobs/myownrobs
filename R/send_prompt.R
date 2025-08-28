@@ -8,22 +8,36 @@
 #'   `get_project_context()`.
 #' @param api_url The API URL to use for requests.
 #'
-#' @importFrom httr add_headers content POST
+#' @importFrom httr2 req_body_json req_headers req_perform req_url_path_append request
+#' @importFrom httr2 resp_body_string
 #' @importFrom jsonlite toJSON
 send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api_url) {
-  post_res <- POST(
-    paste0(api_url, "/send_prompt"),
-    body = list(
-      chat_id = chat_id,
-      prompt = toJSON(prompt, auto_unbox = TRUE),
-      project_context = toJSON(project_context, auto_unbox = TRUE),
-      role = role,
-      mode = mode,
-      model = model
-    ),
-    encode = "json",
-    add_headers(Authorization = paste("Bearer", get_api_key()))
+  req <- request(api_url)
+  req <- req_url_path_append(req, "send_prompt")
+  req <- req_headers(req, Authorization = paste("Bearer", get_api_key()))
+  req <- req_body_json(req, list(
+    chat_id = chat_id,
+    prompt = prompt,
+    project_context = project_context,
+    role = role,
+    mode = mode,
+    model = model
+  ))
+  resp <- req_perform(req)
+  return(resp_body_string(resp))
+}
+
+#' @importFrom mirai mirai
+send_prompt_async <- function(chat_id, prompt, role, mode, model, project_context, api_url) {
+  mirai(
+    send_prompt(chat_id, prompt, role, mode, model, project_context, api_url),
+    send_prompt = send_prompt,
+    chat_id = chat_id,
+    prompt = prompt,
+    role = role,
+    mode = mode,
+    model = model,
+    project_context = project_context,
+    api_url = api_url
   )
-  reply <- content(post_res, as = "text", encoding = "UTF-8")
-  return(reply)
 }

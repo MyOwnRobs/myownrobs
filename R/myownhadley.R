@@ -92,7 +92,7 @@ myownhadley_ui <- function() {
   )
 }
 
-#' @importFrom mirai mirai unresolved
+#' @importFrom mirai unresolved
 #' @importFrom shiny div h3 markdown observeEvent p reactiveTimer reactiveVal renderUI stopApp tags
 #' @importFrom shiny updateTextAreaInput
 #' @importFrom uuid UUIDgenerate
@@ -129,16 +129,8 @@ myownhadley_server <- function(api_url) {
       updateTextAreaInput(session, "prompt", value = "")
       # Immediately show user message and working state
       r_messages(c(list(list(role = "user", text = prompt_text)), r_messages()))
-      r_running_prompt(mirai(
-        send_prompt(chat_id, prompt, role, mode, model, project_context, api_url),
-        send_prompt = send_prompt,
-        chat_id = r_chat_id(),
-        prompt = prompt_text,
-        role = "user",
-        mode = input$ai_mode,
-        model = input$ai_model,
-        project_context = project_context,
-        api_url = api_url
+      r_running_prompt(send_prompt_async(
+        r_chat_id(), prompt_text, "user", input$ai_mode, input$ai_model, project_context, api_url
       ))
     }
     observeEvent(input$inputPrompt, send_message(input$inputPrompt))
@@ -173,16 +165,9 @@ myownhadley_server <- function(api_url) {
         debug_print(list(running_prompt = list(
           mode = input$ai_mode, model = input$ai_model, sent_prompt = prompt
         )))
-        r_running_prompt(mirai(
-          send_prompt(chat_id, prompt, role, mode, model, project_context, api_url),
-          send_prompt = send_prompt,
-          chat_id = r_chat_id(),
-          prompt = prompt,
-          role = "tool_runner",
-          mode = input$ai_mode,
-          model = input$ai_model,
-          project_context = project_context,
-          api_url = api_url
+        r_running_prompt(send_prompt_async(
+          r_chat_id(), prompt, "tool_runner", input$ai_mode, input$ai_model, project_context,
+          api_url
         ))
       }
     })
