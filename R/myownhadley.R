@@ -40,7 +40,10 @@ myownhadley_ui <- function() {
           // Prevent the default action (like a new line in the text area).
           e.preventDefault();
           // Send a message to Shiny to trigger the event.
-          Shiny.setInputValue("inputPrompt", $("#prompt").val());
+          Shiny.setInputValue(
+            "inputPrompt",
+            $("#prompt").val() + " ".repeat(Math.floor(Math.random() * 100) + 1)
+          );
         }
       });
     '
@@ -103,6 +106,10 @@ myownhadley_server <- function(api_url) {
     r_chat_id <- reactiveVal(UUIDgenerate())
     r_messages <- reactiveVal(list())
     r_running_prompt <- reactiveVal(NULL)
+    max_ai_iterations <- 15
+    r_ai_iterations <- reactiveVal()
+    max_retries <- 3
+    r_retries <- reactiveVal(0)
     # TODO: Replace it with a better alternative instead of polling every second.
     r_check_prompt_execution <- reactiveTimer()
     project_context <- get_project_context()
@@ -127,6 +134,7 @@ myownhadley_server <- function(api_url) {
       updateTextAreaInput(session, "prompt", value = "")
       # Immediately show user message and working state
       r_messages(c(list(list(role = "user", text = prompt_text)), r_messages()))
+      r_ai_iterations(0)
       r_running_prompt(send_prompt_async(
         r_chat_id(), prompt_text, "user", input$ai_mode, input$ai_model, project_context, api_url,
         get_api_key()
@@ -143,30 +151,48 @@ myownhadley_server <- function(api_url) {
       if ("data" %in% names(response_text)) {
         response_text <- response_text$data
       }
-      r_running_prompt(NULL)
       debug_print(list(running_prompt = list(
         mode = input$ai_mode, model = input$ai_model, reply = response_text
       )))
       parsed <- parse_agent_response(response_text)
+      r_running_prompt(NULL)
       if (!is.null(parsed$error)) {
-        warning(parsed$error, call. = FALSE)
+        if (parsed$error_code == "invalid_ai_response" && r_retries() < max_retries) {
+          r_retries(r_retries() + 1)
+          debug_print(paste("Retry number", r_retries()))
+          r_running_prompt(send_prompt_async(
+            r_chat_id(), "Your last reply couldn't be parsed, please re try it.", "tool_runner",
+            input$ai_mode, input$ai_model, project_context, api_url, get_api_key()
+          ))
+          return()
+        }
         r_messages(c(list(list(role = "assistant", text = parsed$error)), r_messages()))
         return()
       }
-      if (isTRUE(nchar(parsed$response$user_message) == 0 && length(parsed$response$tools) == 0)) {
+      # There was no error, set retries to 0.
+      r_retries(0)
+      if (isTRUE(nchar(parsed$user_message) == 0 && length(parsed$tools) == 0)) {
         r_messages(c(list(list(role = "assistant", text = "\U0001f44b")), r_messages()))
         return()
       }
-      if (isTRUE(nchar(parsed$response$user_message) > 0)) {
+      if (isTRUE(nchar(parsed$user_message) > 0)) {
         r_messages(
-          c(list(list(role = "assistant", text = parsed$response$user_message)), r_messages())
+          c(list(list(role = "assistant", text = parsed$user_message)), r_messages())
         )
       }
-      if (isTRUE(length(parsed$response$tools) > 0)) {
-        prompt <- execute_llm_tools(parsed$response$tools, input$ai_mode)
+      if (isTRUE(length(parsed$tools) > 0)) {
+        if (r_ai_iterations() >= max_ai_iterations) {
+          r_messages(c(list(list(role = "assistant", text = paste0(
+            "MyOwnHadley has been working on this problem for a while. It can continue to ",
+            "iterate, or you can send a new message to refine your prompt. Continue to iterate?"
+          ))), r_messages()))
+          return()
+        }
+        prompt <- execute_llm_tools(parsed$tools, input$ai_mode)
         debug_print(list(running_prompt = list(
           mode = input$ai_mode, model = input$ai_model, sent_prompt = prompt
         )))
+        r_ai_iterations(r_ai_iterations() + 1)
         r_running_prompt(send_prompt_async(
           r_chat_id(), prompt, "tool_runner", input$ai_mode, input$ai_model, project_context,
           api_url, get_api_key()
