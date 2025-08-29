@@ -111,8 +111,8 @@ myownhadley_ui <- function() {
 #' @param api_url The API URL to use for requests.
 #'
 #' @importFrom mirai unresolved
-#' @importFrom shiny div h3 markdown observeEvent p reactiveTimer reactiveVal renderUI stopApp tags
-#' @importFrom shiny updateTextAreaInput
+#' @importFrom shiny div h3 markdown observeEvent p reactive reactiveTimer reactiveVal renderUI
+#' @importFrom shiny stopApp tags updateTextAreaInput
 #' @importFrom uuid UUIDgenerate
 #'
 myownhadley_server <- function(api_url) {
@@ -129,8 +129,6 @@ myownhadley_server <- function(api_url) {
     r_check_prompt_execution <- reactiveTimer() # Timer to poll for prompt execution status.
     project_context <- get_project_context()
 
-    # Stop the Shiny app when the close addin button is clicked.
-    observeEvent(input$close_addin, stopApp())
     # Reset the chat session when the reset button is clicked.
     # Generates a new chat ID and clears messages and running prompt.
     observeEvent(input$reset_session, {
@@ -143,6 +141,10 @@ myownhadley_server <- function(api_url) {
       r_ai_iterations(0)
       r_retries(0)
     })
+    # Settings module handles showing the modal and persisting options.
+    settings_module("settings", reactive(input$open_settings))
+    # Stop the Shiny app when the close addin button is clicked.
+    observeEvent(input$close_addin, stopApp())
 
     # Helper function to send a message to the AI.
     # Clears the input, shows user message, and initiates an asynchronous AI prompt.
