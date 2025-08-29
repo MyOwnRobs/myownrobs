@@ -12,5 +12,5 @@ myownhadley(
 \item{api_url}{The API URL to use for requests.}
 }
 \description{
-Open a Shiny app addin with the chat interface.
+Open the RStudio addin with the chat interface.
 }
