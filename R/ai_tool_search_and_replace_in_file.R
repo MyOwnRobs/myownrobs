@@ -28,9 +28,9 @@ ai_tool_search_and_replace_in_file <- list(
     list(name = "diffs")
   ),
   display_title = "Edit File",
-  would_like_to = "edit {filepath}",
-  is_currently = "editing {filepath}",
-  has_already = "edited {filepath}",
+  would_like_to = "Edit `{filepath}`",
+  is_currently = "Editing `{filepath}`",
+  has_already = "Edited `{filepath}`",
   readonly = FALSE,
   execute = search_and_replace_in_file
 )

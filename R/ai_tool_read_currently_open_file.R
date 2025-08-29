@@ -18,9 +18,9 @@ ai_tool_read_currently_open_file <- list(
   name = "ReadCurrentlyOpenFile",
   parameters = list(),
   display_title = "Read Currently Open File",
-  would_like_to = "read the current file",
-  is_currently = "reading the current file",
-  has_already = "viewed the current file",
+  would_like_to = "Read the current file",
+  is_currently = "Reading the current file",
+  has_already = "Read the current file",
   readonly = TRUE,
   execute = read_currently_open_file
 )

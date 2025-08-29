@@ -16,9 +16,9 @@ ai_tool_create_new_file <- list(
     list(name = "contents")
   ),
   display_title = "Create New File",
-  would_like_to = "create a new file at {filepath}",
-  is_currently = "creating a new file at {filepath}",
-  has_already = "created a new file at {filepath}",
+  would_like_to = "Create a new file at `{filepath}`",
+  is_currently = "Creating a new file at `{filepath}`",
+  has_already = "Created a new file at `{filepath}`",
   readonly = FALSE,
   execute = create_new_file
 )

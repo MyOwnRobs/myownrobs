@@ -19,9 +19,9 @@ ai_tool_edit_existing_file <- list(
     list(name = "changes")
   ),
   display_title = "Edit File",
-  would_like_to = "edit {filepath}",
-  is_currently = "editing {filepath}",
-  has_already = "edited {filepath}",
+  would_like_to = "Edit `{filepath}`",
+  is_currently = "Editing `{filepath}`",
+  has_already = "Edited `{filepath}`",
   readonly = FALSE,
   execute = edit_existing_file
 )

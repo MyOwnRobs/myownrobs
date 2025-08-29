@@ -20,9 +20,9 @@ ai_tool_search_web <- list(
     list(name = "query")
   ),
   display_title = "Search Web",
-  would_like_to = 'search the web for "{query}"',
-  is_currently = 'searching the web for "{query}"',
-  has_already = 'searched the web for "{query}"',
+  would_like_to = 'Search the web for "{query}"',
+  is_currently = 'Searching the web for "{query}"',
+  has_already = 'Searched the web for "{query}"',
   readonly = TRUE,
   execute = search_web
 )

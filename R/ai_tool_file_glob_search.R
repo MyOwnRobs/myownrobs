@@ -15,9 +15,9 @@ ai_tool_file_glob_search <- list(
     list(name = "pattern")
   ),
   display_title = "Glob File Search",
-  would_like_to = 'find file matches for "{pattern}"',
-  is_currently = 'finding file matches for "{pattern}"',
-  has_already = 'retrieved file matches for "{pattern}"',
+  would_like_to = 'Find file matches for "{pattern}"',
+  is_currently = 'Finding file matches for "{pattern}"',
+  has_already = 'Retrieved file matches for "{pattern}"',
   readonly = TRUE,
   execute = file_glob_search
 )

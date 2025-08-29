@@ -11,9 +11,9 @@ ai_tool_ls_tool <- list(
     list(name = "dirPath")
   ),
   display_title = "ls",
-  would_like_to = "list files and folders in {dirPath}",
-  is_currently = "listing files and folders in {dirPath}",
-  has_already = "listed files and folders in {dirPath}",
+  would_like_to = "List files and folders in `{dirPath}`",
+  is_currently = "Listing files and folders in `{dirPath}`",
+  has_already = "Listed files and folders in `{dirPath}`",
   readonly = TRUE,
   execute = ls_tool
 )

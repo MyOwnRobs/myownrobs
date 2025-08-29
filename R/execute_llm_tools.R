@@ -3,6 +3,8 @@
 #' @param tools A list of tools to execute
 #' @param mode The mode of operation, one of "agent" or "ask".
 #'
+#' @importFrom glue glue
+#'
 execute_llm_tools <- function(tools, mode) {
   execution <- lapply(tools, function(tool) {
     # Retrieve the command definition from the global 'llm_commands' list using the tool's name.
@@ -16,7 +18,9 @@ execute_llm_tools <- function(tools, mode) {
     # The execution is wrapped in a try-catch block to handle potential errors silently,
     # and the result (or error) is stored in the tool's 'output' slot.
     tool$output <- try(command$execute(tool$args), silent = TRUE)
-    return(tool)
+    return(list(execution = tool, ui = glue(command$has_already, .envir = tool$args)))
   })
-  return(list(tools = execution))
+  ai <- list(tools = lapply(execution, function(x) x$execution))
+  ui <- lapply(execution, function(x) x$ui)
+  return(list(ai = ai, ui = ui))
 }

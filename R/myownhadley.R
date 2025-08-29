@@ -223,7 +223,12 @@ myownhadley_server <- function(api_url) {
           return()
         }
         # Execute the parsed tools and get a new prompt for the next AI iteration.
-        prompt <- execute_llm_tools(parsed$tools, input$ai_mode)
+        execution <- execute_llm_tools(parsed$tools, input$ai_mode)
+        prompt <- execution$ai
+        # Add executed steps to the chat UI.
+        lapply(execution$ui, function(step) {
+          r_messages(c(list(list(role = "tool", text = step)), r_messages()))
+        })
         debug_print(list(running_prompt = list(
           mode = input$ai_mode, model = input$ai_model, sent_prompt = prompt
         )))
@@ -256,8 +261,7 @@ myownhadley_server <- function(api_url) {
       }
       # Generate UI bubbles for each message in the chat history.
       bubbles <- lapply(msgs, function(m) {
-        role_class <- if (identical(m$role, "user")) "message user" else "message assistant"
-        div(class = role_class, div(class = "message-content", markdown(m$text)))
+        div(class = paste("message", m$role), div(class = "message-content", markdown(m$text)))
       })
       # Prepend the "Working..." indicator if an AI prompt is currently running.
       if (!is.null(r_running_prompt())) {

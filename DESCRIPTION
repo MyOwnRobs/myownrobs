@@ -19,6 +19,7 @@ RoxygenNote: 7.2.3
 Imports:
   fs,
   gargle,
+  glue,
   httr2,
   jsonlite,
   mirai,

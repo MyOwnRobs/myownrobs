@@ -24,9 +24,9 @@ ai_tool_fetch_url_content <- list(
     list(name = "url")
   ),
   display_title = "Read URL",
-  would_like_to = "fetch {url}",
-  is_currently = "fetching {url}",
-  has_already = "viewed {url}",
+  would_like_to = "Fetch {url}",
+  is_currently = "Fetching {url}",
+  has_already = "Fetched {url}",
   readonly = TRUE,
   execute = fetch_url_content
 )

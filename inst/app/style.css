@@ -10,7 +10,7 @@ body {
   --panel: #ffffff;
   --muted: #4b5563;
   --border: rgba(2, 6, 23, 0.06);
-  --accent:#2dd4bf;
+  --accent: #2dd4bf;
   --accent-rgb: 14, 165, 164;
   --accent-foreground: #042f2e;
   --text: #0f1724;
@@ -168,7 +168,7 @@ body {
 .message {
   display: flex;
   align-items: flex-end;
-  gap: 10px;
+  gap: 4px;
   max-width: 85%;
   transition: transform 0.12s ease, opacity 0.12s ease;
 }
@@ -203,6 +203,31 @@ body {
   background: linear-gradient(180deg, var(--panel-contrast), transparent);
   color: var(--text);
   border-bottom-left-radius: 6px;
+}
+
+/* Tool messages: no bubble background, smaller text, and a prepended tick */
+.message.tool {
+  gap: 0px;
+}
+
+.message.tool .message-content {
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+}
+
+.message.tool .message-content::before {
+  content: "✓";
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  margin-right: 0;
 }
 
 .message .avatar {

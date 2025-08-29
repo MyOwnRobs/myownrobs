@@ -16,9 +16,9 @@ ai_tool_run_r_command <- list(
     list(name = "command")
   ),
   display_title = "Run R Command",
-  would_like_to = "run the following R command:",
-  is_currently = "running the following R command:",
-  has_already = "ran the following R command:",
+  would_like_to = "Run the R command: `{command}`",
+  is_currently = "Running the R command: `{command}`",
+  has_already = "Ran the R command: `{command}`",
   readonly = FALSE,
   execute = run_r_command
 )

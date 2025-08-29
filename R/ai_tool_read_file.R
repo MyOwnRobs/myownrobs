@@ -11,9 +11,9 @@ ai_tool_read_file <- list(
     list(name = "filepath")
   ),
   display_title = "Read File",
-  would_like_to = "read {filepath}",
-  is_currently = "reading {filepath}",
-  has_already = "viewed {filepath}",
+  would_like_to = "Read `{filepath}`",
+  is_currently = "Reading `{filepath}`",
+  has_already = "Read `{filepath}`",
   readonly = TRUE,
   execute = read_file
 )
