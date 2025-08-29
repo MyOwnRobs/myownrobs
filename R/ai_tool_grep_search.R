@@ -22,9 +22,9 @@ ai_tool_grep_search <- list(
     list(name = "query")
   ),
   display_title = "Grep Search",
-  would_like_to = 'Search for "{query}" in the repository',
-  is_currently = 'Getting search results for "{query}"',
-  has_already = 'Retrieved search results for "{query}"',
+  would_like_to = 'Search for "{query}" in the project',
+  is_currently = 'Getting search results for "{query}" in the project',
+  has_already = 'Retrieved search results for "{query}" in the project',
   readonly = TRUE,
   execute = grep_search
 )
