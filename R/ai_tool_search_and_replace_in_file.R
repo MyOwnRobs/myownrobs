@@ -1,14 +1,23 @@
-#' @importFrom rstudioapi documentOpen
+#' @importFrom rstudioapi documentOpen getSourceEditorContext insertText
 search_and_replace_in_file <- function(args) {
   if (!validate_command_args(ai_tool_search_and_replace_in_file, args)) {
     stop("Invalid arguments for SearchAndReplaceInFile")
   }
-  file_content <- paste(readLines(args$filepath), collapse = "\n")
+  if (args$filepath == "ACTIVE_R_DOCUMENT") {
+    editor_context <- getSourceEditorContext()
+    file_content <- paste(editor_context$contents, collapse = "\n")
+  } else {
+    file_content <- paste(readLines(args$filepath), collapse = "\n")
+  }
   for (diff in args$diffs) {
     file_content <- sub(diff$SEARCH, diff$REPLACE, file_content, fixed = TRUE)
   }
-  writeLines(file_content, args$filepath)
-  documentOpen(args$filepath)
+  if (args$filepath == "ACTIVE_R_DOCUMENT") {
+    insertText(c(0, 0, Inf, Inf), file_content, editor_context$id)
+  } else {
+    writeLines(file_content, args$filepath)
+    documentOpen(args$filepath)
+  }
   return(list(new_content = file_content))
 }
 

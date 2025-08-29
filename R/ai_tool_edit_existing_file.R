@@ -1,10 +1,14 @@
-#' @importFrom rstudioapi documentOpen
+#' @importFrom rstudioapi documentOpen getSourceEditorContext insertText
 edit_existing_file <- function(args) {
   if (!validate_command_args(ai_tool_edit_existing_file, args)) {
     stop("Invalid arguments for EditExistingFile")
   }
-  writeLines(args$changes, args$filepath)
-  documentOpen(args$filepath)
+  if (args$filepath == "ACTIVE_R_DOCUMENT") {
+    insertText(c(0, 0, Inf, Inf), args$changes, getSourceEditorContext()$id)
+  } else {
+    writeLines(args$changes, args$filepath)
+    documentOpen(args$filepath)
+  }
   return(list(output = ""))
 }
 
