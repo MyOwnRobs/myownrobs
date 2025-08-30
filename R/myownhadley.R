@@ -62,9 +62,22 @@ myownhadley_ui <- function() {
         span("CHAT", class = "chat-title"),
         div(
           class = "header-icons",
-          actionButton("reset_session", NULL, icon = icon("plus"), class = "top-button"),
-          actionButton("open_settings", NULL, icon = icon("cog"), class = "top-button"),
-          actionButton("close_addin", NULL, icon = icon("close"), class = "top-button")
+          actionButton(
+            "reset_session", NULL,
+            icon = icon("plus"), class = "top-button", title = "New Chat Session"
+          ),
+          actionButton(
+            "undo_changes", NULL,
+            icon = icon("undo"), class = "top-button", title = "Undo All Changes"
+          ),
+          actionButton(
+            "open_settings", NULL,
+            icon = icon("cog"), class = "top-button", title = "Open Settings"
+          ),
+          actionButton(
+            "close_addin", NULL,
+            icon = icon("close"), class = "top-button", title = "Close Chat"
+          )
         )
       ),
       # Main content area for displaying chat messages.
@@ -128,6 +141,7 @@ myownhadley_server <- function(api_url) {
     # TODO: Replace it with a better alternative instead of polling every second.
     r_check_prompt_execution <- reactiveTimer() # Timer to poll for prompt execution status.
     project_context <- get_project_context()
+    set_initial_project()
 
     # Reset the chat session when the reset button is clicked.
     # Generates a new chat ID and clears messages and running prompt.
@@ -140,7 +154,9 @@ myownhadley_server <- function(api_url) {
       r_running_prompt(NULL)
       r_ai_iterations(0)
       r_retries(0)
+      set_initial_project()
     })
+    observeEvent(input$undo_changes, set_initial_project(restore = TRUE))
     # Settings module handles showing the modal and persisting options.
     settings_module("settings", reactive(input$open_settings))
     # Stop the Shiny app when the close addin button is clicked.
