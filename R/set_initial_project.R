@@ -9,8 +9,12 @@
 #' @importFrom rstudioapi getActiveProject
 #'
 set_initial_project <- function(restore = FALSE) {
+  active_project <- getActiveProject()
+  if (is.null(active_project)) {
+    return()
+  }
   backup_dir <- paste0(tempdir(), "/myownhadley/")
-  project_dir <- paste0(getActiveProject(), "/")
+  project_dir <- paste0(active_project, "/")
   debug_print(list(backup_dir = backup_dir))
   if (restore) {
     file.copy(list.files(backup_dir, full.names = TRUE), project_dir, recursive = TRUE)
