@@ -40,8 +40,9 @@ remotes::install_github("jcrodriguez1989/myownhadley")
 
 ## 🎯 Getting Started
 
-1.  **Launch the Agent**: After installation, open the MyOwnHadley addin
-    through the RStudio Addins menu:
+1.  **Launch the Agent**: After installation, you can launch the agent
+    by calling `myownhadley()` in the R console, or by opening the
+    MyOwnHadley addin through the RStudio Addins menu:
     - Go to `Addins` \> `MyOwnHadley` in RStudio
     - Or use the command palette: `Ctrl/Cmd + Shift + P` → “MyOwnHadley”
 2.  **Start Coding**: Simply describe what you want to accomplish in
