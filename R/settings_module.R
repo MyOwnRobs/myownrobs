@@ -3,7 +3,6 @@
 #' @param id Module id.
 #' @param r_trigger A reactive expression that triggers opening the modal.
 #'
-#' @importFrom rstudioapi readPreference writePreference
 #' @importFrom shiny actionButton checkboxInput HTML modalDialog moduleServer observeEvent showModal
 #' @importFrom shiny tagList tags updateCheckboxInput
 #'
@@ -31,14 +30,14 @@ settings_module <- function(id, r_trigger) {
     observeEvent(r_trigger(), {
       updateCheckboxInput(
         session, "open_at_startup",
-        value = readPreference("myownhadley.open_at_startup", FALSE)
+        value = isTRUE(get_config("open_at_startup") == "TRUE")
       )
       showModal(settings_modal)
     })
     # Persist settings and close modal when save is clicked.
     observeEvent(input$save_settings, {
       save_run_at_startup()
-      writePreference("myownhadley.open_at_startup", isTRUE(input$open_at_startup))
+      set_config("open_at_startup", as.character(isTRUE(input$open_at_startup)))
       # Hide the modal by switching its display to none via the JS handler.
       session$sendCustomMessage("set-modal-display", "none")
     })
@@ -57,7 +56,7 @@ save_run_at_startup <- function() {
   # Read existing .Rprofile file if it exists.
   if (file.exists(rprofile_path)) {
     lines <- readLines(rprofile_path)
-    if (any(grepl("myownhadley.open_at_startup", lines))) {
+    if (any(grepl("myownhadley:::get_config", lines))) {
       return()
     }
   }
@@ -65,7 +64,7 @@ save_run_at_startup <- function() {
   lines <- c(lines, paste0(
     'setHook("rstudio.sessionInit", function(...) ',
     'requireNamespace("myownhadley", quietly = TRUE) && ',
-    'rstudioapi::readPreference("myownhadley.open_at_startup", FALSE) && ',
+    'isTRUE(myownhadley:::get_config("open_at_startup") == "TRUE") && ',
     "myownhadley::myownhadley()",
     ', action = "append")'
   ))
