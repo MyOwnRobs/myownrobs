@@ -123,6 +123,7 @@ myownhadley_ui <- function() {
 #'
 #' @param api_url The API URL to use for requests.
 #'
+#' @importFrom jsonlite fromJSON toJSON
 #' @importFrom mirai unresolved
 #' @importFrom shiny div h3 markdown observeEvent p reactive reactiveTimer reactiveVal renderUI
 #' @importFrom shiny stopApp tags updateTextAreaInput
@@ -130,9 +131,17 @@ myownhadley_ui <- function() {
 #'
 myownhadley_server <- function(api_url) {
   function(input, output, session) {
+    # Initialize r_chat_id with persistence.
+    initial_chat_id <- get_config("chat_id")
+    if (is.null(initial_chat_id)) {
+      initial_chat_id <- UUIDgenerate()
+      set_config("chat_id", initial_chat_id)
+      set_config("session_msgs", "[]")
+    }
     # App reactive values to manage chat state.
-    r_chat_id <- reactiveVal(UUIDgenerate()) # Unique ID for the current chat session.
-    r_messages <- reactiveVal(list()) # Stores the list of chat messages (user and assistant).
+    r_chat_id <- reactiveVal(initial_chat_id) # Unique ID for the current chat session.
+    # Stores the list of chat messages (user and assistant).
+    r_messages <- reactiveVal(fromJSON(get_config("session_msgs"), simplifyVector = FALSE))
     r_running_prompt <- reactiveVal(NULL) # Stores the promise for an ongoing AI prompt execution.
     max_ai_iterations <- 15 # Maximum number of consecutive AI tool iterations.
     r_ai_iterations <- reactiveVal(0) # Current count of AI tool iterations.
@@ -149,8 +158,11 @@ myownhadley_server <- function(api_url) {
       if (length(r_messages()) == 0) {
         return()
       }
-      r_chat_id(UUIDgenerate())
+      new_chat_id <- UUIDgenerate()
+      r_chat_id(new_chat_id)
+      set_config("chat_id", new_chat_id)
       r_messages(list())
+      set_config("session_msgs", "[]")
       r_running_prompt(NULL)
       r_ai_iterations(0)
       r_retries(0)
@@ -172,7 +184,9 @@ myownhadley_server <- function(api_url) {
       # Clear the input and set working state.
       updateTextAreaInput(session, "prompt", value = "")
       # Immediately show user message and working state.
-      r_messages(c(list(list(role = "user", text = prompt_text)), r_messages()))
+      new_msgs <- c(list(list(role = "user", text = prompt_text)), r_messages())
+      r_messages(new_msgs)
+      set_config("session_msgs", toJSON(new_msgs, auto_unbox = TRUE))
       r_ai_iterations(0)
       r_running_prompt(send_prompt_async(
         r_chat_id(), prompt_text, "user", input$ai_mode, input$ai_model, project_context, api_url,
@@ -214,30 +228,38 @@ myownhadley_server <- function(api_url) {
           return()
         }
         # If no retries available, then print the error to the user.
-        r_messages(c(list(list(role = "assistant", text = paste0(
+        new_msgs <- c(list(list(role = "assistant", text = paste0(
           "Error: ", parsed$error, ". Retry?"
-        ))), r_messages()))
+        ))), r_messages())
+        r_messages(new_msgs)
+        set_config("session_msgs", toJSON(new_msgs, auto_unbox = TRUE))
         return()
       }
       # If the response was successfully parsed, reset the retry counter.
       r_retries(0)
       # If the AI provided neither a user message nor tools, send a default acknowledgement.
       if (isTRUE(nchar(parsed$user_message) == 0 && length(parsed$tools) == 0)) {
-        r_messages(c(list(list(role = "assistant", text = "\U0001f44b")), r_messages()))
+        new_msgs <- c(list(list(role = "assistant", text = "\U0001f44b")), r_messages())
+        r_messages(new_msgs)
+        set_config("session_msgs", toJSON(new_msgs, auto_unbox = TRUE))
         return()
       }
       # If the AI provided a user-facing message, add it to the chat history.
       if (isTRUE(nchar(parsed$user_message) > 0)) {
-        r_messages(c(list(list(role = "assistant", text = parsed$user_message)), r_messages()))
+        new_msgs <- c(list(list(role = "assistant", text = parsed$user_message)), r_messages())
+        r_messages(new_msgs)
+        set_config("session_msgs", toJSON(new_msgs, auto_unbox = TRUE))
       }
       # If the AI requested tools to be executed, process them.
       if (isTRUE(length(parsed$tools) > 0)) {
         # If the maximum number of AI tool iterations has been reached, prompt the user.
         if (r_ai_iterations() >= max_ai_iterations) {
-          r_messages(c(list(list(role = "assistant", text = paste0(
+          new_msgs <- c(list(list(role = "assistant", text = paste0(
             "**MyOwnHadley** has been working on this problem for a while. It can continue to ",
             "iterate, or you can send a new message to refine your prompt. Continue to iterate?"
-          ))), r_messages()))
+          ))), r_messages())
+          r_messages(new_msgs)
+          set_config("session_msgs", toJSON(new_msgs, auto_unbox = TRUE))
           return()
         }
         # Execute the parsed tools and get a new prompt for the next AI iteration.
@@ -245,7 +267,9 @@ myownhadley_server <- function(api_url) {
         prompt <- execution$ai
         # Add executed steps to the chat UI.
         lapply(execution$ui, function(step) {
-          r_messages(c(list(list(role = "tool", text = step)), r_messages()))
+          new_msgs <- c(list(list(role = "tool_runner", text = step)), r_messages())
+          r_messages(new_msgs)
+          set_config("session_msgs", toJSON(new_msgs, auto_unbox = TRUE))
         })
         debug_print(list(running_prompt = list(
           mode = input$ai_mode, model = input$ai_model, sent_prompt = prompt
@@ -273,7 +297,7 @@ myownhadley_server <- function(api_url) {
         return(div(
           class = "agent-mode",
           tags$i(class = "fas fa-magic"),
-          h3("Build with agent mode."),
+          h3(ifelse(input$ai_mode == "agent", "Build with agent mode.", "Ask about your code.")),
           p("AI responses may be inaccurate.")
         ))
       }

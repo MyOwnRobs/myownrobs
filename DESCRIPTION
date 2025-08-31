@@ -25,4 +25,5 @@ Imports:
   mirai,
   rstudioapi,
   shiny,
+  tools,
   uuid
