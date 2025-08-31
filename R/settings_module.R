@@ -3,6 +3,7 @@
 #' @param id Module id.
 #' @param r_trigger A reactive expression that triggers opening the modal.
 #'
+#' @importFrom rstudio.prefs use_rstudio_keyboard_shortcut
 #' @importFrom shiny actionButton checkboxInput HTML modalDialog moduleServer observeEvent showModal
 #' @importFrom shiny tagList tags updateCheckboxInput
 #'
@@ -10,13 +11,18 @@ settings_module <- function(id, r_trigger) {
   moduleServer(id, function(input, output, session) {
     settings_modal <- modalDialog(
       title = "Settings",
-      checkboxInput(
-        session$ns("open_at_startup"),
-        "Open MyOwnHadley at RStudio startup"
-      ),
+      checkboxInput(session$ns("open_at_startup"), "Open MyOwnHadley at RStudio startup"),
       footer = tagList(
         actionButton(session$ns("save_settings"), "Save", class = "btn-save"),
-        actionButton(session$ns("close"), "Close", class = "btn-close")
+        actionButton(session$ns("close"), "Close", class = "btn-close"),
+        actionButton(
+          session$ns("set_shortcut"),
+          paste0(
+            "Assign the keyboard shortcut 'Ctrl+M' to open MyOwnHadley ",
+            "(it will work after restarting RStudio)"
+          ),
+          class = "btn-close"
+        )
       ),
       # Custom `removeModal`, because shiny's is not working because of our own css styles.
       tags$script(HTML(
@@ -33,6 +39,9 @@ settings_module <- function(id, r_trigger) {
         value = isTRUE(get_config("open_at_startup") == "TRUE")
       )
       showModal(settings_modal)
+    })
+    observeEvent(input$set_shortcut, {
+      use_rstudio_keyboard_shortcut("Ctrl+M" = "myownhadley::myownhadley", .backup = FALSE)
     })
     # Persist settings and close modal when save is clicked.
     observeEvent(input$save_settings, {

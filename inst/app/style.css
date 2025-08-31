@@ -422,8 +422,7 @@ body {
 }
 
 /* Modal action buttons: Cancel (outline) and Save (accent) */
-.modal .btn-close,
-.modal .close {
+.modal .btn-close {
   background: transparent;
   border: 1px solid rgba(2, 6, 23, 0.08);
   color: var(--text);
@@ -432,8 +431,7 @@ body {
   cursor: pointer;
   transition: background 0.12s, transform 0.12s, opacity 0.12s;
 }
-.modal .btn-close:hover,
-.modal .close:hover {
+.modal .btn-close:hover {
   background: var(--panel-contrast);
 }
 
@@ -448,7 +446,7 @@ body {
   transition: transform 0.12s, box-shadow 0.12s, opacity 0.12s;
 }
 .modal .btn-save:hover {
-  box-shadow: 0 10px 26px rgba(var(--accent-rgb), 0.16);
+  opacity: 0.8;
 }
 
 /* Form and checkbox spacing inside the modal */
