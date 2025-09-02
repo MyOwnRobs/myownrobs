@@ -1,5 +1,5 @@
 
-# MyOwnHadley
+# MyOwnHadley <a href="https://myownhadley.github.io/myownhadley/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 *By R users for R users*
 
