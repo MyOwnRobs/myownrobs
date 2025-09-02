@@ -1,0 +1,27 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://myownhadley.github.io/myownhadley/404.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/LICENSE-text.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/LICENSE.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/authors.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/index.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/debug_print.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/execute_llm_tools.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/get_api_key.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/get_config.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/get_project_context.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/index.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/myownhadley.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/myownhadley_server.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/myownhadley_ui.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/parse_agent_response.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/save_api_key.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/save_run_at_startup.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/send_prompt.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/send_prompt_async.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/set_config.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/set_initial_project.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/settings_module.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/validate_command_args.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/validate_credentials.html</loc></url>
+</urlset>
+
