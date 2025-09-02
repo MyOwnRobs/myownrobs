@@ -13,8 +13,8 @@ Maintainer: Juan Cruz Rodriguez <jcrodriguez@unc.edu.ar>
 Description: Provides an RStudio extension with a chat interface for an AI coding agent to help
     users with R programming tasks.
 License: MIT + file LICENSE
-URL: https://github.com/jcrodriguez1989/myownhadley
-BugReports: https://github.com/jcrodriguez1989/myownhadley/issues
+URL: https://github.com/MyOwnHadley/myownhadley
+BugReports: https://github.com/MyOwnHadley/myownhadley/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3

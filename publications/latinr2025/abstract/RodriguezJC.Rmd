@@ -44,7 +44,7 @@ MyOwnHadley transforms the R development experience by providing:
 
 ## Conclusion
 
-MyOwnHadley represents a significant step forward in making AI-assisted development accessible to the R community, democratizing advanced coding capabilities through autonomous agent technology and accelerating the development of data science and statistical applications. The tool is available as an open-source RStudio extension at [https://github.com/jcrodriguez1989/myownhadley](https://github.com/jcrodriguez1989/myownhadley).
+MyOwnHadley represents a significant step forward in making AI-assisted development accessible to the R community, democratizing advanced coding capabilities through autonomous agent technology and accelerating the development of data science and statistical applications. The tool is available as an open-source RStudio extension at [https://github.com/MyOwnHadley/myownhadley](https://github.com/MyOwnHadley/myownhadley).
 
 References {#references .unnumbered}
 ==========

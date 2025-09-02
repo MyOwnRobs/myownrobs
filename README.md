@@ -31,11 +31,11 @@ approach.
 ## 📦 Installation
 
 Install the development version of `{myownhadley}` from
-[GitHub](https://github.com/jcrodriguez1989/myownhadley) with:
+[GitHub](https://github.com/MyOwnHadley/myownhadley) with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("jcrodriguez1989/myownhadley")
+remotes::install_github("MyOwnHadley/myownhadley")
 ```
 
 ## 🎯 Getting Started
@@ -94,7 +94,7 @@ For major changes, please open an issue first to discuss what you would
 like to change.
 
 Bug reports and new ideas or features are more than welcome at the
-[issue tracker](https://github.com/jcrodriguez1989/myownhadley/issues).
+[issue tracker](https://github.com/MyOwnHadley/myownhadley/issues).
 
 ## 📄 License
 
