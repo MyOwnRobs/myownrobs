@@ -1,7 +1,7 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # MyOwnHadley
+
+*By R users for R users*
 
 **A Cursor-style AI Coding Agent for RStudio**
 
@@ -41,8 +41,8 @@ remotes::install_github("MyOwnHadley/myownhadley")
 ## 🎯 Getting Started
 
 1.  **Launch the Agent**: After installation, you can launch the agent
-    by calling `myownhadley()` in the R console, or by opening the
-    MyOwnHadley addin through the RStudio Addins menu:
+    by calling `myownhadley::myownhadley()` in the R console, or by
+    opening the MyOwnHadley addin through the RStudio Addins menu:
     - Go to `Addins` \> `MyOwnHadley` in RStudio
     - Or use the command palette: `Ctrl/Cmd + Shift + P` → “MyOwnHadley”
 2.  **Start Coding**: Simply describe what you want to accomplish in
@@ -52,40 +52,38 @@ remotes::install_github("MyOwnHadley/myownhadley")
     - “Refactor this code to be more efficient”
     - “Add error handling to my function”
 
-## 💡 Example Use Cases
+## 🔒 Data Privacy
 
-### Data Analysis Workflow
+Your data privacy is important to us. Here’s a concise overview of
+MyOwnHadley’s data practices:
 
-    "Analyze the mtcars dataset and create a comprehensive report with visualizations"
+- MyOwnHadley only stores per user their last active session, to
+  maintain continuous functionality between chat sessions and
+  RStudio/addin restarts.
 
-The agent will:
+- MyOwnHadley’s API is developed using Next.js, and all services are
+  hosted on Google Cloud Platform.
 
-1.  Load and examine the dataset
-2.  Generate exploratory data analysis code
-3.  Create meaningful visualizations
-4.  Compile results into a report
+- The API’s sole responsibility is to receive user’s prompt, enhance it
+  with R-developer-specific context, and securely forward it to the
+  user’s selected AI model provider. We do not store your prompts or the
+  model responses on our servers beyond what is necessary for active
+  session management.
 
-### Package Development
+**Our recommendation**: We recommend using MyOwnHadley with a project
+only if you are comfortable with the possibility of submitting its
+entire contents to your selected AI model provider, as the agent may
+access various files for comprehensive assistance.
 
-    "Help me create a new R package for time series analysis"
+**Model Provider Data Policies**
 
-The agent will:
+- [Gemini’s data policy](https://ai.google.dev/gemini-api/terms).
 
-1.  Set up the package structure
-2.  Create function templates
-3.  Generate documentation
-4.  Set up testing framework
-
-### Code Optimization
-
-    "Optimize this function for better performance and add proper error handling"
-
-The agent will:
-
-1.  Analyze your existing code
-2.  Identify performance bottlenecks
-3.  Implement optimizations
-4.  Add robust error handling
+We’ve strived to keep this section brief and clear. If you have any
+further questions or concerns about data privacy, please don’t hesitate
+to [submit an issue on our GitHub
+tracker](https://github.com/MyOwnHadley/myownhadley/issues). We will
+thankfully address your inquiries and update this section as needed.
 
 ## 🤝 Contributing
 
