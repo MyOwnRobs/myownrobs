@@ -4,6 +4,11 @@
 #'
 #' @param api_url The API URL to use for requests.
 #'
+#'@examples
+#'\dontrun{
+#' myownhadley()
+#'}
+#'
 #' @importFrom shiny runGadget
 #' @importFrom utils packageVersion
 #'

@@ -14,3 +14,9 @@ myownhadley(
 \description{
 Open the RStudio addin with the chat interface.
 }
+\examples{
+\dontrun{
+myownhadley()
+}
+
+}
