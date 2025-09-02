@@ -9,7 +9,7 @@ edit_existing_file <- function(args) {
     writeLines(args$changes, args$filepath)
     documentOpen(args$filepath)
   }
-  return(list(output = ""))
+  list(output = "")
 }
 
 ai_tool_edit_existing_file <- list(

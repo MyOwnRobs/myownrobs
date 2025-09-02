@@ -22,5 +22,5 @@ parse_agent_response <- function(response_text) {
     return(list(error = "Invalid JSON response from AI model", error_code = "invalid_ai_response"))
   }
   # Return the successfully parsed JSON object.
-  return(parsed)
+  parsed
 }

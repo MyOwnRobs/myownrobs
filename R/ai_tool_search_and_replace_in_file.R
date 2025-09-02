@@ -18,7 +18,7 @@ search_and_replace_in_file <- function(args) {
     writeLines(file_content, args$filepath)
     documentOpen(args$filepath)
   }
-  return(list(new_content = file_content))
+  list(new_content = file_content)
 }
 
 ai_tool_search_and_replace_in_file <- list(

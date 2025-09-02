@@ -13,7 +13,7 @@ grep_search <- function(args) {
   }), all_files)
   matches <- matches[sapply(matches, function(x) nchar(x)) > 0]
   matches <- paste(names(matches), matches, sep = "\n", collapse = "\n\n")
-  return(list(output = matches))
+  list(output = matches)
 }
 
 ai_tool_grep_search <- list(

@@ -7,7 +7,7 @@ run_r_command <- function(args) {
     capture.output(eval(parse(text = args$command), envir = .GlobalEnv)),
     collapse = "\n"
   )
-  return(list(output = output))
+  list(output = output)
 }
 
 ai_tool_run_r_command <- list(

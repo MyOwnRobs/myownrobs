@@ -6,7 +6,7 @@ create_new_file <- function(args) {
   dir.create(dirname(args$filepath), recursive = TRUE, showWarnings = FALSE)
   writeLines(args$contents, args$filepath)
   documentOpen(args$filepath)
-  return(list(output = ""))
+  list(output = "")
 }
 
 ai_tool_create_new_file <- list(

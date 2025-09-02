@@ -6,7 +6,7 @@ file_glob_search <- function(args) {
   }
   matched_files <- dir_ls(getActiveProject(), glob = args$pattern, recurse = TRUE, type = "file")
   matches <- paste(matched_files, collapse = "\n")
-  return(list(output = matches))
+  list(output = matches)
 }
 
 ai_tool_file_glob_search <- list(

@@ -2,7 +2,7 @@ ls_tool <- function(args) {
   if (!validate_command_args(ai_tool_ls_tool, args)) {
     stop("Invalid arguments for LSTool")
   }
-  return(list(output = paste(dir(args$dirPath), collapse = "\n")))
+  list(output = paste(dir(args$dirPath), collapse = "\n"))
 }
 
 ai_tool_ls_tool <- list(

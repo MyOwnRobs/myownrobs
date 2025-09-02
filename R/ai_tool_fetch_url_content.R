@@ -15,7 +15,7 @@ fetch_url_content <- function(args) {
   if (nchar(content, type = "bytes") > max_chars) {
     content <- paste0(substr(content, 1, max_chars), "\n\n...[truncated]...\n")
   }
-  return(list(output = content))
+  list(output = content)
 }
 
 ai_tool_fetch_url_content <- list(

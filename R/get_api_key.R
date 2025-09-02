@@ -5,5 +5,5 @@
 #' @keywords internal
 #'
 get_api_key <- function() {
-  return(get("api_key", envir = .state)) # Retrieve the 'api_key' from the '.state' environment.
+  get("api_key", envir = .state) # Retrieve the 'api_key' from the '.state' environment.
 }

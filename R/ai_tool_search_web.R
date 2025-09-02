@@ -11,7 +11,7 @@ search_web <- function(args) {
   )
   search_res <- fromJSON(search_url)
   result <- search_res[c("AbstractText", "AbstractURL", "Infobox", "RelatedTopics", "Results")]
-  return(list(output = toJSON(result, auto_unbox = TRUE)))
+  list(output = toJSON(result, auto_unbox = TRUE))
 }
 
 ai_tool_search_web <- list(

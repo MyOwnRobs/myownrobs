@@ -11,7 +11,7 @@ read_currently_open_file <- function(args) {
   if (nchar(filepath) == 0) {
     filepath <- "ACTIVE_R_DOCUMENT"
   }
-  return(list(filepath = filepath, content = paste(context$contents, collapse = "\n")))
+  list(filepath = filepath, content = paste(context$contents, collapse = "\n"))
 }
 
 ai_tool_read_currently_open_file <- list(

@@ -35,7 +35,7 @@ send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api
   # Perform the HTTP request.
   resp <- req_perform(req)
   # Return the response body as a string.
-  return(resp_body_string(resp))
+  resp_body_string(resp)
 }
 
 #' Asynchronously Send Prompt to the LLM

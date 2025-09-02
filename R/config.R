@@ -14,7 +14,7 @@ get_config <- function(config) {
   if (file_exists(config_file)) {
     config_value <- readLines(config_file)
   }
-  return(config_value)
+  config_value
 }
 
 #' Set a Configuration Value
