@@ -14,3 +14,4 @@ set_config(config, value)
 \description{
 Set a Configuration Value
 }
+\keyword{internal}

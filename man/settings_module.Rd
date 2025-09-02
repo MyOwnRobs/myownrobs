@@ -14,3 +14,4 @@ settings_module(id, r_trigger)
 \description{
 Settings Module
 }
+\keyword{internal}

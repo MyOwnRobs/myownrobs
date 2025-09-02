@@ -12,3 +12,4 @@ save_api_key(api_key)
 \description{
 Save MyOwnHadley Credentials Locally
 }
+\keyword{internal}

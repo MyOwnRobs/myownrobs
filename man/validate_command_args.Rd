@@ -17,3 +17,4 @@ Checks if all required parameters for a given command are present in the provide
 This function ensures that the AI agent has supplied all necessary arguments before executing a
 command.
 }
+\keyword{internal}

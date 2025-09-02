@@ -5,6 +5,8 @@
 #' @importFrom fs file_exists
 #' @importFrom tools R_user_dir
 #'
+#' @keywords internal
+#'
 get_config <- function(config) {
   config_dir <- R_user_dir("myownhadley", "config")
   config_file <- file.path(config_dir, config)
@@ -22,6 +24,8 @@ get_config <- function(config) {
 #'
 #' @importFrom fs dir_create dir_exists
 #' @importFrom tools R_user_dir
+#'
+#' @keywords internal
 #'
 set_config <- function(config, value) {
   config_dir <- R_user_dir("myownhadley", "config")

@@ -12,3 +12,4 @@ get_config(config)
 \description{
 Get a Configuration Value
 }
+\keyword{internal}

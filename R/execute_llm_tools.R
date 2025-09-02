@@ -5,6 +5,8 @@
 #'
 #' @importFrom glue glue
 #'
+#' @keywords internal
+#'
 execute_llm_tools <- function(tools, mode) {
   execution <- lapply(tools, function(tool) {
     # Retrieve the command definition from the global 'llm_commands' list using the tool's name.

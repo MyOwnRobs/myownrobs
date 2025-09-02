@@ -11,3 +11,4 @@ Gathers various pieces of context information about the current R session and pr
 includes details about the working directory, RStudio project, source editor context, and
 operating system.
 }
+\keyword{internal}

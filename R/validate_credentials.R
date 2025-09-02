@@ -7,6 +7,8 @@
 #' @importFrom httr2 resp_status
 #' @importFrom gargle token_fetch
 #'
+#' @keywords internal
+#'
 validate_credentials <- function(api_url, force = FALSE) {
   # Check if an API key is not set or if validation is forced.
   if (nchar(get_api_key()) == 0 || force) {
@@ -47,6 +49,8 @@ validate_credentials <- function(api_url, force = FALSE) {
 #' Save MyOwnHadley Credentials Locally
 #'
 #' @param api_key The MyOwnHadley API key to save locally.
+#'
+#' @keywords internal
 #'
 save_api_key <- function(api_key) {
   # Assign the API key to a local environment variable (for current session).

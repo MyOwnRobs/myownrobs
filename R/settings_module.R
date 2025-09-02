@@ -7,6 +7,8 @@
 #' @importFrom shiny actionButton checkboxInput HTML modalDialog moduleServer observeEvent showModal
 #' @importFrom shiny tagList tags updateCheckboxInput
 #'
+#' @keywords internal
+#'
 settings_module <- function(id, r_trigger) {
   moduleServer(id, function(input, output, session) {
     settings_modal <- modalDialog(
@@ -56,6 +58,8 @@ settings_module <- function(id, r_trigger) {
 }
 
 #' Save Run MyOwnHadley At Startup
+#'
+#' @keywords internal
 #'
 save_run_at_startup <- function() {
   # Define the path to the user's .Rprofile file

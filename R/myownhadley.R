@@ -22,6 +22,8 @@ myownhadley <- function(api_url = paste0(
 #' @importFrom shiny actionButton div icon includeCSS selectInput span tagList tags textAreaInput
 #' @importFrom shiny uiOutput
 #'
+#' @keywords internal
+#'
 myownhadley_ui <- function() {
   tagList(
     tags$link(
@@ -128,6 +130,8 @@ myownhadley_ui <- function() {
 #' @importFrom shiny div h3 markdown observeEvent p reactive reactiveTimer reactiveVal renderUI
 #' @importFrom shiny stopApp tags updateTextAreaInput
 #' @importFrom uuid UUIDgenerate
+#'
+#' @keywords internal
 #'
 myownhadley_server <- function(api_url) {
   function(input, output, session) {

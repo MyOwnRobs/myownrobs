@@ -6,6 +6,8 @@
 #'
 #' @importFrom rstudioapi getActiveProject getSourceEditorContext
 #'
+#' @keywords internal
+#'
 get_project_context <- function() {
   list(
     r_terminal_working_directory = getwd(), # The current working directory of the R terminal.

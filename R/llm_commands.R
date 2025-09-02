@@ -39,6 +39,8 @@ llm_commands <- setNames(llm_commands, sapply(llm_commands, function(x) x$name))
 #'   element.
 #' @param args A list of arguments provided to the command.
 #'
+#' @keywords internal
+#'
 validate_command_args <- function(command, args) {
   all(sapply(command$parameters, function(x) x$name) %in% names(args))
 }

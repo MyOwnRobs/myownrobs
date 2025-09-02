@@ -14,6 +14,8 @@
 #' @importFrom httr2 resp_body_string
 #' @importFrom jsonlite toJSON
 #'
+#' @keywords internal
+#'
 send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api_url, api_key) {
   # Initialize an HTTP request with the base API URL.
   req <- request(api_url)
@@ -49,6 +51,8 @@ send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api
 #' @param api_key The API key for MyOwnHadley, obtained with `get_api_key()`.
 #'
 #' @importFrom mirai mirai
+#'
+#' @keywords internal
 #'
 send_prompt_async <- function(chat_id, prompt, role, mode, model, project_context, api_url,
                               api_key) {

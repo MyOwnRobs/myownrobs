@@ -14,3 +14,4 @@ validate_credentials(api_url, force = FALSE)
 \description{
 Validate MyOwnHadley Credentials
 }
+\keyword{internal}

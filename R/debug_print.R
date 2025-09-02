@@ -5,6 +5,8 @@
 #'
 #' @param value The R object to be printed.
 #'
+#' @keywords internal
+#'
 debug_print <- function(value) {
   # Check if the 'DEBUG' environment variable has a non-zero length, indicating debugging is active.
   if (nchar(Sys.getenv("DEBUG")) > 0) {

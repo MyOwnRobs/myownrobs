@@ -36,3 +36,4 @@ send_prompt(
 \description{
 Send Prompt to the LLM
 }
+\keyword{internal}

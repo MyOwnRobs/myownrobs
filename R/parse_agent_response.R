@@ -7,6 +7,8 @@
 #'
 #' @importFrom jsonlite fromJSON
 #'
+#' @keywords internal
+#'
 parse_agent_response <- function(response_text) {
   # Remove markdown code fences (```json or ```) from the response text.
   extracted <- gsub("(^```(json)?\\s*)|(\\s*```$)", "", response_text)

@@ -14,3 +14,4 @@ execute_llm_tools(tools, mode)
 \description{
 Execute LLM tools
 }
+\keyword{internal}

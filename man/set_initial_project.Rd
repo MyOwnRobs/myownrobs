@@ -13,3 +13,4 @@ store in R's temp dir.}
 \description{
 Wether to save the initial state or to restore it.
 }
+\keyword{internal}

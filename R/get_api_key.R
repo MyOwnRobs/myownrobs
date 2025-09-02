@@ -2,6 +2,8 @@
 #'
 #' Retrieves the API key for MyOwnHadley from the internal state environment.
 #'
+#' @keywords internal
+#'
 get_api_key <- function() {
   return(get("api_key", envir = .state)) # Retrieve the 'api_key' from the '.state' environment.
 }

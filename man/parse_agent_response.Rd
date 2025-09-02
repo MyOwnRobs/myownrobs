@@ -13,3 +13,4 @@ parse_agent_response(response_text)
 This function parses the raw text response from an AI agent, expecting a JSON string potentially
 wrapped in markdown code fences. It extracts the JSON part and attempts to parse it.
 }
+\keyword{internal}

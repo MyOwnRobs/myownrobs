@@ -9,3 +9,4 @@ myownhadley_ui()
 \description{
 MyOwnHadley Shiny UI
 }
+\keyword{internal}

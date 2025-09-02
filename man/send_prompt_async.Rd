@@ -36,3 +36,4 @@ send_prompt_async(
 \description{
 Asynchronously Send Prompt to the LLM
 }
+\keyword{internal}

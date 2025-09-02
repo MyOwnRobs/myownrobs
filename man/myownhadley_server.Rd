@@ -12,3 +12,4 @@ myownhadley_server(api_url)
 \description{
 MyOwnHadley Shiny Server
 }
+\keyword{internal}
