@@ -4,10 +4,12 @@
 #'
 #' @param api_url The API URL to use for requests.
 #'
-#'@examples
-#'\dontrun{
-#' myownhadley()
-#'}
+#' @return No return value. Called for its side effects to launch the MyOwnHadley RStudio addin.
+#'
+#' @examples
+#' if (interactive()) {
+#'   myownhadley()
+#' }
 #'
 #' @importFrom shiny runGadget
 #' @importFrom utils packageVersion
@@ -17,8 +19,12 @@
 myownhadley <- function(api_url = paste0(
                           "https://myownhadley.com/api/v", packageVersion("myownhadley")$major
                         )) {
+  if (!validate_policy_acceptance()) {
+    return("Accept MyOwnHadley terms of use in order to run it")
+  }
   validate_credentials(api_url)
   runGadget(myownhadley_ui(), myownhadley_server(api_url))
+  invisible()
 }
 
 #' MyOwnHadley Shiny UI

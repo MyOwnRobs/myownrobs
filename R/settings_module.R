@@ -47,7 +47,10 @@ settings_module <- function(id, r_trigger) {
     })
     # Persist settings and close modal when save is clicked.
     observeEvent(input$save_settings, {
-      save_run_at_startup()
+      # Edit .Rprofile only if the user wants to execute MyOwnHadley at startup.
+      if (isTRUE(input$open_at_startup)) {
+        save_run_at_startup()
+      }
       set_config("open_at_startup", as.character(isTRUE(input$open_at_startup)))
       # Hide the modal by switching its display to none via the JS handler.
       session$sendCustomMessage("set-modal-display", "none")

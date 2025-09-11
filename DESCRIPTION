@@ -29,4 +29,5 @@ Imports:
   rstudioapi,
   shiny,
   tools,
-  uuid
+  uuid,
+  yaml

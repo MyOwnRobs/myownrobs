@@ -11,12 +11,15 @@ myownhadley(
 \arguments{
 \item{api_url}{The API URL to use for requests.}
 }
+\value{
+No return value. Called for its side effects to launch the MyOwnHadley RStudio addin.
+}
 \description{
 Open the RStudio addin with the chat interface.
 }
 \examples{
-\dontrun{
-myownhadley()
+if (interactive()) {
+  myownhadley()
 }
 
 }

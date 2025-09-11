@@ -20,7 +20,7 @@ execute_llm_tools <- function(tools, mode) {
     # The execution is wrapped in a try-catch block to handle potential errors silently,
     # and the result (or error) is stored in the tool's 'output' slot.
     tool$output <- try(command$execute(tool$args), silent = TRUE)
-    list(execution = tool, ui = glue(command$has_already, .envir = tool$args))
+    list(execution = tool, ui = glue(command$has_already, .envir = as.environment(tool$args)))
   })
   ai <- list(tools = lapply(execution, function(x) x$execution))
   ui <- lapply(execution, function(x) x$ui)
