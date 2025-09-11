@@ -14,6 +14,8 @@
 <url><loc>https://myownhadley.github.io/myownhadley/reference/myownhadley_server.html</loc></url>
 <url><loc>https://myownhadley.github.io/myownhadley/reference/myownhadley_ui.html</loc></url>
 <url><loc>https://myownhadley.github.io/myownhadley/reference/parse_agent_response.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/policy_server.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/policy_ui.html</loc></url>
 <url><loc>https://myownhadley.github.io/myownhadley/reference/save_api_key.html</loc></url>
 <url><loc>https://myownhadley.github.io/myownhadley/reference/save_run_at_startup.html</loc></url>
 <url><loc>https://myownhadley.github.io/myownhadley/reference/send_prompt.html</loc></url>
@@ -23,5 +25,6 @@
 <url><loc>https://myownhadley.github.io/myownhadley/reference/settings_module.html</loc></url>
 <url><loc>https://myownhadley.github.io/myownhadley/reference/validate_command_args.html</loc></url>
 <url><loc>https://myownhadley.github.io/myownhadley/reference/validate_credentials.html</loc></url>
+<url><loc>https://myownhadley.github.io/myownhadley/reference/validate_policy_acceptance.html</loc></url>
 </urlset>
 
