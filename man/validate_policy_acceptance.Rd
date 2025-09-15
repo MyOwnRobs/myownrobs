@@ -2,7 +2,7 @@
 % Please edit documentation in R/validate_policy_acceptance.R
 \name{validate_policy_acceptance}
 \alias{validate_policy_acceptance}
-\title{Validate MyOwnHadley Policy Acceptance}
+\title{Validate MyOwnRobs Policy Acceptance}
 \usage{
 validate_policy_acceptance()
 }

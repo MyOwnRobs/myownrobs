@@ -15,7 +15,7 @@ set_initial_project <- function(restore = FALSE) {
   if (is.null(active_project)) {
     return()
   }
-  backup_dir <- paste0(tempdir(), "/myownhadley/")
+  backup_dir <- paste0(tempdir(), "/myownrobs/")
   project_dir <- paste0(active_project, "/")
   debug_print(list(backup_dir = backup_dir))
   if (restore) {

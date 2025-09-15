@@ -2,11 +2,11 @@
 % Please edit documentation in R/settings_module.R
 \name{save_run_at_startup}
 \alias{save_run_at_startup}
-\title{Save Run MyOwnHadley At Startup}
+\title{Save Run MyOwnRobs At Startup}
 \usage{
 save_run_at_startup()
 }
 \description{
-Save Run MyOwnHadley At Startup
+Save Run MyOwnRobs At Startup
 }
 \keyword{internal}

@@ -1,6 +1,6 @@
 #' Get API Key
 #'
-#' Retrieves the API key for MyOwnHadley from the internal state environment.
+#' Retrieves the API key for MyOwnRobs from the internal state environment.
 #'
 #' @keywords internal
 #'

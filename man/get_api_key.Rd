@@ -7,6 +7,6 @@
 get_api_key()
 }
 \description{
-Retrieves the API key for MyOwnHadley from the internal state environment.
+Retrieves the API key for MyOwnRobs from the internal state environment.
 }
 \keyword{internal}

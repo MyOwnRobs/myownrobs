@@ -8,7 +8,7 @@
 #' @keywords internal
 #'
 get_config <- function(config) {
-  config_dir <- R_user_dir("myownhadley", "config")
+  config_dir <- R_user_dir("myownrobs", "config")
   config_file <- file.path(config_dir, config)
   config_value <- NULL
   if (file_exists(config_file)) {
@@ -28,7 +28,7 @@ get_config <- function(config) {
 #' @keywords internal
 #'
 set_config <- function(config, value) {
-  config_dir <- R_user_dir("myownhadley", "config")
+  config_dir <- R_user_dir("myownrobs", "config")
   if (!dir_exists(config_dir)) {
     dir_create(config_dir)
   }

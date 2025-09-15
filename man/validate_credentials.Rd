@@ -2,7 +2,7 @@
 % Please edit documentation in R/validate_credentials.R
 \name{validate_credentials}
 \alias{validate_credentials}
-\title{Validate MyOwnHadley Credentials}
+\title{Validate MyOwnRobs Credentials}
 \usage{
 validate_credentials(api_url, force = FALSE)
 }
@@ -12,6 +12,6 @@ validate_credentials(api_url, force = FALSE)
 \item{force}{Force validation altough there's an existing key.}
 }
 \description{
-Validate MyOwnHadley Credentials
+Validate MyOwnRobs Credentials
 }
 \keyword{internal}

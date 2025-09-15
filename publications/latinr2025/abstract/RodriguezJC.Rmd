@@ -1,5 +1,5 @@
 ---
-title: "MyOwnHadley: A Cursor-style AI Coding Agent for RStudio"
+title: "MyOwnRobs: A Cursor-style AI Coding Agent for RStudio"
 journal: "Latinamerican Conference About the Use of R in R&D"
 keywords: 
   - "AI assistant"
@@ -15,15 +15,15 @@ The rapid advancement of large language models (LLMs) has revolutionized softwar
 
 Notable efforts have been made to bring AI assistance to R developers through packages like {chattr} [@chattr] and {gptstudio} [@gptstudio], which provide valuable interfaces for interacting with language models within R. However, these tools primarily function as ask-and-edit interfaces rather than autonomous coding agents capable of executing complex multi-step workflows.
 
-**MyOwnHadley** addresses this gap by providing a comprehensive AI-powered coding agent that seamlessly integrates as an RStudio extension. This tool brings state-of-the-art AI capabilities directly to R developers' fingertips through an autonomous agent-based approach.
+**MyOwnRobs** addresses this gap by providing a comprehensive AI-powered coding agent that seamlessly integrates as an RStudio extension. This tool brings state-of-the-art AI capabilities directly to R developers' fingertips through an autonomous agent-based approach.
 
 ## Key Features
 
-The system implements an agent-based architecture that combines conversational AI with a comprehensive toolkit for R development. MyOwnHadley operates as a true coding agent with the following core functionality:
+The system implements an agent-based architecture that combines conversational AI with a comprehensive toolkit for R development. MyOwnRobs operates as a true coding agent with the following core functionality:
 
 1. **Integrated Chat Interface**: A Shiny-based UI that provides a familiar chat experience integrated directly into the IDE.
 
-2. **Intelligent Tool Selection**: The AI agent automatically determines which tools to use based on user requests, executing complex multi-step operations through natural language commands. This reasoning process is performed by MyOwnHadley's code-reasoning-model that analyzes user tasks and selects the optimal sequence of actions to accomplish them.
+2. **Intelligent Tool Selection**: The AI agent automatically determines which tools to use based on user requests, executing complex multi-step operations through natural language commands. This reasoning process is performed by MyOwnRobs's code-reasoning-model that analyzes user tasks and selects the optimal sequence of actions to accomplish them.
 
 3. **Code Execution Capabilities**: Direct R command execution in the current workspace, maintaining state and context.
 
@@ -35,7 +35,7 @@ The agent operates in autonomous mode where it analyzes user requests, selects a
 
 ## Impact and Applications
 
-MyOwnHadley transforms the R development experience by providing:
+MyOwnRobs transforms the R development experience by providing:
 
 - **Rapid Prototyping**: Natural language descriptions of desired functionality are automatically converted into working R code.
 - **Code Explanation and Documentation**: Existing code can be analyzed and documented through conversational queries.
@@ -44,7 +44,7 @@ MyOwnHadley transforms the R development experience by providing:
 
 ## Conclusion
 
-MyOwnHadley represents a significant step forward in making AI-assisted development accessible to the R community, democratizing advanced coding capabilities through autonomous agent technology and accelerating the development of data science and statistical applications. The tool is available as an open-source RStudio extension at [https://github.com/MyOwnHadley/myownhadley](https://github.com/MyOwnHadley/myownhadley).
+MyOwnRobs represents a significant step forward in making AI-assisted development accessible to the R community, democratizing advanced coding capabilities through autonomous agent technology and accelerating the development of data science and statistical applications. The tool is available as an open-source RStudio extension at [https://github.com/MyOwnRobs/myownrobs](https://github.com/MyOwnRobs/myownrobs).
 
 References {#references .unnumbered}
 ==========

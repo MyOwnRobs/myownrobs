@@ -1,4 +1,4 @@
-#' Validate MyOwnHadley Credentials
+#' Validate MyOwnRobs Credentials
 #'
 #' @param api_url The API URL to use for requests.
 #' @param force Force validation altough there's an existing key.
@@ -39,16 +39,16 @@ validate_credentials <- function(api_url, force = FALSE) {
       },
       error = function(e) {
         # Handle any errors during the authentication process
-        stop("Please login to MyOwnHadley. Error: ", e$message)
+        stop("Please login to MyOwnRobs. Error: ", e$message)
       }
     )
   }
   return()
 }
 
-#' Save MyOwnHadley Credentials Locally
+#' Save MyOwnRobs Credentials Locally
 #'
-#' @param api_key The MyOwnHadley API key to save locally.
+#' @param api_key The MyOwnRobs API key to save locally.
 #'
 #' @keywords internal
 #'
@@ -60,14 +60,14 @@ save_api_key <- function(api_key) {
   # Read existing .Renviron file if it exists.
   if (file.exists(renviron_path)) {
     lines <- readLines(renviron_path)
-    # Remove any existing MYOWNHADLEY_API_KEY line to prevent duplicates.
-    lines <- lines[!grepl("^MYOWNHADLEY_API_KEY=", lines)]
+    # Remove any existing MYOWNROBS_API_KEY line to prevent duplicates.
+    lines <- lines[!grepl("^MYOWNROBS_API_KEY=", lines)]
   } else {
     # If .Renviron doesn't exist, start with an empty character vector.
     lines <- character(0)
   }
   # Add the new API key to the lines.
-  lines <- c(lines, paste0("MYOWNHADLEY_API_KEY=", api_key))
+  lines <- c(lines, paste0("MYOWNROBS_API_KEY=", api_key))
   # Write all lines back to the .Renviron file.
   writeLines(lines, renviron_path)
   # Inform the user about the update.

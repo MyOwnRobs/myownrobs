@@ -1,4 +1,4 @@
-Name: MyOwnHadley
-Description: Open MyOwnHadley chat interface
-Binding: myownhadley
+Name: MyOwnRobs
+Description: Open MyOwnRobs chat interface
+Binding: myownrobs
 Interactive: true

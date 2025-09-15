@@ -1,4 +1,4 @@
-#' Validate MyOwnHadley Policy Acceptance
+#' Validate MyOwnRobs Policy Acceptance
 #'
 #' Checks if the user already accepted the usage policy. If the user didn't it prompts the policies.
 #'
@@ -8,7 +8,7 @@
 #' @keywords internal
 #'
 validate_policy_acceptance <- function() {
-  policy <- read_yaml(system.file(".", "policy.yaml", package = "myownhadley"))
+  policy <- read_yaml(system.file(".", "policy.yaml", package = "myownrobs"))
   accepted <- isTRUE(as.numeric(get_config("accepted_policy")) >= policy$version)
   if (!accepted) {
     accepted <- runGadget(policy_ui(policy), policy_server(policy))

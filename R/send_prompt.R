@@ -8,7 +8,7 @@
 #' @param project_context The context of the session executing the addin, obtained with
 #'   `get_project_context()`.
 #' @param api_url The API URL to use for requests.
-#' @param api_key The API key for MyOwnHadley, obtained with `get_api_key()`.
+#' @param api_key The API key for MyOwnRobs, obtained with `get_api_key()`.
 #'
 #' @importFrom httr2 req_body_json req_headers req_perform req_url_path_append request
 #' @importFrom httr2 resp_body_string
@@ -48,7 +48,7 @@ send_prompt <- function(chat_id, prompt, role, mode, model, project_context, api
 #' @param project_context The context of the session executing the addin, obtained with
 #'   `get_project_context()`.
 #' @param api_url The API URL to use for requests.
-#' @param api_key The API key for MyOwnHadley, obtained with `get_api_key()`.
+#' @param api_key The API key for MyOwnRobs, obtained with `get_api_key()`.
 #'
 #' @importFrom mirai mirai
 #'

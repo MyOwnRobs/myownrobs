@@ -13,14 +13,14 @@ settings_module <- function(id, r_trigger) {
   moduleServer(id, function(input, output, session) {
     settings_modal <- modalDialog(
       title = "Settings",
-      checkboxInput(session$ns("open_at_startup"), "Open MyOwnHadley at RStudio startup"),
+      checkboxInput(session$ns("open_at_startup"), "Open MyOwnRobs at RStudio startup"),
       footer = tagList(
         actionButton(session$ns("save_settings"), "Save", class = "btn-save"),
         actionButton(session$ns("close"), "Close", class = "btn-close"),
         actionButton(
           session$ns("set_shortcut"),
           paste0(
-            "Assign the keyboard shortcut 'Ctrl+M' to open MyOwnHadley ",
+            "Assign the keyboard shortcut 'Ctrl+M' to open MyOwnRobs ",
             "(it will work after restarting RStudio)"
           ),
           class = "btn-close"
@@ -43,11 +43,11 @@ settings_module <- function(id, r_trigger) {
       showModal(settings_modal)
     })
     observeEvent(input$set_shortcut, {
-      use_rstudio_keyboard_shortcut("Ctrl+M" = "myownhadley::myownhadley", .backup = FALSE)
+      use_rstudio_keyboard_shortcut("Ctrl+M" = "myownrobs::myownrobs", .backup = FALSE)
     })
     # Persist settings and close modal when save is clicked.
     observeEvent(input$save_settings, {
-      # Edit .Rprofile only if the user wants to execute MyOwnHadley at startup.
+      # Edit .Rprofile only if the user wants to execute MyOwnRobs at startup.
       if (isTRUE(input$open_at_startup)) {
         save_run_at_startup()
       }
@@ -60,7 +60,7 @@ settings_module <- function(id, r_trigger) {
   })
 }
 
-#' Save Run MyOwnHadley At Startup
+#' Save Run MyOwnRobs At Startup
 #'
 #' @keywords internal
 #'
@@ -72,20 +72,20 @@ save_run_at_startup <- function() {
   # Read existing .Rprofile file if it exists.
   if (file.exists(rprofile_path)) {
     lines <- readLines(rprofile_path)
-    if (any(grepl("myownhadley:::get_config", lines))) {
+    if (any(grepl("myownrobs:::get_config", lines))) {
       return()
     }
   }
   # Add the new API key to the lines.
   lines <- c(lines, paste0(
     'setHook("rstudio.sessionInit", function(...) ',
-    'requireNamespace("myownhadley", quietly = TRUE) && ',
-    'isTRUE(myownhadley:::get_config("open_at_startup") == "TRUE") && ',
-    "myownhadley::myownhadley()",
+    'requireNamespace("myownrobs", quietly = TRUE) && ',
+    'isTRUE(myownrobs:::get_config("open_at_startup") == "TRUE") && ',
+    "myownrobs::myownrobs()",
     ', action = "append")'
   ))
   # Write all lines back to the .Rprofile file.
   writeLines(lines, rprofile_path)
   # Inform the user about the update.
-  message("MyOwnHadley startup script stored in ~/.Rprofile")
+  message("MyOwnRobs startup script stored in ~/.Rprofile")
 }

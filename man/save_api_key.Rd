@@ -2,14 +2,14 @@
 % Please edit documentation in R/validate_credentials.R
 \name{save_api_key}
 \alias{save_api_key}
-\title{Save MyOwnHadley Credentials Locally}
+\title{Save MyOwnRobs Credentials Locally}
 \usage{
 save_api_key(api_key)
 }
 \arguments{
-\item{api_key}{The MyOwnHadley API key to save locally.}
+\item{api_key}{The MyOwnRobs API key to save locally.}
 }
 \description{
-Save MyOwnHadley Credentials Locally
+Save MyOwnRobs Credentials Locally
 }
 \keyword{internal}

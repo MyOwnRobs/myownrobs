@@ -1,9 +1,9 @@
 version: 1
-title: MyOwnHadley - Terms of Use
+title: MyOwnRobs - Terms of Use
 content: |
-  **MyOwnHadley - Data and File Permissions:**
-  * **Configuration:** MyOwnHadley stores its API key in your `~/.Renviron` and other settings in `tools::R_user_dir("myownhadley", "config")`
-  * **Agent Mode:** When you select MyOwnHadley's Agent mode, you grant the **AI model you select** the permission to execute R commands and interact with your filesystem (e.g., creating or modifying files).
-  * **Disclaimer:** MyOwnHadley facilitates this process but is not responsible for the actions or consequences of the AI model's code execution. You are solely responsible for actions performed by the Agent.
+  **MyOwnRobs - Data and File Permissions:**
+  * **Configuration:** MyOwnRobs stores its API key in your `~/.Renviron` and other settings in `tools::R_user_dir("myownrobs", "config")`
+  * **Agent Mode:** When you select MyOwnRobs's Agent mode, you grant the **AI model you select** the permission to execute R commands and interact with your filesystem (e.g., creating or modifying files).
+  * **Disclaimer:** MyOwnRobs facilitates this process but is not responsible for the actions or consequences of the AI model's code execution. You are solely responsible for actions performed by the Agent.
 
   By using this package, you accept these terms and your LLM provider's terms of service.

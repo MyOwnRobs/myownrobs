@@ -1,14 +1,14 @@
-#' Launch MyOwnHadley
+#' Launch MyOwnRobs
 #'
 #' Open the RStudio addin with the chat interface.
 #'
 #' @param api_url The API URL to use for requests.
 #'
-#' @return No return value. Called for its side effects to launch the MyOwnHadley RStudio addin.
+#' @return No return value. Called for its side effects to launch the MyOwnRobs RStudio addin.
 #'
 #' @examples
 #' if (interactive()) {
-#'   myownhadley()
+#'   myownrobs()
 #' }
 #'
 #' @importFrom shiny runGadget
@@ -16,18 +16,18 @@
 #'
 #' @export
 #'
-myownhadley <- function(api_url = paste0(
-                          "https://myownhadley.com/api/v", packageVersion("myownhadley")$major
-                        )) {
+myownrobs <- function(api_url = paste0(
+                        "https://myownhadley.com/api/v", packageVersion("myownrobs")$major
+                      )) {
   if (!validate_policy_acceptance()) {
-    return("Accept MyOwnHadley terms of use in order to run it")
+    return("Accept MyOwnRobs terms of use in order to run it")
   }
   validate_credentials(api_url)
-  runGadget(myownhadley_ui(), myownhadley_server(api_url))
+  runGadget(myownrobs_ui(), myownrobs_server(api_url))
   invisible()
 }
 
-#' MyOwnHadley Shiny UI
+#' MyOwnRobs Shiny UI
 #'
 #' @importFrom rstudioapi getThemeInfo
 #' @importFrom shiny actionButton div icon includeCSS selectInput span tagList tags textAreaInput
@@ -35,14 +35,14 @@ myownhadley <- function(api_url = paste0(
 #'
 #' @keywords internal
 #'
-myownhadley_ui <- function() {
+myownrobs_ui <- function() {
   tagList(
     tags$link(
       rel = "stylesheet",
       href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
     ),
     # Include a single stylesheet that contains both light and dark variables.
-    includeCSS(system.file("app", "style.css", package = "myownhadley")),
+    includeCSS(system.file("app", "style.css", package = "myownrobs")),
     tags$script(paste0(
       "document.documentElement.classList.toggle('dark', ",
       tolower(isTRUE(getThemeInfo()$dark)),
@@ -132,7 +132,7 @@ myownhadley_ui <- function() {
   )
 }
 
-#' MyOwnHadley Shiny Server
+#' MyOwnRobs Shiny Server
 #'
 #' @param api_url The API URL to use for requests.
 #'
@@ -144,7 +144,7 @@ myownhadley_ui <- function() {
 #'
 #' @keywords internal
 #'
-myownhadley_server <- function(api_url) {
+myownrobs_server <- function(api_url) {
   function(input, output, session) {
     # Initialize r_chat_id with persistence.
     initial_chat_id <- get_config("chat_id")
@@ -270,7 +270,7 @@ myownhadley_server <- function(api_url) {
         # If the maximum number of AI tool iterations has been reached, prompt the user.
         if (r_ai_iterations() >= max_ai_iterations) {
           new_msgs <- c(list(list(role = "assistant", text = paste0(
-            "**MyOwnHadley** has been working on this problem for a while. It can continue to ",
+            "**MyOwnRobs** has been working on this problem for a while. It can continue to ",
             "iterate, or you can send a new message to refine your prompt. Continue to iterate?"
           ))), r_messages())
           r_messages(new_msgs)

@@ -1,11 +1,11 @@
 
-# MyOwnHadley <a href="https://myownhadley.github.io/myownhadley/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# MyOwnRobs <a href="https://myownrobs.github.io/myownrobs/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 *By R users for R users*
 
 **A Cursor-style AI Coding Agent for RStudio**
 
-MyOwnHadley is a comprehensive AI-powered coding agent that seamlessly
+MyOwnRobs is a comprehensive AI-powered coding agent that seamlessly
 integrates as an RStudio extension, bringing state-of-the-art AI
 capabilities directly to R developers through an autonomous agent-based
 approach.
@@ -30,21 +30,21 @@ approach.
 
 ## 📦 Installation
 
-Install the development version of `{myownhadley}` from
-[GitHub](https://github.com/MyOwnHadley/myownhadley) with:
+Install the development version of `{myownrobs}` from
+[GitHub](https://github.com/MyOwnRobs/myownrobs) with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("MyOwnHadley/myownhadley")
+remotes::install_github("MyOwnRobs/myownrobs")
 ```
 
 ## 🎯 Getting Started
 
 1.  **Launch the Agent**: After installation, you can launch the agent
-    by calling `myownhadley::myownhadley()` in the R console, or by
-    opening the MyOwnHadley addin through the RStudio Addins menu:
-    - Go to `Addins` \> `MyOwnHadley` in RStudio
-    - Or use the command palette: `Ctrl/Cmd + Shift + P` → “MyOwnHadley”
+    by calling `myownrobs::myownrobs()` in the R console, or by opening
+    the MyOwnRobs addin through the RStudio Addins menu:
+    - Go to `Addins` \> `MyOwnRobs` in RStudio
+    - Or use the command palette: `Ctrl/Cmd + Shift + P` → “MyOwnRobs”
 2.  **Start Coding**: Simply describe what you want to accomplish in
     natural language:
     - “Create a function to clean this dataset”
@@ -55,13 +55,13 @@ remotes::install_github("MyOwnHadley/myownhadley")
 ## 🔒 Data Privacy
 
 Your data privacy is important to us. Here’s a concise overview of
-MyOwnHadley’s data practices:
+MyOwnRobs’s data practices:
 
-- MyOwnHadley only stores per user their last active session, to
-  maintain continuous functionality between chat sessions and
-  RStudio/addin restarts.
+- MyOwnRobs only stores per user their last active session, to maintain
+  continuous functionality between chat sessions and RStudio/addin
+  restarts.
 
-- MyOwnHadley’s API is developed using Next.js, and all services are
+- MyOwnRobs’s API is developed using Next.js, and all services are
   hosted on Google Cloud Platform.
 
 - The API’s sole responsibility is to receive user’s prompt, enhance it
@@ -70,10 +70,10 @@ MyOwnHadley’s data practices:
   model responses on our servers beyond what is necessary for active
   session management.
 
-**Our recommendation**: We recommend using MyOwnHadley with a project
-only if you are comfortable with the possibility of submitting its
-entire contents to your selected AI model provider, as the agent may
-access various files for comprehensive assistance.
+**Our recommendation**: We recommend using MyOwnRobs with a project only
+if you are comfortable with the possibility of submitting its entire
+contents to your selected AI model provider, as the agent may access
+various files for comprehensive assistance.
 
 **Model Provider Data Policies**
 
@@ -82,7 +82,7 @@ access various files for comprehensive assistance.
 We’ve strived to keep this section brief and clear. If you have any
 further questions or concerns about data privacy, please don’t hesitate
 to [submit an issue on our GitHub
-tracker](https://github.com/MyOwnHadley/myownhadley/issues). We will
+tracker](https://github.com/MyOwnRobs/myownrobs/issues). We will
 thankfully address your inquiries and update this section as needed.
 
 ## 🤝 Contributing
@@ -92,7 +92,7 @@ For major changes, please open an issue first to discuss what you would
 like to change.
 
 Bug reports and new ideas or features are more than welcome at the
-[issue tracker](https://github.com/MyOwnHadley/myownhadley/issues).
+[issue tracker](https://github.com/MyOwnRobs/myownrobs/issues).
 
 ## 📄 License
 
@@ -101,5 +101,5 @@ This project is licensed under the MIT License - see the
 
 ------------------------------------------------------------------------
 
-**MyOwnHadley** - Democratizing AI-assisted development for the R
+**MyOwnRobs** - Democratizing AI-assisted development for the R
 community 🎉

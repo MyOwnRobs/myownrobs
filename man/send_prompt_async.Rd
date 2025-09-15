@@ -31,7 +31,7 @@ send_prompt_async(
 
 \item{api_url}{The API URL to use for requests.}
 
-\item{api_key}{The API key for MyOwnHadley, obtained with `get_api_key()`.}
+\item{api_key}{The API key for MyOwnRobs, obtained with `get_api_key()`.}
 }
 \description{
 Asynchronously Send Prompt to the LLM

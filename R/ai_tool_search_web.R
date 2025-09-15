@@ -7,7 +7,7 @@ search_web <- function(args) {
   search_url <- paste0(
     "https://api.duckduckgo.com/?q=",
     URLencode(args$query, reserved = TRUE),
-    "&no_redirect=0&no_html=0&format=json&skip_disambig=0&t=myownhadley"
+    "&no_redirect=0&no_html=0&format=json&skip_disambig=0&t=myownrobs"
   )
   search_res <- fromJSON(search_url)
   result <- search_res[c("AbstractText", "AbstractURL", "Infobox", "RelatedTopics", "Results")]
