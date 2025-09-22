@@ -11,6 +11,6 @@ set_initial_project(restore = FALSE)
 store in R's temp dir.}
 }
 \description{
-Wether to save the initial state or to restore it.
+Whether to save the initial state or to restore it.
 }
 \keyword{internal}

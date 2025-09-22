@@ -9,7 +9,7 @@ test_that("fetch_url_content - invalid url", {
 })
 
 test_that("fetch_url_content - valid url", {
-  skip_if_offline()
+  skip_if_offline("github.com")
   url_content <- fetch_url_content(list(url = "https://github.com/MyOwnRobs/myownrobs"))
   expect_true(grepl("MyOwnRobs", url_content$output))
 })

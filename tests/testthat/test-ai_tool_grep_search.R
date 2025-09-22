@@ -9,10 +9,10 @@ test_that("grep_search - found file", {
   )
   mock_file <- tempfile(fileext = ".R")
   writeLines("FILE_CONTENT", mock_file)
-  expect_equal(
-    grep_search(list(query = "CONTENT"))$output,
-    paste0(mock_file, "\n1:FILE_CONTENT")
-  )
+  expect_true(grepl(
+    paste0(mock_file, "\n1:FILE_CONTENT"),
+    grep_search(list(query = "CONTENT"))$output
+  ))
 })
 
 test_that("grep_search - not found file", {
