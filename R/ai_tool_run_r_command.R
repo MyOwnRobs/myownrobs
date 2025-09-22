@@ -4,7 +4,7 @@ run_r_command <- function(args) {
     stop("Invalid arguments for RunRCommand")
   }
   output <- paste(
-    capture.output(eval(parse(text = args$command), envir = .GlobalEnv)),
+    capture.output(eval(parse(text = args$command), envir = new.env(parent = .GlobalEnv))),
     collapse = "\n"
   )
   list(output = output)
