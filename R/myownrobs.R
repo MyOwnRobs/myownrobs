@@ -2,13 +2,16 @@
 #'
 #' Open the RStudio addin with the chat interface.
 #'
-#' @param api_url The API URL to use for requests.
+#' @param api_url The API URL to use for requests. This parameter is for advanced users who want to
+#'   specify an alternative backend URL and is rarely needed.
 #'
 #' @return No return value. Called for its side effects to launch the MyOwnRobs RStudio addin.
 #'
 #' @examples
 #' if (interactive()) {
 #'   myownrobs()
+#'   # Specify the API URL.
+#'   myownrobs("https://myownhadley.com/api/v0")
 #' }
 #'
 #' @importFrom shiny runGadget

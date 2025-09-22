@@ -1,0 +1,25 @@
+test_that("grep_search - invalid args", {
+  expect_error(grep_search(list()), "Invalid arguments for GrepSearch")
+})
+
+test_that("grep_search - found file", {
+  local_mocked_bindings(
+    getActiveProject = function(...) tempdir(),
+    .package = "myownrobs"
+  )
+  mock_file <- tempfile(fileext = ".R")
+  writeLines("FILE_CONTENT", mock_file)
+  expect_equal(
+    grep_search(list(query = "CONTENT"))$output,
+    paste0(mock_file, "\n1:FILE_CONTENT")
+  )
+})
+
+test_that("grep_search - not found file", {
+  local_mocked_bindings(
+    getActiveProject = function(...) tempdir(),
+    .package = "myownrobs"
+  )
+  writeLines("FILE_CONTENT", tempfile(fileext = ".R"))
+  expect_equal(grep_search(list(query = "OTHER_STUFF"))$output, "")
+})

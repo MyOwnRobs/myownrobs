@@ -1,6 +1,6 @@
 #' Set the Initial State of the Project
 #'
-#' Wether to save the initial state or to restore it.
+#' Whether to save the initial state or to restore it.
 #'
 #' @param restore If TRUE, it will restore the initial state. If FALSE, it will save the initial
 #'   store in R's temp dir.

@@ -3,6 +3,13 @@
 
 *By R users for R users*
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/jcrodriguez1989/myownhadley/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jcrodriguez1989/myownhadley/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/jcrodriguez1989/myownhadley/graph/badge.svg)](https://app.codecov.io/gh/jcrodriguez1989/myownhadley)
+<!-- badges: end -->
+
 **A Cursor-style AI Coding Agent for RStudio**
 
 MyOwnRobs is a comprehensive AI-powered coding agent that seamlessly

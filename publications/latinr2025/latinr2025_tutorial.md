@@ -12,25 +12,25 @@ AI-assisted coding, R, package development, Shiny, Quarto
 
 _The summary should explicitly state the tutorial's learning objectives (https://teachtogether.tech/en/#s:process-objectives) and the relevance or usefulness of what is taught in the tutorial._
 
-This hands-on tutorial will introduce R users to the transformative power of AI-assisted coding, specifically within the RStudio environment. We will cover how to use AI-powered coding assistants to accelerate a variety of tasks, from generating boilerplate code and debugging scripts to building professional R packages.
+This hands-on tutorial will introduce R users to the transformative power of AI-assisted coding, specifically within the RStudio IDE. We will cover how to use AI-powered coding assistants to accelerate a variety of tasks, from generating boilerplate code and debugging scripts to building professional R packages.
 
 Upon completion of this tutorial, participants will be able to:
 
-* Articulate the benefits and limitations of using AI for code generation in R.
+* Grasp the benefits and limitations of using AI for code generation in R.
 
-* Configure and effectively utilize an AI-powered coding assistant within RStudio.
+* Configure and use an AI-powered coding assistant within RStudio.
 
-* Apply AI tools to write, debug, and refactor R functions and scripts more efficiently.
+* Apply AI tools to write, debug, and refactor R functions and scripts efficiently.
 
 * Leverage AI to automatically generate Quarto and R Markdown reports.
 
-* Utilize AI to assist in developing interactive Shiny applications.
+* Develop interactive Shiny applications with AI assistance.
 
-* Employ AI tools to streamline the process of turning R scripts into reusable R packages.
+* Streamline the process of turning R scripts into reusable R packages.
 
-* Create a personal workflow that seamlessly integrates AI for increased productivity.
+* Create a personal workflow that integrates AI for increased productivity.
 
-The ability to harness AI is quickly becoming a core skill for data professionals and researchers. This tutorial provides a practical and focused introduction, enabling attendees to immediately apply these techniques to their daily work, saving time and reducing cognitive load on routine tasks.
+Knowing how to take advantage of AI tools is becoming a core skill for data professionals and researchers. This tutorial provides a practical and focused introduction, enabling attendees to immediately apply these techniques to their daily work, saving time and reducing cognitive load on routine tasks.
 
 **Who is the tutorial for?**
 
@@ -46,7 +46,7 @@ To get the most out of this learning opportunity, participants should have:
 
 * Experience writing simple R functions and scripts.
 
-Target Persona: Our primary persona is "Cruz, the Aspiring Researcher." Cruz is a graduate student who is proficient in R, but finds the coding process to be slow and manual. Cruz is motivated to learn new tools and techniques that can help write cleaner, more efficient code. This would allow Cruz to spend less time on coding logistics and more time on the core tasks of research, analysis, and publication.
+Target Persona: Our primary persona is "Cruz, the Aspiring Researcher." Cruz is a graduate student who is proficient in R, but finds the coding process to be slow, repetitive, and manual. Cruz is motivated to learn new tools and techniques that can help write cleaner, more efficient code. This would allow Cruz to spend less time on coding logistics and more time on the core tasks of research, analysis, and publication.
 
 **How long will the tutorial last?**
 
@@ -56,7 +56,7 @@ Target Persona: Our primary persona is "Cruz, the Aspiring Researcher." Cruz is 
 
 _Please indicate how the time will be organized. Explain the moments or activities that involve practical work or interaction, as well as breaks, if any._
 
-This is a hands-on tutorial with a focus on practical application. The time will be organized as follows:
+This is a hands-on tutorial with a focus on practical applications. The time will be organized as follows:
 
 Part 1: Introduction to AI-Assisted Coding in R (15 minutes)
 
@@ -111,3 +111,9 @@ _(minimum R version, packages that need to be installed, if any minimum RAM or s
 **Preparation Materials:**
 
 A setup guide and sample dataset will be provided 1 week before the tutorial to ensure all participants can hit the ground running.
+
+
+
+**Juan Cruz Rodriguez**: PhD in Computer Science with over 10 years of R programming experience, including 5 years in the software industry developing production pipelines and applications. Author of the R packages `{chatgpt}` and `{myownrobs}`, specializing in AI-assisted programming workflows and tools that enhance developer productivity in R environments.
+
+**Luis D. Verde Arregoitia**: PhD in Biology with extensive R programming experience in data analysis, visualization, and statistical modeling. Author of "Large Language Model tools for R" a comprehensive guide to AI-assisted programming workflows. Specializes in integrating AI tools into research pipelines and teaching practical applications of LLMs for data science and reproducible research.

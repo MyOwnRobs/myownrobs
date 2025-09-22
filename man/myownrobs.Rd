@@ -9,7 +9,8 @@ myownrobs(
 )
 }
 \arguments{
-\item{api_url}{The API URL to use for requests.}
+\item{api_url}{The API URL to use for requests. This parameter is for advanced users who want to
+specify an alternative backend URL and is rarely needed.}
 }
 \value{
 No return value. Called for its side effects to launch the MyOwnRobs RStudio addin.
@@ -20,6 +21,8 @@ Open the RStudio addin with the chat interface.
 \examples{
 if (interactive()) {
   myownrobs()
+  # Specify the API URL.
+  myownrobs("https://myownhadley.com/api/v0")
 }
 
 }
