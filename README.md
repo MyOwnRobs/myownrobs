@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/jcrodriguez1989/myownhadley/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jcrodriguez1989/myownhadley/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/MyOwnRobs/myownrobs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MyOwnRobs/myownrobs/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/jcrodriguez1989/myownhadley/graph/badge.svg)](https://app.codecov.io/gh/jcrodriguez1989/myownhadley)
+coverage](https://codecov.io/gh/MyOwnRobs/myownrobs/graph/badge.svg)](https://app.codecov.io/gh/MyOwnRobs/myownrobs)
 <!-- badges: end -->
 
 **A Cursor-style AI Coding Agent for RStudio**
