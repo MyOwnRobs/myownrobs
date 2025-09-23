@@ -4,12 +4,14 @@
 \alias{execute_llm_tools}
 \title{Execute LLM tools}
 \usage{
-execute_llm_tools(tools, mode)
+execute_llm_tools(tools, mode, max_tool_run_time = Inf)
 }
 \arguments{
 \item{tools}{A list of tools to execute}
 
 \item{mode}{The mode of operation, one of "agent" or "ask".}
+
+\item{max_tool_run_time}{Maximum seconds an AI tool can run before getting killed.}
 }
 \description{
 Execute LLM tools
