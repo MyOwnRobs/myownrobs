@@ -30,6 +30,8 @@ myownrobs <- function(api_url = paste0(
   invisible()
 }
 
+# nocov start
+
 #' MyOwnRobs Shiny UI
 #'
 #' @importFrom rstudioapi getThemeInfo
@@ -331,3 +333,5 @@ myownrobs_server <- function(api_url) {
     })
   }
 }
+
+# nocov end

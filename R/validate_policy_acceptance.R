@@ -16,6 +16,8 @@ validate_policy_acceptance <- function() {
   accepted
 }
 
+# nocov start
+
 #' Policy Acceptance Shiny UI
 #'
 #' @param policy A list with the policy.
@@ -54,3 +56,5 @@ policy_server <- function(policy) {
     })
   }
 }
+
+# nocov end

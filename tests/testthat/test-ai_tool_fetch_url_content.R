@@ -13,3 +13,11 @@ test_that("fetch_url_content - valid url", {
   url_content <- fetch_url_content(list(url = "https://github.com/MyOwnRobs/myownrobs"))
   expect_true(grepl("MyOwnRobs", url_content$output))
 })
+
+test_that("fetch_url_content - truncated url", {
+  skip_if_offline("wikipedia.org")
+  url_content <- fetch_url_content(list(
+    url = "https://es.wikipedia.org/wiki/Instituto_Atl%C3%A9tico_Central_C%C3%B3rdoba"
+  ))
+  expect_true(grepl("...[truncated]...", url_content$output))
+})

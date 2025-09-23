@@ -1,3 +1,11 @@
+test_that("read_currently_open_file - invalid args", {
+  local_mocked_bindings(
+    validate_command_args = function(...) FALSE,
+    .package = "myownrobs"
+  )
+  expect_error(read_currently_open_file(list()), "Invalid arguments for ReadCurrentlyOpenFile")
+})
+
 test_that("read_currently_open_file - no file open", {
   local_mocked_bindings(
     getSourceEditorContext = function(...) NULL,

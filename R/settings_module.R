@@ -1,3 +1,5 @@
+# nocov start
+
 #' Settings Module
 #'
 #' @param id Module id.
@@ -59,6 +61,8 @@ settings_module <- function(id, r_trigger) {
     observeEvent(input$close, session$sendCustomMessage("set-modal-display", "none"))
   })
 }
+
+# nocov end
 
 #' Save Run MyOwnRobs At Startup
 #'
