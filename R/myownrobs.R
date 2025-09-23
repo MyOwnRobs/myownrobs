@@ -164,6 +164,7 @@ myownrobs_server <- function(api_url) {
     r_messages <- reactiveVal(fromJSON(get_config("session_msgs"), simplifyVector = FALSE))
     r_running_prompt <- reactiveVal(NULL) # Stores the promise for an ongoing AI prompt execution.
     max_ai_iterations <- 15 # Maximum number of consecutive AI tool iterations.
+    max_tool_run_time <- 300 # Maximum seconds an AI tool can run before getting killed.
     r_ai_iterations <- reactiveVal(0) # Current count of AI tool iterations.
     max_retries <- 3 # Maximum number of retries for parsing invalid AI responses.
     r_retries <- reactiveVal(0) # Current count of retries for the active prompt.
@@ -283,7 +284,7 @@ myownrobs_server <- function(api_url) {
           return()
         }
         # Execute the parsed tools and get a new prompt for the next AI iteration.
-        execution <- execute_llm_tools(parsed$tools, input$ai_mode)
+        execution <- execute_llm_tools(parsed$tools, input$ai_mode, max_tool_run_time)
         prompt <- execution$ai
         # Add executed steps to the chat UI.
         lapply(execution$ui, function(step) {
