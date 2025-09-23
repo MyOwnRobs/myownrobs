@@ -2,12 +2,13 @@
 #'
 #' @param tools A list of tools to execute
 #' @param mode The mode of operation, one of "agent" or "ask".
+#' @param max_tool_run_time Maximum seconds an AI tool can run before getting killed.
 #'
 #' @importFrom glue glue
 #'
 #' @keywords internal
 #'
-execute_llm_tools <- function(tools, mode) {
+execute_llm_tools <- function(tools, mode, max_tool_run_time = Inf) {
   execution <- lapply(tools, function(tool) {
     # Retrieve the command definition from the global 'llm_commands' list using the tool's name.
     command <- llm_commands[[tool$name]]
@@ -19,7 +20,14 @@ execute_llm_tools <- function(tools, mode) {
     # Execute the command's designated function with its arguments.
     # The execution is wrapped in a try-catch block to handle potential errors silently,
     # and the result (or error) is stored in the tool's 'output' slot.
-    tool$output <- try(command$execute(tool$args), silent = TRUE)
+    tool$output <- try({
+      setTimeLimit(elapsed = max_tool_run_time)
+      on.exit(setTimeLimit(elapsed = Inf))
+      command$execute(tool$args)
+    }, silent = TRUE)
+    if (inherits(tool$output, "try-error")) {
+      tool$output <- as.character(tool$output)
+    }
     list(execution = tool, ui = glue(command$has_already, .envir = as.environment(tool$args)))
   })
   ai <- list(tools = lapply(execution, function(x) x$execution))

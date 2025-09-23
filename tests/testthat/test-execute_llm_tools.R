@@ -44,3 +44,25 @@ test_that("execute_llm_tools - run 2 tools", {
     )
   )
 })
+
+test_that("execute_llm_tools - run 2 tools timeout one", {
+  tools <- list(
+    list(name = "RunRCommand", args = list(command = "Sys.sleep(0.1); print('hey!')")),
+    list(name = "RunRCommand", args = list(command = "Sys.sleep(0.5); print('second command!')"))
+  )
+  mode <- "agent"
+  result <- execute_llm_tools(tools, mode, 0.2)
+  expected <- tools
+  expected[[1]]$output$output <- '[1] "hey!"'
+  expected[[2]]$output <- 'Error in Sys.sleep(0.5) : reached elapsed time limit\n'
+  expect_equal(
+    result,
+    list(
+      ai = list(tools = expected),
+      ui = list(
+        "Ran the R command: `Sys.sleep(0.1); print('hey!')`",
+        "Ran the R command: `Sys.sleep(0.5); print('second command!')`"
+      )
+    )
+  )
+})
