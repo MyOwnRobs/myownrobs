@@ -45,7 +45,7 @@ test_that("execute_llm_tools - run 2 tools", {
   )
 })
 
-test_that("execute_llm_tools - run 2 tools timeout one", {
+test_that("execute_llm_tools - run 2 tools, timeout one", {
   tools <- list(
     list(name = "RunRCommand", args = list(command = "Sys.sleep(0.1); print('hey!')")),
     list(name = "RunRCommand", args = list(command = "Sys.sleep(0.5); print('second command!')"))

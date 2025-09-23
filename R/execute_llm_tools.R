@@ -20,14 +20,15 @@ execute_llm_tools <- function(tools, mode, max_tool_run_time = Inf) {
     # Execute the command's designated function with its arguments.
     # The execution is wrapped in a try-catch block to handle potential errors silently,
     # and the result (or error) is stored in the tool's 'output' slot.
-    tool$output <- try({
+    output <- try({
       setTimeLimit(elapsed = max_tool_run_time)
       on.exit(setTimeLimit(elapsed = Inf))
       command$execute(tool$args)
     }, silent = TRUE)
-    if (inherits(tool$output, "try-error")) {
-      tool$output <- as.character(tool$output)
+    if (inherits(output, "try-error")) {
+      output <- as.character(output)
     }
+    tool$output <- output
     list(execution = tool, ui = glue(command$has_already, .envir = as.environment(tool$args)))
   })
   ai <- list(tools = lapply(execution, function(x) x$execution))
