@@ -45,24 +45,22 @@ test_that("execute_llm_tools - run 2 tools", {
   )
 })
 
-test_that("execute_llm_tools - run 2 tools, timeout one", {
-  tools <- list(
-    list(name = "RunRCommand", args = list(command = "Sys.sleep(0.1); print('hey!')")),
-    list(name = "RunRCommand", args = list(command = "Sys.sleep(0.5); print('second command!')"))
+test_that("execute_llm_tools - run tool with timeout", {
+  local_mocked_bindings(
+    execute_with_timeout = function(...) stop("reached elapsed time limit"),
+    .package = "myownrobs"
   )
+  tools <- list(list(name = "RunRCommand", args = list(command = "Sys.sleep(1); print('hey!')")))
   mode <- "agent"
-  result <- execute_llm_tools(tools, mode, 0.2)
+  result <- execute_llm_tools(tools, mode)
   expected <- tools
-  expected[[1]]$output$output <- '[1] "hey!"'
-  expected[[2]]$output <- 'Error in Sys.sleep(0.5) : reached elapsed time limit\n'
+  expected[[1]]$output <- "reached elapsed time limit"
   expect_equal(
     result,
-    list(
-      ai = list(tools = expected),
-      ui = list(
-        "Ran the R command: `Sys.sleep(0.1); print('hey!')`",
-        "Ran the R command: `Sys.sleep(0.5); print('second command!')`"
-      )
-    )
+    list(ai = list(tools = expected), ui = list("Ran the R command: `Sys.sleep(1); print('hey!')`"))
   )
+})
+
+test_that("execute_with_timeout - no timeout", {
+  expect_equal(execute_with_timeout(420, Inf), 420)
 })

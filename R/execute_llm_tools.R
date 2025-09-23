@@ -20,13 +20,12 @@ execute_llm_tools <- function(tools, mode, max_tool_run_time = Inf) {
     # Execute the command's designated function with its arguments.
     # The execution is wrapped in a try-catch block to handle potential errors silently,
     # and the result (or error) is stored in the tool's 'output' slot.
-    output <- try({
-      setTimeLimit(elapsed = max_tool_run_time)
-      on.exit(setTimeLimit(elapsed = Inf))
-      command$execute(tool$args)
-    }, silent = TRUE)
+    output <- try(
+      execute_with_timeout(command$execute(tool$args), max_tool_run_time),
+      silent = TRUE
+    )
     if (inherits(output, "try-error")) {
-      output <- as.character(output)
+      output <- attr(output, "condition")$message
     }
     tool$output <- output
     list(execution = tool, ui = glue(command$has_already, .envir = as.environment(tool$args)))
@@ -34,4 +33,19 @@ execute_llm_tools <- function(tools, mode, max_tool_run_time = Inf) {
   ai <- list(tools = lapply(execution, function(x) x$execution))
   ui <- lapply(execution, function(x) x$ui)
   list(ai = ai, ui = ui)
+}
+
+#' Execute With Timeout
+#'
+#' Evaluate an R expression and interrupts it if it takes too long.
+#'
+#' @param expr The R expression to evaluate.
+#' @param max_tool_run_time Maximum seconds an AI tool can run before getting killed.
+#'
+#' @keywords internal
+#'
+execute_with_timeout <- function(expr, max_tool_run_time) {
+  setTimeLimit(elapsed = max_tool_run_time)
+  on.exit(setTimeLimit(elapsed = Inf))
+  eval(expr)
 }
