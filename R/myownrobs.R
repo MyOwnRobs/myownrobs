@@ -123,7 +123,7 @@ myownrobs_ui <- function() {
           div(
             class = "input-selector",
             selectInput(
-              "ai_model", NULL, list("Gemini 2.5 Flash" = "gemini-2.5-flash"),
+              "ai_model", NULL, get_available_models(),
               selectize = FALSE, width = "auto"
             )
           ),
