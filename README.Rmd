@@ -27,8 +27,13 @@ MyOwnRobs is a comprehensive AI-powered coding agent that seamlessly integrates 
 
 ## 📦 Installation
 
-Install the development version of `{myownrobs}` from 
-[GitHub](https://github.com/MyOwnRobs/myownrobs) with:
+Install the current released version of `{myownrobs}` from [CRAN](https://cran.r-project.org/package=myownrobs):
+
+```{r eval = FALSE}
+install.packages("myownrobs")
+```
+
+Or install the development version from [GitHub](https://github.com/MyOwnRobs/myownrobs) with:
 
 ```{r eval = FALSE}
 # install.packages("remotes")
