@@ -11,7 +11,7 @@
 #' if (interactive()) {
 #'   myownrobs()
 #'   # Specify the API URL.
-#'   myownrobs("https://myownhadley.com/api/v0")
+#'   myownrobs("https://myownrobs.com/api/v0")
 #' }
 #'
 #' @importFrom shiny runGadget
@@ -20,7 +20,7 @@
 #' @export
 #'
 myownrobs <- function(api_url = paste0(
-                        "https://myownhadley.com/api/v", packageVersion("myownrobs")$major
+                        "https://myownrobs.com/api/v", packageVersion("myownrobs")$major
                       )) {
   if (!validate_policy_acceptance()) {
     return("Accept MyOwnRobs terms of use in order to run it")
@@ -124,7 +124,7 @@ myownrobs_ui <- function() {
             class = "input-selector",
             selectInput(
               "ai_model", NULL, get_available_models(),
-              selectize = FALSE, width = "auto"
+              selected = get_config("last_used_model"), selectize = FALSE, width = "auto"
             )
           ),
           actionButton(
@@ -202,6 +202,7 @@ myownrobs_server <- function(api_url) {
       if (prompt_text == "" || !is.null(r_running_prompt())) {
         return()
       }
+      set_config("last_used_model", input$ai_model)
       # Clear the input and set working state.
       updateTextAreaInput(session, "prompt", value = "")
       # Immediately show user message and working state.
