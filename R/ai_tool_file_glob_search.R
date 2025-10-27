@@ -21,3 +21,16 @@ ai_tool_file_glob_search <- list(
   readonly = TRUE,
   execute = file_glob_search
 )
+
+#' @importFrom ellmer tool type_string
+ai_tool_file_glob_search_ellmer <- tool(
+  function(pattern) file_glob_search(list(pattern = pattern)),
+  name = ai_tool_file_glob_search$name,
+  description = paste0(
+    "Search for files recursively in the project using glob patterns. Supports ** for recursive ",
+    "directory search. Output may be truncated; use targeted patterns."
+  ),
+  arguments = list(
+    pattern = type_string("Glob pattern for file path matching.")
+  )
+)

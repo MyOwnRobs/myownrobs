@@ -22,3 +22,19 @@ ai_tool_run_r_command <- list(
   readonly = FALSE,
   execute = run_r_command
 )
+
+#' @importFrom ellmer tool type_string
+ai_tool_run_r_command_ellmer <- tool(
+  function(command) run_r_command(list(command = command)),
+  name = ai_tool_run_r_command$name,
+  description = paste0(
+    "Run an R command in the current directory. The R terminal is not stateful and will not ",
+    "remember any previous commands. When suggesting subsequent R commands ALWAYS format them in ",
+    "R command blocks. Do NOT perform actions requiring special/admin privileges."
+  ),
+  arguments = list(
+    command = type_string(
+      "The command to run. This will be passed directly into the R interpreter."
+    )
+  )
+)

@@ -34,3 +34,36 @@ ai_tool_search_and_replace_in_file <- list(
   readonly = FALSE,
   execute = search_and_replace_in_file
 )
+
+#' @importFrom ellmer tool type_array type_string
+ai_tool_search_and_replace_in_file_ellmer <- tool(
+  function(filepath, diffs) search_and_replace_in_file(list(filepath = filepath, diffs = diffs)),
+  name = ai_tool_search_and_replace_in_file$name,
+  description = paste0(
+    "Request to replace sections of content in an existing file using multiple SEARCH/REPLACE ",
+    "blocks that define exact changes to specific parts of the file. This tool should be used ",
+    "when you need to make targeted changes to specific parts of a file. Note this tool CANNOT ",
+    "be called in parallel."
+  ),
+  arguments = list(
+    filepath = type_string("The path of the file to modify, relative to the root of the workspace."),
+    diffs = type_array(
+      type_string(),
+      paste0(
+        "A JSON array of diff objects. Each object must contain the fields:\n",
+        '  - "SEARCH": the exact text to find (match is character-for-character, including ',
+        "whitespace).\n",
+        '  - "REPLACE": the replacement text to insert for the first matching occurrence.\n\n',
+        "Example:\n",
+        '  [ {"SEARCH": "exact content to find", "REPLACE": "new content to replace with"} ]\n\n',
+        "Rules (important):\n",
+        '  * Each diff will replace only the first occurrence of the exact "SEARCH" string in the ',
+        "file.\n",
+        "  * Matching is exact (use literal text). Include any surrounding whitespace/newlines if ",
+        "needed to uniquely match.\n",
+        "  * Diffs are applied sequentially in array order (top-to-bottom semantics).\n",
+        '  * To perform deletions, set "REPLACE" to an empty string."\n'
+      )
+    )
+  )
+)

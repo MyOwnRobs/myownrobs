@@ -25,3 +25,20 @@ ai_tool_edit_existing_file <- list(
   readonly = FALSE,
   execute = edit_existing_file
 )
+
+#' @importFrom ellmer tool type_array type_string
+ai_tool_edit_existing_file_ellmer <- tool(
+  function(filepath, changes) edit_existing_file(list(filepath = filepath, changes = changes)),
+  name = ai_tool_edit_existing_file$name,
+  description = paste0(
+    "Use this tool to edit an existing file. If you don't know the contents of the file, read ",
+    "it first. Note this tool CANNOT be called in parallel."
+  ),
+  arguments = list(
+    filepath = type_string("The path of the file to edit, relative to the root of the workspace."),
+    changes = type_array(type_string(), paste0(
+      "The exact text that will replace the target file's contents. This tool WILL overwrite the ",
+      "file at `filepath` with these contents. Do NOT wrap the text in Markdown code fences."
+    ))
+  )
+)

@@ -30,3 +30,15 @@ ai_tool_fetch_url_content <- list(
   readonly = TRUE,
   execute = fetch_url_content
 )
+
+#' @importFrom ellmer tool type_string
+ai_tool_fetch_url_content_ellmer <- tool(
+  function(url) fetch_url_content(list(url = url)),
+  name = ai_tool_fetch_url_content$name,
+  description = paste0(
+    "Can be used to view the contents of a website using a URL. Do NOT use this for files."
+  ),
+  arguments = list(
+    url = type_string("The URL to read.")
+  )
+)

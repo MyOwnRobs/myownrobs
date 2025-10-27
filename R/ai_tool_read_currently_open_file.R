@@ -24,3 +24,14 @@ ai_tool_read_currently_open_file <- list(
   readonly = TRUE,
   execute = read_currently_open_file
 )
+
+#' @importFrom ellmer tool
+ai_tool_read_currently_open_file_ellmer <- tool(
+  function() read_currently_open_file(list()),
+  name = ai_tool_read_currently_open_file$name,
+  description = paste0(
+    "Read the currently open file in the IDE. If the user seems to be referring to a file that ",
+    "you can't see, try using this."
+  ),
+  arguments = list()
+)

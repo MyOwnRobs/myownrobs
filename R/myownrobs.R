@@ -210,10 +210,11 @@ myownrobs_server <- function(api_url) {
       r_messages(new_msgs)
       set_config("session_msgs", toJSON(new_msgs, auto_unbox = TRUE))
       r_ai_iterations(0)
-      r_running_prompt(send_prompt_async(
-        r_chat_id(), prompt_text, "user", input$ai_mode, input$ai_model, project_context, api_url,
-        get_api_key()
-      ))
+      r_running_prompt(send_prompt_local(prompt_text))
+      # r_running_prompt(send_prompt_async(
+      #   r_chat_id(), prompt_text, "user", input$ai_mode, input$ai_model, project_context, api_url,
+      #   get_api_key()
+      # ))
     }
     observeEvent(input$inputPrompt, send_message(input$inputPrompt))
     observeEvent(input$send_message, send_message(input$prompt))
@@ -235,7 +236,8 @@ myownrobs_server <- function(api_url) {
         mode = input$ai_mode, model = input$ai_model, reply = response_text
       )))
       # Parse the AI agent's response into user message and tool calls.
-      parsed <- parse_agent_response(response_text)
+      # parsed <- parse_agent_response(response_text)
+      parsed <- list(user_message = as.character(response_text))
       r_running_prompt(NULL)
       # Handle cases where parsing of the AI response failed.
       if (!is.null(parsed$error)) {
@@ -243,10 +245,13 @@ myownrobs_server <- function(api_url) {
         if (parsed$error_code == "invalid_ai_response" && r_retries() < max_retries) {
           r_retries(r_retries() + 1)
           debug_print(paste0("Retry number ", r_retries()))
-          r_running_prompt(send_prompt_async(
-            r_chat_id(), "Your last reply couldn't be parsed, please re try it.", "tool_runner",
-            input$ai_mode, input$ai_model, project_context, api_url, get_api_key()
+          r_running_prompt(send_prompt_local(
+            "Your last reply couldn't be parsed, please re try it."
           ))
+          # r_running_prompt(send_prompt_async(
+          #   r_chat_id(), "Your last reply couldn't be parsed, please re try it.", "tool_runner",
+          #   input$ai_mode, input$ai_model, project_context, api_url, get_api_key()
+          # ))
           return()
         }
         # If no retries available, then print the error to the user.
@@ -297,10 +302,11 @@ myownrobs_server <- function(api_url) {
           mode = input$ai_mode, model = input$ai_model, sent_prompt = prompt
         )))
         r_ai_iterations(r_ai_iterations() + 1)
-        r_running_prompt(send_prompt_async(
-          r_chat_id(), prompt, "tool_runner", input$ai_mode, input$ai_model, project_context,
-          api_url, get_api_key()
-        ))
+        r_running_prompt(send_prompt_local(prompt))
+        # r_running_prompt(send_prompt_async(
+        #   r_chat_id(), prompt, "tool_runner", input$ai_mode, input$ai_model, project_context,
+        #   api_url, get_api_key()
+        # ))
         return()
       }
     })

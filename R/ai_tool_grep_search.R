@@ -28,3 +28,18 @@ ai_tool_grep_search <- list(
   readonly = TRUE,
   execute = grep_search
 )
+
+#' @importFrom ellmer tool type_string
+ai_tool_grep_search_ellmer <- tool(
+  function(query) grep_search(list(query = query)),
+  name = ai_tool_grep_search$name,
+  description = paste0(
+    "Perform a search over the repository using ripgrep. Output may be truncated, so use ",
+    "targeted queries."
+  ),
+  arguments = list(
+    query = type_string(
+      "The search query to use. Must be a valid ripgrep regex expression, escaped where needed."
+    )
+  )
+)
