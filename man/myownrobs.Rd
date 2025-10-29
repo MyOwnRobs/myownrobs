@@ -5,7 +5,7 @@
 \title{Launch MyOwnRobs}
 \usage{
 myownrobs(
-  api_url = paste0("https://myownhadley.com/api/v", packageVersion("myownrobs")$major)
+  api_url = paste0("https://myownrobs.com/api/v", packageVersion("myownrobs")$major)
 )
 }
 \arguments{
@@ -22,7 +22,7 @@ Open the RStudio addin with the chat interface.
 if (interactive()) {
   myownrobs()
   # Specify the API URL.
-  myownrobs("https://myownhadley.com/api/v0")
+  myownrobs("https://myownrobs.com/api/v0")
 }
 
 }

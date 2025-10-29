@@ -415,10 +415,10 @@ body {
   padding: 12px 16px;
   border-top: none;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
 }
 
 /* Modal action buttons: Cancel (outline) and Save (accent) */

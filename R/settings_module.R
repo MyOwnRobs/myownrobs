@@ -6,8 +6,8 @@
 #' @param r_trigger A reactive expression that triggers opening the modal.
 #'
 #' @importFrom rstudio.prefs use_rstudio_keyboard_shortcut
-#' @importFrom shiny actionButton checkboxInput HTML modalDialog moduleServer observeEvent showModal
-#' @importFrom shiny tagList tags updateCheckboxInput
+#' @importFrom shiny actionButton checkboxInput fluidRow HTML modalDialog moduleServer observeEvent
+#' @importFrom shiny showModal tagList tags updateCheckboxInput
 #'
 #' @keywords internal
 #'
@@ -17,16 +17,18 @@ settings_module <- function(id, r_trigger) {
       title = "Settings",
       checkboxInput(session$ns("open_at_startup"), "Open MyOwnRobs at RStudio startup"),
       footer = tagList(
-        actionButton(session$ns("save_settings"), "Save", class = "btn-save"),
-        actionButton(session$ns("close"), "Close", class = "btn-close"),
-        actionButton(
+        fluidRow(
+          actionButton(session$ns("save_settings"), "Save", class = "btn-save"),
+          actionButton(session$ns("close"), "Close", class = "btn-close")
+        ),
+        fluidRow(actionButton(
           session$ns("set_shortcut"),
           paste0(
             "Assign the keyboard shortcut 'Ctrl+M' to open MyOwnRobs ",
             "(it will work after restarting RStudio)"
           ),
           class = "btn-close"
-        )
+        ))
       ),
       # Custom `removeModal`, because shiny's is not working because of our own css styles.
       tags$script(HTML(
