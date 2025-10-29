@@ -1,13 +1,10 @@
 #' @importFrom stats setNames
 #' @importFrom rstudioapi getActiveProject
-grep_search <- function(args) {
-  if (!validate_command_args(ai_tool_grep_search, args)) {
-    stop("Invalid arguments for GrepSearch")
-  }
+grep_search <- function(query) {
   all_files <- list.files(getActiveProject(), recursive = TRUE, full.names = TRUE)
   matches <- setNames(lapply(all_files, function(file) {
     read_file <- readLines(file)
-    matching_lines <- grep(args$query, read_file, perl = TRUE)
+    matching_lines <- grep(query, read_file, perl = TRUE)
     matched_text <- read_file[matching_lines]
     paste(matching_lines, matched_text, sep = ":", collapse = "\n")
   }), all_files)
@@ -16,23 +13,10 @@ grep_search <- function(args) {
   list(output = matches)
 }
 
-ai_tool_grep_search <- list(
-  name = "GrepSearch",
-  parameters = list(
-    list(name = "query")
-  ),
-  display_title = "Grep Search",
-  would_like_to = 'Search for "{query}" in the project',
-  is_currently = 'Getting search results for "{query}" in the project',
-  has_already = 'Retrieved search results for "{query}" in the project',
-  readonly = TRUE,
-  execute = grep_search
-)
-
 #' @importFrom ellmer tool type_string
-ai_tool_grep_search_ellmer <- tool(
-  function(query) grep_search(list(query = query)),
-  name = ai_tool_grep_search$name,
+ai_tool_grep_search <- tool(
+  grep_search,
+  name = "GrepSearch",
   description = paste0(
     "Perform a search over the repository using ripgrep. Output may be truncated, so use ",
     "targeted queries."

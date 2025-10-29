@@ -1,7 +1,7 @@
 Package: myownrobs
 Type: Package
 Title: AI Coding Agent for 'RStudio'
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(
     person(
       "Juan Cruz", "Rodriguez",
@@ -22,9 +22,9 @@ Imports:
   ellmer,
   fs,
   gargle,
-  glue,
   httr2,
   jsonlite,
+  methods,
   mirai,
   rstudio.prefs,
   rstudioapi,

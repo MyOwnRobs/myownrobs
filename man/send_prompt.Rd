@@ -4,34 +4,21 @@
 \alias{send_prompt}
 \title{Send Prompt to the LLM}
 \usage{
-send_prompt(
-  chat_id,
-  prompt,
-  role,
-  mode,
-  model,
-  project_context,
-  api_url,
-  api_key
-)
+send_prompt(prompt, mode, model, project_context, api_key, available_models)
 }
 \arguments{
-\item{chat_id}{The ID of the chat session.}
-
 \item{prompt}{The prompt to send.}
-
-\item{role}{The role of the entity sending the prompt, one of "user" or "tool_runner".}
 
 \item{mode}{The mode of operation, one of "agent" or "ask".}
 
-\item{model}{The ID of the model to use.}
+\item{model}{The ID of the model to use (E.g., "gemini-2.5-pro").}
 
 \item{project_context}{The context of the session executing the addin, obtained with
 `get_project_context()`.}
 
-\item{api_url}{The API URL to use for requests.}
-
 \item{api_key}{The API key for MyOwnRobs, obtained with `get_api_key()`.}
+
+\item{available_models}{List of available models to use.}
 }
 \description{
 Send Prompt to the LLM

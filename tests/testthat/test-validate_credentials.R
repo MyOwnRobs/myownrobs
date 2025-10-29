@@ -3,7 +3,7 @@
 test_that("validate_credentials - valid credentials", {
   local_mocked_bindings(
     get_api_key = function() {
-      "VALID_API_KEY"
+      list(myownrobs = "VALID_API_KEY")
     },
     .package = "myownrobs"
   )
@@ -14,7 +14,7 @@ test_that("validate_credentials - valid credentials", {
 test_that("validate_credentials - validating credentials error", {
   local_mocked_bindings(
     get_api_key = function() {
-      ""
+      list(myownrobs = "")
     },
     token_fetch = function(...) {
       list(credentials = list(access_token = "ACCESS_TOKEN"))
@@ -35,7 +35,7 @@ test_that("validate_credentials - validating credentials error", {
 test_that("validate_credentials - validating credentials empty key", {
   local_mocked_bindings(
     get_api_key = function() {
-      ""
+      list(myownrobs = "")
     },
     token_fetch = function(...) {
       list(credentials = list(access_token = "ACCESS_TOKEN"))
@@ -59,7 +59,7 @@ test_that("validate_credentials - validating credentials empty key", {
 test_that("validate_credentials - validating credentials empty key", {
   local_mocked_bindings(
     get_api_key = function() {
-      ""
+      list(myownrobs = "")
     },
     token_fetch = function(...) {
       list(credentials = list(access_token = "ACCESS_TOKEN"))
@@ -83,7 +83,7 @@ test_that("validate_credentials - validating credentials empty key", {
 test_that("validate_credentials - validating credentials", {
   local_mocked_bindings(
     get_api_key = function() {
-      ""
+      list(myownrobs = "")
     },
     token_fetch = function(...) {
       list(credentials = list(access_token = "ACCESS_TOKEN"))

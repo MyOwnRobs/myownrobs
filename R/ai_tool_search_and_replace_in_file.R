@@ -1,44 +1,27 @@
 #' @importFrom rstudioapi documentOpen getSourceEditorContext insertText
-search_and_replace_in_file <- function(args) {
-  if (!validate_command_args(ai_tool_search_and_replace_in_file, args)) {
-    stop("Invalid arguments for SearchAndReplaceInFile")
-  }
-  if (args$filepath == "ACTIVE_R_DOCUMENT") {
+search_and_replace_in_file <- function(filepath, diffs) {
+  if (filepath == "ACTIVE_R_DOCUMENT") {
     editor_context <- getSourceEditorContext()
     file_content <- paste(editor_context$contents, collapse = "\n")
   } else {
-    file_content <- paste(readLines(args$filepath), collapse = "\n")
+    file_content <- paste(readLines(filepath), collapse = "\n")
   }
-  for (diff in args$diffs) {
+  for (diff in diffs) {
     file_content <- sub(diff$SEARCH, diff$REPLACE, file_content, fixed = TRUE)
   }
-  if (args$filepath == "ACTIVE_R_DOCUMENT") {
+  if (filepath == "ACTIVE_R_DOCUMENT") {
     insertText(c(0, 0, Inf, Inf), file_content, editor_context$id)
   } else {
-    writeLines(file_content, args$filepath)
-    documentOpen(args$filepath)
+    writeLines(file_content, filepath)
+    documentOpen(filepath)
   }
   list(new_content = file_content)
 }
 
-ai_tool_search_and_replace_in_file <- list(
-  name = "SearchAndReplaceInFile",
-  parameters = list(
-    list(name = "filepath"),
-    list(name = "diffs")
-  ),
-  display_title = "Edit File",
-  would_like_to = "Edit `{filepath}`",
-  is_currently = "Editing `{filepath}`",
-  has_already = "Edited `{filepath}`",
-  readonly = FALSE,
-  execute = search_and_replace_in_file
-)
-
 #' @importFrom ellmer tool type_array type_string
-ai_tool_search_and_replace_in_file_ellmer <- tool(
-  function(filepath, diffs) search_and_replace_in_file(list(filepath = filepath, diffs = diffs)),
-  name = ai_tool_search_and_replace_in_file$name,
+ai_tool_search_and_replace_in_file <- tool(
+  search_and_replace_in_file,
+  name = "SearchAndReplaceInFile",
   description = paste0(
     "Request to replace sections of content in an existing file using multiple SEARCH/REPLACE ",
     "blocks that define exact changes to specific parts of the file. This tool should be used ",
@@ -46,7 +29,9 @@ ai_tool_search_and_replace_in_file_ellmer <- tool(
     "be called in parallel."
   ),
   arguments = list(
-    filepath = type_string("The path of the file to modify, relative to the root of the workspace."),
+    filepath = type_string(
+      "The path of the file to modify, relative to the root of the workspace."
+    ),
     diffs = type_array(
       type_string(),
       paste0(
