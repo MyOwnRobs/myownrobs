@@ -1,17 +1,19 @@
 #' Get the ellmer Chat Instance
 #'
-#' @param provider The model provider (E.g., "google_gemini", "anthropic").
-#' @param model The ID of the model to use (E.g., "gemini-2.5-pro").
-#' @param api_key The provider's API key to use for authentication.
 #' @param mode The mode of operation, one of "agent" or "ask".
+#' @param model The ID of the model to use (E.g., "gemini-2.5-pro").
 #' @param project_context The context of the session executing the addin, obtained with
 #'   `get_project_context()`.
+#' @param api_key The API key for MyOwnRobs, obtained with `get_api_key()`.
+#' @param available_models List of available models to use.
 #'
 #' @importFrom ellmer chat
 #'
 #' @keywords internal
 #'
-get_chat_instance <- function(provider, model, api_key, mode, project_context) {
+get_chat_instance <- function(mode, model, project_context, api_key, available_models) {
+  provider <- names(available_models)[sapply(available_models, function(models) model %in% models)]
+  api_key <- api_key[[provider]]
   initial_prompt <- paste0(
     "You are a helpful coding assistant that excels at understanding user requests and selecting ",
     "the appropriate tools to help them. Be concise but thorough in your responses. Always ",

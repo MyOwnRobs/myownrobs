@@ -4,19 +4,19 @@
 \alias{get_chat_instance}
 \title{Get the ellmer Chat Instance}
 \usage{
-get_chat_instance(provider, model, api_key, mode, project_context)
+get_chat_instance(mode, model, project_context, api_key, available_models)
 }
 \arguments{
-\item{provider}{The model provider (E.g., "google_gemini", "anthropic").}
+\item{mode}{The mode of operation, one of "agent" or "ask".}
 
 \item{model}{The ID of the model to use (E.g., "gemini-2.5-pro").}
 
-\item{api_key}{The provider's API key to use for authentication.}
-
-\item{mode}{The mode of operation, one of "agent" or "ask".}
-
 \item{project_context}{The context of the session executing the addin, obtained with
 `get_project_context()`.}
+
+\item{api_key}{The API key for MyOwnRobs, obtained with `get_api_key()`.}
+
+\item{available_models}{List of available models to use.}
 }
 \description{
 Get the ellmer Chat Instance

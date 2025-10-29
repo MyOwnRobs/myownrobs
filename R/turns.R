@@ -61,7 +61,7 @@ turns_to_ui <- function(turns) {
 get_turn_role <- function(turn) {
   role <- attr(turn, "role")
   content_types <- sapply(attr(turn, "contents"), function(x) class(x)[[1]])
-  if (content_types == "ellmer::ContentToolRequest") role <- "tool_runner"
+  if ("ellmer::ContentToolRequest" %in% content_types) role <- "tool_runner"
   role
 }
 
@@ -84,7 +84,11 @@ content_to_ui <- function(content) {
         collapse = ", "
       )
     }
-    paste0(attr(content, "name"), "(", arguments, ")")
+    res <- paste0(attr(content, "name"), "(", arguments, ")")
+    if (nchar(res) > 100) {
+      res <- paste0(substr(res, 1, 97), "...")
+    }
+    res
   } else if (is(content, "ellmer::ContentToolResult")) {
     NULL
   } else {

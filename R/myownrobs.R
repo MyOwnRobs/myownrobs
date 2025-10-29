@@ -151,8 +151,8 @@ myownrobs_ui <- function(available_models) {
 #'   `get_project_context()`.
 #'
 #' @importFrom jsonlite fromJSON toJSON
-#' @importFrom mirai unresolved
-#' @importFrom shiny div h3 markdown observeEvent p reactive reactiveTimer reactiveVal renderUI
+#' @importFrom promises `%...>%`
+#' @importFrom shiny div h3 markdown observeEvent p reactive reactiveTimer reactiveVal renderUI req
 #' @importFrom shiny stopApp tags updateTextAreaInput
 #' @importFrom uuid UUIDgenerate
 #'
@@ -163,9 +163,9 @@ myownrobs_server <- function(api_url, available_models, project_context) {
     # App reactive values to manage chat state.
     # Stores the list of chat messages (user and assistant).
     r_messages <- reactiveVal(turns_to_ui(load_turns()))
-    r_running_prompt <- reactiveVal(NULL) # Stores the promise for an ongoing AI prompt execution.
-    # TODO: Replace it with a better alternative instead of polling every second.
-    r_check_prompt_execution <- reactiveTimer() # Timer to poll for prompt execution status.
+    # Informs when the prompt got calculated, if `NULL` no prompt is running.
+    r_finished_prompt <- reactiveVal(NULL)
+    r_chat_instance <- reactiveVal() # The last used chat instance.
     set_initial_project()
 
     # Reset the chat session when the reset button is clicked.
@@ -176,7 +176,8 @@ myownrobs_server <- function(api_url, available_models, project_context) {
       }
       r_messages(list())
       save_turns(list())
-      r_running_prompt(NULL)
+      r_finished_prompt(NULL)
+      r_chat_instance(NULL)
       set_initial_project()
     })
     observeEvent(input$undo_changes, set_initial_project(restore = TRUE))
@@ -189,7 +190,7 @@ myownrobs_server <- function(api_url, available_models, project_context) {
     # Clears the input, shows user message, and initiates an asynchronous AI prompt.
     send_message <- function(prompt) {
       prompt_text <- trimws(prompt)
-      if (prompt_text == "" || !is.null(r_running_prompt())) {
+      if (prompt_text == "" || !is.null(r_finished_prompt())) {
         return()
       }
       set_config("last_used_model", input$ai_model)
@@ -197,32 +198,30 @@ myownrobs_server <- function(api_url, available_models, project_context) {
       updateTextAreaInput(session, "prompt", value = "")
       # Immediately show user message and working state.
       r_messages(c(list(list(role = "user", text = prompt_text)), r_messages()))
-      r_running_prompt(send_prompt(
-        prompt_text, input$ai_mode, input$ai_model, project_context, get_api_key(), available_models
-      ))
+      chat_instance <- get_chat_instance(
+        input$ai_mode, input$ai_model, project_context, get_api_key(), available_models
+      )
+      r_finished_prompt(FALSE) # Mark that a prompt is running.
+      chat_instance$chat_async(prompt_text) %...>% r_finished_prompt()
+      r_chat_instance(chat_instance)
     }
     observeEvent(input$inputPrompt, send_message(input$inputPrompt))
     observeEvent(input$send_message, send_message(input$prompt))
 
     # Observer that periodically checks the status of the asynchronous AI prompt execution.
     # This is the core logic for handling AI responses, parsing tools, and managing chat flow.
-    observeEvent(r_check_prompt_execution(), {
+    observeEvent(r_finished_prompt(), {
       # If no prompt is running or it's still unresolved, do nothing.
-      if (is.null(r_running_prompt()) || unresolved(r_running_prompt())) {
-        return()
-      }
+      req(!is.null(r_finished_prompt()), !isFALSE(r_finished_prompt()))
       # Retrieve the response from the running prompt.
-      response <- r_running_prompt()
-      if ("data" %in% names(response)) {
-        # When using send_prompt_async, the result is returned in a `data` value.
-        response <- response$data
-      }
+      response <- r_chat_instance()$get_turns()
+      save_turns(response)
       turns_ui <- turns_to_ui(response)
       debug_print(list(running_prompt = list(
         mode = input$ai_mode, model = input$ai_model, reply = turns_ui[[1]]$text
       )))
       r_messages(turns_ui)
-      r_running_prompt(NULL)
+      r_finished_prompt(NULL)
     })
 
     # UI element for the "Working..." indicator shown when the AI is processing.
@@ -248,7 +247,7 @@ myownrobs_server <- function(api_url, available_models, project_context) {
         div(class = paste("message", m$role), div(class = "message-content", markdown(m$text)))
       })
       # Prepend the "Working..." indicator if an AI prompt is currently running.
-      if (!is.null(r_running_prompt())) {
+      if (isFALSE(r_finished_prompt())) {
         bubbles <- c(list(working_bubble), bubbles)
       }
       div(id = "chat_messages", bubbles)
