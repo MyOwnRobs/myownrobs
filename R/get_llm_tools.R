@@ -35,4 +35,5 @@ get_llm_tools <- function(mode) {
       ai_tool_run_r_command
     ))
   }
+  tools
 }

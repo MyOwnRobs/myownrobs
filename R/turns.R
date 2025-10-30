@@ -19,7 +19,7 @@ load_turns <- function() {
 #' Set a Configuration Value
 #'
 #' @param config The name of the configuration value to set.
-#' @param value The value to assign to assign to the configuration.
+#' @param value The value to assign the configuration.
 #'
 #' @importFrom fs dir_create dir_exists
 #' @importFrom tools R_user_dir
@@ -91,7 +91,5 @@ content_to_ui <- function(content) {
     res
   } else if (is(content, "ellmer::ContentToolResult")) {
     NULL
-  } else {
-    browser()
   }
 }
