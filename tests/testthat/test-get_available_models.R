@@ -6,13 +6,13 @@ test_that("get_available_models returns default when config is null", {
     .package = "myownrobs"
   )
   result <- get_available_models()
-  expect_equal(result, list("Gemini 2.5 Flash" = "gemini-2.5-flash"))
+  expect_equal(result, list(Gemini = list("Gemini 2.5 Flash" = "gemini-2.5-flash")))
 })
 
 test_that("get_available_models returns one model", {
   local_mocked_bindings(
     get_config = function(config) {
-      '{"Model A": "model-a"}'
+      if (config == "api_keys") NULL else if (config == "available_models") '{"Model A": "model-a"}'
     },
     .package = "myownrobs"
   )
@@ -23,7 +23,11 @@ test_that("get_available_models returns one model", {
 test_that("get_available_models returns multiple models", {
   local_mocked_bindings(
     get_config = function(config) {
-      '{"Model A": "model-a", "Model B": "model-b", "Model C": "model-c"}'
+      if (config == "api_keys") {
+        NULL
+      } else if (config == "available_models") {
+        '{"Model A": "model-a", "Model B": "model-b", "Model C": "model-c"}'
+      }
     },
     .package = "myownrobs"
   )

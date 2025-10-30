@@ -4,7 +4,10 @@
 \alias{myownrobs_ui}
 \title{MyOwnRobs Shiny UI}
 \usage{
-myownrobs_ui()
+myownrobs_ui(available_models)
+}
+\arguments{
+\item{available_models}{List of available models to use.}
 }
 \description{
 MyOwnRobs Shiny UI

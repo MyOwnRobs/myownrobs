@@ -2,6 +2,8 @@ test_that("myownrobs - mock execution", {
   local_mocked_bindings(
     validate_policy_acceptance = function(...) TRUE,
     validate_credentials = function(...) NULL,
+    getActiveProject = function(...) tempdir(),
+    getSourceEditorContext = function(...) list(path = tempdir()),
     runGadget = function(...) NULL,
     .package = "myownrobs"
   )

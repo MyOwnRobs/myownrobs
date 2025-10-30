@@ -9,7 +9,7 @@ set_config(config, value)
 \arguments{
 \item{config}{The name of the configuration value to set.}
 
-\item{value}{The value to assign to assign to the configuration.}
+\item{value}{The value to assign to the configuration.}
 }
 \description{
 Set a Configuration Value

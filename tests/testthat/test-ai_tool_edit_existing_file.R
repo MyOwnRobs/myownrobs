@@ -1,7 +1,3 @@
-test_that("edit_existing_file - invalid args", {
-  expect_error(edit_existing_file(list()), "Invalid arguments for EditExistingFile")
-})
-
 test_that("edit_existing_file - ACTIVE_R_DOCUMENT", {
   local_mocked_bindings(
     getSourceEditorContext = function(...) list(id = "id"),
@@ -9,7 +5,7 @@ test_that("edit_existing_file - ACTIVE_R_DOCUMENT", {
     .package = "myownrobs"
   )
   expect_equal(
-    edit_existing_file(list(filepath = "ACTIVE_R_DOCUMENT", changes = "CHANGES")),
+    edit_existing_file("ACTIVE_R_DOCUMENT", "CHANGES"),
     list(output = "")
   )
 })
@@ -20,7 +16,7 @@ test_that("edit_existing_file - editing some file", {
     documentOpen = function(...) NULL,
     .package = "myownrobs"
   )
-  result <- edit_existing_file(list(filepath = editing_file, changes = "CHANGES"))
+  result <- edit_existing_file(editing_file, "CHANGES")
   expect_equal(result, list(output = ""))
   expect_equal(readLines(editing_file), "CHANGES")
 })

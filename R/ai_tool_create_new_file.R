@@ -1,24 +1,20 @@
 #' @importFrom rstudioapi documentOpen
-create_new_file <- function(args) {
-  if (!validate_command_args(ai_tool_create_new_file, args)) {
-    stop("Invalid arguments for CreateNewFile")
-  }
-  dir.create(dirname(args$filepath), recursive = TRUE, showWarnings = FALSE)
-  writeLines(args$contents, args$filepath)
-  documentOpen(args$filepath)
+create_new_file <- function(filepath, content) {
+  dir.create(dirname(filepath), recursive = TRUE, showWarnings = FALSE)
+  writeLines(content, filepath)
+  documentOpen(filepath)
   list(output = "")
 }
 
-ai_tool_create_new_file <- list(
+#' @importFrom ellmer tool type_string
+ai_tool_create_new_file <- tool(
+  create_new_file,
   name = "CreateNewFile",
-  parameters = list(
-    list(name = "filepath"),
-    list(name = "contents")
-  ),
-  display_title = "Create New File",
-  would_like_to = "Create a new file at `{filepath}`",
-  is_currently = "Creating a new file at `{filepath}`",
-  has_already = "Created a new file at `{filepath}`",
-  readonly = FALSE,
-  execute = create_new_file
+  description = "Create a new file. Only use this when a file doesn't exist and should be created.",
+  arguments = list(
+    filepath = type_string(
+      "The path where the new file should be created, relative to the root of the workspace."
+    ),
+    content = type_string("The content to write to the new file.")
+  )
 )

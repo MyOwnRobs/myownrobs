@@ -4,10 +4,15 @@
 \alias{myownrobs_server}
 \title{MyOwnRobs Shiny Server}
 \usage{
-myownrobs_server(api_url)
+myownrobs_server(api_url, available_models, project_context)
 }
 \arguments{
 \item{api_url}{The API URL to use for requests.}
+
+\item{available_models}{List of available models to use, obtained with `get_available_models()`.}
+
+\item{project_context}{The context of the session executing the addin, obtained with
+`get_project_context()`.}
 }
 \description{
 MyOwnRobs Shiny Server

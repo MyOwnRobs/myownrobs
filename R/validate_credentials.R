@@ -11,7 +11,7 @@
 #'
 validate_credentials <- function(api_url, force = FALSE) {
   # Check if an API key is not set or if validation is forced.
-  if (nchar(get_api_key()) == 0 || force) {
+  if (nchar(get_api_key()$myownrobs) == 0 || force) {
     tryCatch(
       {
         # Fetch authentication token from Google.
