@@ -7,7 +7,7 @@
 save_turns(value)
 }
 \arguments{
-\item{value}{The value to assign to assign to the configuration.}
+\item{value}{The value to assign the configuration.}
 
 \item{config}{The name of the configuration value to set.}
 }

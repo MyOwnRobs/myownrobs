@@ -3,8 +3,8 @@
 grep_search <- function(query) {
   all_files <- list.files(getActiveProject(), recursive = TRUE, full.names = TRUE)
   matches <- setNames(lapply(all_files, function(file) {
-    read_file <- readLines(file)
-    matching_lines <- grep(query, read_file, perl = TRUE)
+    read_file <- suppressWarnings(readLines(file))
+    matching_lines <- suppressWarnings(grep(query, read_file, perl = TRUE))
     matched_text <- read_file[matching_lines]
     paste(matching_lines, matched_text, sep = ":", collapse = "\n")
   }), all_files)

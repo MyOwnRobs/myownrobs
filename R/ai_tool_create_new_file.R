@@ -1,12 +1,12 @@
 #' @importFrom rstudioapi documentOpen
-create_new_file <- function(filepath, contents) {
+create_new_file <- function(filepath, content) {
   dir.create(dirname(filepath), recursive = TRUE, showWarnings = FALSE)
-  writeLines(contents, filepath)
+  writeLines(content, filepath)
   documentOpen(filepath)
   list(output = "")
 }
 
-#' @importFrom ellmer tool type_array type_string
+#' @importFrom ellmer tool type_string
 ai_tool_create_new_file <- tool(
   create_new_file,
   name = "CreateNewFile",
@@ -15,6 +15,6 @@ ai_tool_create_new_file <- tool(
     filepath = type_string(
       "The path where the new file should be created, relative to the root of the workspace."
     ),
-    contents = type_array(type_string(), "The contents to write to the new file.")
+    content = type_string("The content to write to the new file.")
   )
 )

@@ -2,7 +2,7 @@
 % Please edit documentation in R/turns.R
 \name{turns_to_ui}
 \alias{turns_to_ui}
-\title{Convert a Turns Structure Into a User-Reading UI}
+\title{Convert a Turns Structure Into a User-Readable UI}
 \usage{
 turns_to_ui(turns)
 }
@@ -10,6 +10,6 @@ turns_to_ui(turns)
 \item{turns}{A list of Turns.}
 }
 \description{
-Convert a Turns Structure Into a User-Reading UI
+Convert a Turns Structure Into a User-Readable UI
 }
 \keyword{internal}

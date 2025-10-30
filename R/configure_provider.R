@@ -30,15 +30,18 @@ configure_provider <- function(name, api_key) {
   if (!is.null(api_keys)) api_keys <- fromJSON(api_keys)
   models <- NULL
   if (is.null(api_key)) {
+    # API key to be removed.
     if (name %in% names(api_keys)) {
       api_keys <- api_keys[names(api_keys) != name]
     }
   } else if (name == "anthropic") {
+    # Check if the API key works.
     models <- try(models_anthropic(api_key = api_key), silent = TRUE)
-    api_keys$anthropic <- api_key
+    api_keys[[name]] <- api_key
   } else if (name == "google_gemini") {
+    # Check if the API key works.
     models <- try(models_google_gemini(api_key = api_key), silent = TRUE)
-    api_keys$google_gemini <- api_key
+    api_keys[[name]] <- api_key
   }
   if (inherits(models, "try-error")) stop("The provided `api_key` is not working.")
   # Set the new list of providers.

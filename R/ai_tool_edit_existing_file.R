@@ -9,7 +9,7 @@ edit_existing_file <- function(filepath, changes) {
   list(output = "")
 }
 
-#' @importFrom ellmer tool type_array type_string
+#' @importFrom ellmer tool type_string
 ai_tool_edit_existing_file <- tool(
   edit_existing_file,
   name = "EditExistingFile",
@@ -19,9 +19,9 @@ ai_tool_edit_existing_file <- tool(
   ),
   arguments = list(
     filepath = type_string("The path of the file to edit, relative to the root of the workspace."),
-    changes = type_array(type_string(), paste0(
+    changes = type_string(paste0(
       "The exact text that will replace the target file's contents. This tool WILL overwrite the ",
-      "file at `filepath` with these contents. Do NOT wrap the text in Markdown code fences."
+      "file at `filepath` with this content. Do NOT wrap the text in Markdown code fences."
     ))
   )
 )

@@ -32,9 +32,10 @@ save_turns <- function(value) {
     dir_create(config_dir)
   }
   saveRDS(value, file.path(config_dir, "turns.rds"))
+  invisible(value)
 }
 
-#' Convert a Turns Structure Into a User-Reading UI
+#' Convert a Turns Structure Into a User-Readable UI
 #'
 #' @param turns A list of Turns.
 #'
@@ -54,7 +55,7 @@ turns_to_ui <- function(turns) {
 
 #' Get the MyOwnRobs Role from a Turn
 #'
-#' @param turns A Turn.
+#' @param turn A Turn.
 #'
 #' @keywords internal
 #'
@@ -65,7 +66,7 @@ get_turn_role <- function(turn) {
   role
 }
 
-#' Convert a Turn Content into a User-Reading UI
+#' Convert a Turn Content into a User-Readable UI
 #'
 #' @param content A Content.
 #'

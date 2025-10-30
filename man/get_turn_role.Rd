@@ -7,7 +7,7 @@
 get_turn_role(turn)
 }
 \arguments{
-\item{turns}{A Turn.}
+\item{turn}{A Turn.}
 }
 \description{
 Get the MyOwnRobs Role from a Turn

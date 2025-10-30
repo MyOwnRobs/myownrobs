@@ -2,7 +2,7 @@
 % Please edit documentation in R/turns.R
 \name{content_to_ui}
 \alias{content_to_ui}
-\title{Convert a Turn Content into a User-Reading UI}
+\title{Convert a Turn Content into a User-Readable UI}
 \usage{
 content_to_ui(content)
 }
@@ -10,6 +10,6 @@ content_to_ui(content)
 \item{content}{A Content.}
 }
 \description{
-Convert a Turn Content into a User-Reading UI
+Convert a Turn Content into a User-Readable UI
 }
 \keyword{internal}
