@@ -151,7 +151,7 @@ myownrobs_ui <- function(available_models) {
 #'   `get_project_context()`.
 #'
 #' @importFrom jsonlite fromJSON toJSON
-#' @importFrom promises `%...>%`
+#' @importFrom promises then
 #' @importFrom shiny div h3 markdown observeEvent p reactive reactiveTimer reactiveVal renderUI req
 #' @importFrom shiny stopApp tags updateTextAreaInput
 #' @importFrom uuid UUIDgenerate
@@ -201,7 +201,16 @@ myownrobs_server <- function(api_url, available_models, project_context) {
         input$ai_mode, input$ai_model, project_context, get_api_key(), available_models
       )
       r_finished_prompt(FALSE) # Mark that a prompt is running.
-      chat_instance$chat_async(prompt_text) %...>% r_finished_prompt()
+      chat_instance$chat_async(prompt_text) |>
+        then(
+          r_finished_prompt,
+          function(err) {
+            r_messages(c(list(list(role = "assistant", text = paste0(
+              "Error: ", err$message, ". Retry?"
+            ))), r_messages()))
+            r_finished_prompt(NULL)
+          }
+        )
       r_chat_instance(chat_instance)
     }
     observeEvent(input$inputPrompt, send_message(input$inputPrompt))

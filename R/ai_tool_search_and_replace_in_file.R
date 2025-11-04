@@ -1,3 +1,4 @@
+#' @importFrom jsonlite fromJSON
 #' @importFrom rstudioapi documentOpen getSourceEditorContext insertText
 search_and_replace_in_file <- function(filepath, diffs) {
   if (filepath == "ACTIVE_R_DOCUMENT") {
@@ -5,6 +6,9 @@ search_and_replace_in_file <- function(filepath, diffs) {
     file_content <- paste(editor_context$contents, collapse = "\n")
   } else {
     file_content <- paste(readLines(filepath), collapse = "\n")
+  }
+  if (is.character(diffs)) {
+    diffs <- fromJSON(diffs, simplifyVector = FALSE)
   }
   for (diff in diffs) {
     file_content <- sub(diff$SEARCH, diff$REPLACE, file_content, fixed = TRUE)
