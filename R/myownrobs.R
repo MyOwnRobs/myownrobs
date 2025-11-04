@@ -25,7 +25,7 @@ myownrobs <- function(api_url =
     return("Accept MyOwnRobs terms of use in order to run it")
   }
   validate_credentials(api_url)
-  available_models <- get_available_models()
+  available_models <- get_available_models(api_url)
   project_context <- get_project_context()
   runGadget(
     myownrobs_ui(available_models),
@@ -198,7 +198,7 @@ myownrobs_server <- function(api_url, available_models, project_context) {
       # Immediately show user message and working state.
       r_messages(c(list(list(role = "user", text = prompt_text)), r_messages()))
       chat_instance <- get_chat_instance(
-        input$ai_mode, input$ai_model, project_context, get_api_key(), available_models
+        input$ai_mode, input$ai_model, project_context, api_url, get_api_key(), available_models
       )
       r_finished_prompt(FALSE) # Mark that a prompt is running.
       chat_instance$chat_async(prompt_text) |>
@@ -220,7 +220,7 @@ myownrobs_server <- function(api_url, available_models, project_context) {
     # This is the core logic for handling AI responses, parsing tools, and managing chat flow.
     observeEvent(r_finished_prompt(), {
       # Only run if the prompt finished.
-      req(isTRUE(r_finished_prompt()))
+      req(!is.na(r_finished_prompt()), !isFALSE(r_finished_prompt()))
       # Retrieve the response from the running prompt.
       response <- r_chat_instance()$get_turns()
       save_turns(response)

@@ -16,7 +16,7 @@ validate_credentials <- function(api_url, force = FALSE) {
       {
         # Fetch authentication token from Google.
         token <- token_fetch("https://www.googleapis.com/auth/userinfo.email")
-        # Initialize the API request
+        # Initialize the API request.
         req <- request(api_url)
         req <- req_url_path_append(req, "authenticate") # Append 'authenticate' path.
         req <- req_method(req, "POST") # Set request method to POST.
