@@ -1,4 +1,4 @@
-#' Load a Turns from Disk
+#' Load Turns from Disk
 #'
 #' @importFrom fs file_exists
 #' @importFrom tools R_user_dir
@@ -16,10 +16,9 @@ load_turns <- function() {
   turns_value
 }
 
-#' Set a Configuration Value
+#' Save Turns to Disk
 #'
-#' @param config The name of the configuration value to set.
-#' @param value The value to assign the configuration.
+#' @param value The turns object to save.
 #'
 #' @importFrom fs dir_create dir_exists
 #' @importFrom tools R_user_dir

@@ -2,16 +2,14 @@
 % Please edit documentation in R/turns.R
 \name{save_turns}
 \alias{save_turns}
-\title{Set a Configuration Value}
+\title{Save Turns to Disk}
 \usage{
 save_turns(value)
 }
 \arguments{
-\item{value}{The value to assign the configuration.}
-
-\item{config}{The name of the configuration value to set.}
+\item{value}{The turns object to save.}
 }
 \description{
-Set a Configuration Value
+Save Turns to Disk
 }
 \keyword{internal}

@@ -2,11 +2,11 @@
 % Please edit documentation in R/turns.R
 \name{load_turns}
 \alias{load_turns}
-\title{Load a Turns from Disk}
+\title{Load Turns from Disk}
 \usage{
 load_turns()
 }
 \description{
-Load a Turns from Disk
+Load Turns from Disk
 }
 \keyword{internal}
