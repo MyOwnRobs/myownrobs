@@ -24,8 +24,7 @@ get_chat_instance <- function(mode, model, project_context, api_url, api_key, av
     "\n</project_context>\n"
   )
   provider <- names(available_models)[sapply(available_models, function(models) model %in% models)]
-  # If `is.null(get_config("api_keys"))` it means we are using myownrobs models.
-  if (is.null(get_config("api_keys"))) {
+  if (isTRUE(names(api_key) == "myownrobs")) {
     chat_instance <- chat_ollama(
       base_url = api_url, model = "myownrobs", api_args = list(provider = provider, model = model),
       api_key = api_key$myownrobs, system_prompt = initial_prompt, echo = "none"

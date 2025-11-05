@@ -9,14 +9,14 @@
 #' @keywords internal
 #'
 get_available_models <- function(api_url) {
-  api_keys <- get_config("api_keys")
-  if (is.null(api_keys)) {
+  api_keys <- get_api_key()
+  if (isTRUE(names(api_keys) == "myownrobs")) {
     available_models <- get_myownrobs_models(api_url)
   } else {
-    api_keys <- fromJSON(api_keys)
-    available_models <- lapply(names(api_keys), function(provider) {
+    providers <- setdiff(names(api_keys), "myownrobs")
+    available_models <- lapply(providers, function(provider) {
       get_ellmer_models(provider, api_keys[[provider]])
-    }) |> setNames(names(api_keys))
+    }) |> setNames(providers)
   }
   names(available_models) <- nice_names(names(available_models))
   available_models

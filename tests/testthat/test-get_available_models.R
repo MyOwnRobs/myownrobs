@@ -3,7 +3,7 @@
 test_that("get_available_models - myownrobs", {
   available_models <- list(provider_mock = list(Model_A = "model_a", Model_B = "model_b"))
   local_mocked_bindings(
-    get_config = function(...) NULL,
+    get_api_key = function(...) list(myownrobs = "api_key"),
     get_myownrobs_models = function(...) available_models,
     .package = "myownrobs"
   )
@@ -14,7 +14,7 @@ test_that("get_available_models - myownrobs", {
 
 test_that("get_available_models - myownrobs no models", {
   local_mocked_bindings(
-    get_config = function(...) NULL,
+    get_api_key = function(...) list(myownrobs = "api_key"),
     get_myownrobs_models = function(...) list(),
     .package = "myownrobs"
   )
@@ -23,7 +23,11 @@ test_that("get_available_models - myownrobs no models", {
 
 test_that("get_available_models - api_keys", {
   local_mocked_bindings(
-    get_config = function(...) '{"provider_a":"key_a", "provider_b":"key_b"}',
+    get_api_key = function(...) {
+      list(
+        myownrobs = "api_key", provider_a = "key_a", provider_b = "key_b"
+      )
+    },
     get_ellmer_models = function(provider, api_key) {
       if (provider == "provider_a") {
         list(Model_A = "model_a")
@@ -39,17 +43,13 @@ test_that("get_available_models - api_keys", {
   ))
 })
 
-test_that("get_available_models - api_keys empty", {
-  local_mocked_bindings(
-    get_config = function(...) "{}",
-    .package = "myownrobs"
-  )
-  expect_length(get_available_models(), 0)
-})
-
 test_that("get_available_models - api_keys no models", {
   local_mocked_bindings(
-    get_config = function(...) '{"provider_a":"key_a", "provider_b":"key_b"}',
+    get_api_key = function(...) {
+      list(
+        myownrobs = "api_key", provider_a = "key_a", provider_b = "key_b"
+      )
+    },
     get_ellmer_models = function(provider, api_key) list(),
     .package = "myownrobs"
   )
