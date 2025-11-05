@@ -122,7 +122,7 @@ test_that("get_ellmer_models - google_gemini", {
 ### nice_names
 
 test_that("nice_names", {
-  expect_equal(nice_names(c()), list())
+  expect_length(nice_names(c()), 0)
   expect_equal(nice_names("google_gemini"), "Google Gemini")
   expect_equal(nice_names(c("google_gemini", "anthropic")), c("Google Gemini", "Anthropic"))
   expect_equal(nice_names(c("provider_a", "some_provider")), c("Provider a", "some Provider"))
