@@ -18,6 +18,7 @@ get_available_models <- function(api_url) {
       get_ellmer_models(provider, api_keys[[provider]])
     }) |> setNames(names(api_keys))
   }
+  names(available_models) <- nice_names(names(available_models))
   available_models
 }
 
@@ -64,4 +65,14 @@ get_ellmer_models <- function(provider, api_key) {
     models <- setNames(models$id, gsub("-", " ", toTitleCase(models$id)))
   }
   models
+}
+
+#' Make Nicer Names
+#'
+#' @importFrom tools toTitleCase
+#'
+#' @keywords internal
+#'
+nice_names <- function(names) {
+  toTitleCase(gsub("_", " ", names))
 }
