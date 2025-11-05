@@ -22,7 +22,7 @@ search_and_replace_in_file <- function(filepath, diffs) {
   list(new_content = file_content)
 }
 
-#' @importFrom ellmer tool type_array type_string
+#' @importFrom ellmer tool type_string
 ai_tool_search_and_replace_in_file <- tool(
   search_and_replace_in_file,
   name = "SearchAndReplaceInFile",
@@ -36,8 +36,7 @@ ai_tool_search_and_replace_in_file <- tool(
     filepath = type_string(
       "The path of the file to modify, relative to the root of the workspace."
     ),
-    diffs = type_array(
-      type_string(),
+    diffs = type_string(
       paste0(
         "A JSON array of diff objects. Each object must contain the fields:\n",
         '  - "SEARCH": the exact text to find (match is character-for-character, including ',
