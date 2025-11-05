@@ -8,7 +8,7 @@ test_that("get_available_models - myownrobs", {
     .package = "myownrobs"
   )
   expect_equal(get_available_models("https://MOCK_URL.com"), list(
-    `Provider Mock` = list(Model_A = "model_a", Model_B = "model_b")
+    provider_mock = list(Model_A = "model_a", Model_B = "model_b")
   ))
 })
 
@@ -38,8 +38,8 @@ test_that("get_available_models - api_keys", {
     .package = "myownrobs"
   )
   expect_equal(get_available_models(), list(
-    `Provider a` = list(Model_A = "model_a"),
-    `Provider b` = list(Model_B = "model_b", Model_C = "model_c")
+    provider_a = list(Model_A = "model_a"),
+    provider_b = list(Model_B = "model_b", Model_C = "model_c")
   ))
 })
 
@@ -53,7 +53,7 @@ test_that("get_available_models - api_keys no models", {
     get_ellmer_models = function(provider, api_key) list(),
     .package = "myownrobs"
   )
-  expect_equal(get_available_models(), list(`Provider a` = list(), `Provider b` = list()))
+  expect_equal(get_available_models(), list(provider_a = list(), provider_b = list()))
 })
 
 ### get_myownrobs_models
@@ -117,4 +117,13 @@ test_that("get_ellmer_models - google_gemini", {
     .package = "myownrobs"
   )
   expect_equal(get_ellmer_models("google_gemini"), unlist(available_models))
+})
+
+### nice_names
+
+test_that("nice_names", {
+  expect_equal(nice_names(c()), list())
+  expect_equal(nice_names("google_gemini"), "Google Gemini")
+  expect_equal(nice_names(c("google_gemini", "anthropic")), c("Google Gemini", "Anthropic"))
+  expect_equal(nice_names(c("provider_a", "some_provider")), c("Provider a", "some Provider"))
 })

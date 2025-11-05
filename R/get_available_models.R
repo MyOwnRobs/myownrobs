@@ -18,7 +18,6 @@ get_available_models <- function(api_url) {
       get_ellmer_models(provider, api_keys[[provider]])
     }) |> setNames(providers)
   }
-  names(available_models) <- nice_names(names(available_models))
   available_models
 }
 
@@ -66,6 +65,7 @@ get_ellmer_models <- function(provider, api_key) {
   }
   models
 }
+
 
 #' Make Nicer Names
 #'

@@ -47,6 +47,7 @@ myownrobs <- function(api_url =
 #' @keywords internal
 #'
 myownrobs_ui <- function(available_models) {
+  names(available_models) <- nice_names(names(available_models))
   tagList(
     tags$link(
       rel = "stylesheet",
