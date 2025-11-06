@@ -1,5 +1,12 @@
 ---
 title: "MyOwnRobs: A Cursor-style AI Coding Agent for RStudio"
+author:
+  - name: Juan Cruz Rodriguez
+    email: jcrodriguez@unc.edu.ar
+    affiliation: FAMAF - UNC
+address:
+  - code: FAMAF - UNC
+    address: FAMAF, Universidad Nacional de Cordoba, Argentina
 journal: "Latinamerican Conference About the Use of R in R&D"
 keywords: 
   - "AI assistant"
