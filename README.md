@@ -37,7 +37,14 @@ approach.
 
 ## 📦 Installation
 
-Install the development version of `{myownrobs}` from
+Install the current released version of `{myownrobs}` from
+[CRAN](https://cran.r-project.org/package=myownrobs):
+
+``` r
+install.packages("myownrobs")
+```
+
+Or install the development version from
 [GitHub](https://github.com/MyOwnRobs/myownrobs) with:
 
 ``` r
