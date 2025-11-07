@@ -41,41 +41,26 @@ save_turns <- function(value) {
 #' @keywords internal
 #'
 turns_to_ui <- function(turns) {
-  ui <- rev(lapply(turns, function(turn) {
-    list(
-      role = get_turn_role(turn),
-      text = sapply(attr(turn, "contents"), content_to_ui)
-    )
-  }))
+  ui <- rev(unlist(lapply(turns, function(turn) {
+    lapply(attr(turn, "contents"), function(content) content_to_ui(content, attr(turn, "role")))
+  }), recursive = FALSE))
   # Remove non-UI elements.
   ui <- ui[!sapply(ui, function(x) is.null(unlist(x$text)))]
   ui
 }
 
-#' Get the MyOwnRobs Role from a Turn
-#'
-#' @param turn A Turn.
-#'
-#' @keywords internal
-#'
-get_turn_role <- function(turn) {
-  role <- attr(turn, "role")
-  content_types <- sapply(attr(turn, "contents"), function(x) class(x)[[1]])
-  if ("ellmer::ContentToolRequest" %in% content_types) role <- "tool_runner"
-  role
-}
-
 #' Convert a Turn Content into a User-Readable UI
 #'
 #' @param content A Content.
+#' @param role The Turn's main role.
 #'
 #' @importFrom methods is
 #'
 #' @keywords internal
 #'
-content_to_ui <- function(content) {
+content_to_ui <- function(content, role) {
   if (is(content, "ellmer::ContentText")) {
-    attr(content, "text")
+    list(role = role, text = attr(content, "text"))
   } else if (is(content, "ellmer::ContentToolRequest")) {
     arguments <- ""
     if (length(attr(content, "arguments")) > 0) {
@@ -88,7 +73,7 @@ content_to_ui <- function(content) {
     if (nchar(res) > 100) {
       res <- paste0(substr(res, 1, 97), "...")
     }
-    res
+    list(role = "tool_runner", text = res)
   } else if (is(content, "ellmer::ContentToolResult")) {
     NULL
   }

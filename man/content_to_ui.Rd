@@ -4,10 +4,12 @@
 \alias{content_to_ui}
 \title{Convert a Turn Content into a User-Readable UI}
 \usage{
-content_to_ui(content)
+content_to_ui(content, role)
 }
 \arguments{
 \item{content}{A Content.}
+
+\item{role}{The Turn's main role.}
 }
 \description{
 Convert a Turn Content into a User-Readable UI
