@@ -1,14 +1,11 @@
-fetch_url_content <- function(args) {
-  if (!validate_command_args(ai_tool_fetch_url_content, args)) {
-    stop("Invalid arguments for FetchUrlContent")
-  }
-  if (!grepl("^https?://", args$url, ignore.case = TRUE)) {
+fetch_url_content <- function(url) {
+  if (!grepl("^https?://", url, ignore.case = TRUE)) {
     stop("Only http/https URLs are supported")
   }
   # Safety limits to avoid huge downloads.
   max_lines <- 2000L
   max_chars <- 200000L
-  con <- url(args$url, open = "rb")
+  con <- url(url, open = "rb")
   on.exit(close(con), add = TRUE)
   lines <- readLines(con, warn = FALSE, n = max_lines, encoding = "UTF-8")
   content <- paste(lines, collapse = "\n")
@@ -18,15 +15,14 @@ fetch_url_content <- function(args) {
   list(output = content)
 }
 
-ai_tool_fetch_url_content <- list(
+#' @importFrom ellmer tool type_string
+ai_tool_fetch_url_content <- tool(
+  fetch_url_content,
   name = "FetchUrlContent",
-  parameters = list(
-    list(name = "url")
+  description = paste0(
+    "Can be used to view the contents of a website using a URL. Do NOT use this for files."
   ),
-  display_title = "Read URL",
-  would_like_to = "Fetch {url}",
-  is_currently = "Fetching {url}",
-  has_already = "Fetched {url}",
-  readonly = TRUE,
-  execute = fetch_url_content
+  arguments = list(
+    url = type_string("The URL to read.")
+  )
 )

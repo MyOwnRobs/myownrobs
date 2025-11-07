@@ -1,7 +1,7 @@
 Package: myownrobs
 Type: Package
 Title: AI Coding Agent for 'RStudio'
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(
     person(
       "Juan Cruz", "Rodriguez",
@@ -19,12 +19,13 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.3
 Imports:
+  ellmer,
   fs,
   gargle,
-  glue,
   httr2,
   jsonlite,
-  mirai,
+  methods,
+  promises,
   rstudio.prefs,
   rstudioapi,
   shiny,
