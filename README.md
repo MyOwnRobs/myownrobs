@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/MyOwnRobs/myownrobs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MyOwnRobs/myownrobs/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/myownrobs)](https://cran.r-project.org/package=myownrobs)
 [![Codecov test
 coverage](https://codecov.io/gh/MyOwnRobs/myownrobs/graph/badge.svg)](https://app.codecov.io/gh/MyOwnRobs/myownrobs)
 <!-- badges: end -->
@@ -36,6 +38,12 @@ approach.
   on natural language instructions
 
 ## 📦 Installation
+
+Install from CRAN with:
+
+``` r
+install.packages("myownrobs")
+```
 
 Install the development version of `{myownrobs}` from
 [GitHub](https://github.com/MyOwnRobs/myownrobs) with:
