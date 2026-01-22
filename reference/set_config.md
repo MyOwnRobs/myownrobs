@@ -16,4 +16,4 @@ set_config(config, value)
 
 - value:
 
-  The value to assign to assign to the configuration.
+  The value to assign to the configuration.

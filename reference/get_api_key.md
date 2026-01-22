@@ -1,6 +1,7 @@
 # Get API Key
 
-Retrieves the API key for MyOwnRobs from the internal state environment.
+Retrieves the configured AI provider API keys from the user's
+configuration directory.
 
 ## Usage
 

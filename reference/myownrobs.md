@@ -5,17 +5,8 @@ Open the RStudio addin with the chat interface.
 ## Usage
 
 ``` r
-myownrobs(
-  api_url = paste0("https://myownhadley.com/api/v", packageVersion("myownrobs")$major)
-)
+myownrobs()
 ```
-
-## Arguments
-
-- api_url:
-
-  The API URL to use for requests. This parameter is for advanced users
-  who want to specify an alternative backend URL and is rarely needed.
 
 ## Value
 
@@ -26,8 +17,9 @@ RStudio addin.
 
 ``` r
 if (interactive()) {
+  # Configure your API providers first.
+  configure_provider("google_gemini", Sys.getenv("GEMINI_API_KEY"))
+  # Then launch MyOwnRobs.
   myownrobs()
-  # Specify the API URL.
-  myownrobs("https://myownhadley.com/api/v0")
 }
 ```

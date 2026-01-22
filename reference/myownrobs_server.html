@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">myownrobs</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,15 +37,20 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">myownrobs_server</span><span class="op">(</span><span class="va">api_url</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">myownrobs_server</span><span class="op">(</span><span class="va">available_models</span>, <span class="va">project_context</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-api-url">api_url<a class="anchor" aria-label="anchor" href="#arg-api-url"></a></dt>
-<dd><p>The API URL to use for requests.</p></dd>
+<dl><dt id="arg-available-models">available_models<a class="anchor" aria-label="anchor" href="#arg-available-models"></a></dt>
+<dd><p>List of available models to use, obtained with `get_available_models()`.</p></dd>
+
+
+<dt id="arg-project-context">project_context<a class="anchor" aria-label="anchor" href="#arg-project-context"></a></dt>
+<dd><p>The context of the session executing the addin, obtained with
+`get_project_context()`.</p></dd>
 
 </dl></div>
 
